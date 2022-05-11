@@ -1,8 +1,8 @@
 import Web3Modal, { providers } from 'web3modal'
-import { providerOptions } from "./config";
-import WalletConnectProvider from "@walletconnect/web3-provider";
-import Web3 from "web3/dist/web3.min.js"
-import { reactive, toRefs } from "vue";
+import { providerOptions } from './config'
+import WalletConnectProvider from '@walletconnect/web3-provider'
+import Web3 from 'web3/dist/web3.min.js'
+import { reactive, toRefs } from 'vue'
 
 interface WalletInfo {
   web3: typeof Web3 | null
@@ -15,7 +15,7 @@ const walletInfo: WalletInfo = reactive({
   provider: null,
   account: null
 })
-export function useWallet () {
+export function useWallet() {
   const web3Modal = new Web3Modal({
     // cacheProvider: true,
     providerOptions
@@ -29,15 +29,12 @@ export function useWallet () {
   const subscribeToEvents = (provider: WalletConnectProvider) => {
     if (!provider) return
 
-    provider.on("connect", () => {
-    })
-    provider.on("accountsChanged", (accounts: string[]) => {
+    provider.on('connect', () => {})
+    provider.on('accountsChanged', () => {
       getAccounts()
     })
-    provider.on("chainChanged", (chainId: number) => {
-    })
-    provider.on("disconnect", (code: number, reason: string) => {
-    })
+    provider.on('chainChanged', () => {})
+    provider.on('disconnect', () => {})
   }
 
   const onConnect = async () => {
@@ -50,8 +47,8 @@ export function useWallet () {
   }
 
   const resetWallet = async () => {
-    await walletInfo.web3?.currentProvider?.close?.();
-    web3Modal.clearCachedProvider();
+    await walletInfo.web3?.currentProvider?.close?.()
+    web3Modal.clearCachedProvider()
     walletInfo.provider = null
     walletInfo.web3 = null
     walletInfo.account = null

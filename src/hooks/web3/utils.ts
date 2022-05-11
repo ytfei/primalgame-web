@@ -1,5 +1,3 @@
-import { utils } from 'web3/dist/web3.min.js'
-
 function errorTransform(error: string) {
   if (error.includes('Internal JSON-RPC error.')) {
     return JSON.parse(error.replace('Internal JSON-RPC error.', '').trim())
