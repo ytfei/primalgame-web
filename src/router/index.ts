@@ -23,6 +23,14 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: 'Game'
         }
+      },
+      {
+        path: '/user',
+        name: 'User',
+        component: () => import('src/views/user/index.vue'),
+        meta: {
+          title: 'User'
+        }
       }
     ]
   }
