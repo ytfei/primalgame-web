@@ -45,12 +45,11 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     width: 390px;
     height: 64px;
     background: #ffffff;
-    margin: 0 auto;
     color: #b2b2b2;
     display: flex;
     align-items: center;
     text-align: center;
-    margin-bottom: 50px;
+    margin: 0 auto 50px;
     .nft-assets {
       flex: 1;
       cursor: pointer;

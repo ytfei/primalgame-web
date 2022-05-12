@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
 import { reactive, toRefs } from 'vue'
+import HeroCard from './HeroCard.vue'
+import ElementCard from './ElementCard.vue'
 const prefixCls = useNamespace('nft-assets')
 const state = reactive({
   nftType: 'hero',
@@ -47,7 +49,14 @@ const { nftType, nftStatus } = toRefs(state)
         </div>
       </div>
     </div>
-    nft
+    <div class="nft-card-content">
+      <HeroCard v-if="nftType === 'hero'"></HeroCard>
+      <HeroCard v-if="nftType === 'hero'"></HeroCard>
+      <HeroCard v-if="nftType === 'hero'"></HeroCard>
+      <HeroCard v-if="nftType === 'hero'"></HeroCard>
+      <HeroCard v-if="nftType === 'hero'"></HeroCard>
+      <ElementCard v-else></ElementCard>
+    </div>
   </div>
 </template>
 
@@ -97,6 +106,13 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
         }
       }
     }
+  }
+  .nft-card-content {
+    padding-bottom: 140px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 }
 </style>
