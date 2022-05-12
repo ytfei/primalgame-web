@@ -6,7 +6,7 @@ import {
   GlobalThemeOverrides
 } from 'naive-ui'
 
-const themeColor: string = '#006CFF'
+const themeColor: string = '#DEB784'
 const themeOverrides: GlobalThemeOverrides = {
   common: {
     primaryColor: themeColor,
