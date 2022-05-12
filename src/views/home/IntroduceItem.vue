@@ -24,10 +24,7 @@ const classes = computed(() => {
     <div class="introduce">
       <slot>
         <div class="img-container">
-          <img
-            src="https://img0.baidu.com/it/u=530426417,2082848644&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500"
-            alt=""
-          />
+          <img src="#" alt="" />
         </div>
       </slot>
       <article class="introduce-content">
@@ -35,14 +32,7 @@ const classes = computed(() => {
           <slot v-if="title || $slots.title" name="title">{{ title }}</slot>
         </h4>
         <p class="introduce-content-text">
-          <slot v-if="text || $slots.text" name="text"
-            >PVE single-player wild monster can select a hero to fight against
-            system heroes and get corresponding resource rewards. When the enemy
-            hero's patience is 0, it is possible to capture the NFT. Of course,
-            if your own hero's patience is 0, you may also be captured by the
-            enemy. A victory of more than 2 is considered a victory in battle,
-            and there is also a chance of capture or capture</slot
-          >
+          <slot v-if="text || $slots.text" name="text">{{ text }}</slot>
         </p>
       </article>
     </div>
@@ -75,6 +65,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     img {
       width: 463px;
       height: 243px;
+      background-color: #935000;
     }
     .introduce-content {
       flex: 1;
@@ -86,6 +77,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
         padding-bottom: 11px;
         font-size: 20px;
         line-height: 23px;
+        color: #fff;
       }
       &-text {
         color: #935000;
@@ -105,6 +97,9 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     }
     .introduce-content {
       padding-right: 51px;
+      &-title {
+        text-align: right;
+      }
     }
   }
 }

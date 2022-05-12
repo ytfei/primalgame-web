@@ -34,9 +34,23 @@ const state = reactive({
       title: 'Native skills',
       sub: "You can only participate in the mining of primary elements. You can't attack the mining heroes set by other players"
     }
+  ],
+  heroElement: [
+    {
+      title: 'Critical：50'
+    },
+    {
+      title: 'Speed：50'
+    },
+    {
+      title: 'Dodge：50'
+    },
+    {
+      title: 'Defense：50'
+    }
   ]
 })
-const { list } = toRefs(state)
+const { list, heroElement } = toRefs(state)
 </script>
 
 <template>
@@ -76,8 +90,12 @@ const { list } = toRefs(state)
             <p>8</p>
           </div>
           <div class="heroMessage">
-            <p class="hero-msg" v-for="(item, index) in 4" :key="index">
-              Critical：50
+            <p
+              class="hero-msg"
+              v-for="(item, index) in heroElement"
+              :key="index"
+            >
+              {{ item.title }}
             </p>
           </div>
           <div class="heroSkill">
@@ -90,7 +108,7 @@ const { list } = toRefs(state)
         <div class="heroIntroduce">
           <div class="hero_describe">
             <div v-for="(item, index) in list" :key="index">
-              <img src="#" alt="" />
+              <div class="hero_round"></div>
               <h3>{{ item.title }}</h3>
               <p>{{ item.sub }}</p>
             </div>
@@ -271,20 +289,29 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     margin: 50px 0px 0px;
     div {
       margin: 0px;
-    }
-    h3 {
-      margin: -5px 80px 0px 42px;
-      font-size: 14px;
-      font-weight: normal;
-      color: #8d5513;
-      line-height: 14px;
-    }
-    p {
-      margin: 3px 80px 0px 42px;
-      font-size: 14px;
-      font-weight: normal;
-      color: #bd7724;
-      line-height: 14px;
+      position: relative;
+      .hero_round {
+        width: 34px;
+        height: 34px;
+        border-radius: 17px;
+        background-color: #d8d8d8;
+        position: absolute;
+        left: 40px;
+      }
+      h3 {
+        margin: 0px 42px 0px 80px;
+        font-size: 14px;
+        font-weight: normal;
+        color: #8d5513;
+        line-height: 14px;
+      }
+      p {
+        margin: 3px 42px 16px 80px;
+        font-size: 14px;
+        font-weight: normal;
+        color: #bd7724;
+        line-height: 14px;
+      }
     }
   }
   .attribute {
