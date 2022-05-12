@@ -12,7 +12,9 @@ const prefixCls = useNamespace('home')
   <div :class="prefixCls.multiPrefixCls">
     <!-- <div class="layout-1200"> -->
     <section class="banner"></section>
-    <SocialPlatform></SocialPlatform>
+    <div class="SocialPlatform">
+      <SocialPlatform></SocialPlatform>
+    </div>
     <CommonTitle :title="'Hero system'"></CommonTitle>
     <div class="hero_system">
       <IntroduceHero class="IntroduceHero"></IntroduceHero>
@@ -66,6 +68,10 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     height: 600px;
     width: 100%;
     background: pink;
+  }
+  .SocialPlatform {
+    margin-top: 69px;
+    margin-bottom: 70px;
   }
   .introduce {
     margin-top: 31px;

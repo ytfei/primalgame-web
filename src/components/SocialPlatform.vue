@@ -41,13 +41,20 @@ const { list } = toRefs(state)
 
 <template>
   <div :class="[prefixCls.multiPrefixCls, $props.size]">
-    <img
-      v-for="(item, index) in list"
-      :key="index"
-      :src="item.iconPath"
-      @click="jump(item.url)"
-      alt=""
-    />
+    <div class="layout-1200">
+      <div class="social-back">
+        <h2>Social media</h2>
+        <div class="socialPlatfrom">
+          <img
+            v-for="(item, index) in list"
+            :key="index"
+            :src="item.iconPath"
+            @click="jump(item.url)"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -57,21 +64,45 @@ $prefix-cls: '#{$namespace}-#{$moduleName}';
 $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
 
 .#{$prefix-cls} {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  font-size: 20px;
-  img {
-    cursor: pointer;
-  }
-  &.large {
-    img {
-      width: 80px;
+  .social-back {
+    width: 1088px;
+    height: 239px;
+    margin: 0px auto;
+    background-image: url('../assets/home/social_media.webp');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+    h2 {
+      font-size: 24px;
+      font-weight: normal;
+      color: #439043;
+      line-height: 26px;
+      position: absolute;
+      left: 460px;
+      right: 18px;
     }
   }
-  &.small {
+  .socialPlatfrom {
+    display: flex;
+    justify-content: space-between;
+    width: 908px;
+    height: 80px;
+    position: absolute;
+    left: 90px;
+    right: 90px;
+    bottom: 64px;
     img {
-      width: 40px;
+      cursor: pointer;
+    }
+    &.large {
+      img {
+        width: 80px;
+      }
+    }
+    &.small {
+      img {
+        width: 40px;
+      }
     }
   }
 }
