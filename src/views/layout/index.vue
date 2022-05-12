@@ -20,9 +20,10 @@ $moduleName: 'layout';
 $prefix-cls: '#{$namespace}-#{$moduleName}';
 $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
 .#{$prefix-cls} {
+  font-family: FZHPJW--GB1-0, FZHPJW--GB1;
   main {
     min-height: calc(100vh - 412px);
-    background: #cccccc;
+    background: #a9e1f2;
   }
 }
 </style>
