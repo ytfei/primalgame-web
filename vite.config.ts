@@ -93,10 +93,7 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => {
         plugins: [
           nodePolyfills()
         ]
-      },
-      // commonjsOptions: {
-      //   transformMixedEsModules: true
-      // }
+      }
     },
     optimizeDeps: {
       esbuildOptions: {

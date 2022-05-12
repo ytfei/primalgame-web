@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
 import { reactive, toRefs } from 'vue'
+import { useWallet } from 'hooks/web3/useWallet'
+const { onConnect, resetWallet, account } = useWallet()
+const connect = async () => {
+  await onConnect()
+}
 const prefixCls = useNamespace('header')
 const state = reactive({
   menuList: [

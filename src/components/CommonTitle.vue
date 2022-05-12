@@ -11,11 +11,9 @@ defineProps<{
 
 <template>
   <div :class="prefixCls.prefixCls">
-    <div class="back">
-      <h2 v-if="title || $slots.default">
-        <slot>{{ title }}</slot>
-      </h2>
-    </div>
+    <h2 v-if="title || $slots.default">
+      <slot>{{ title }}</slot>
+    </h2>
   </div>
 </template>
 
@@ -23,15 +21,13 @@ defineProps<{
 $prefix-cls: '#{$namespace}-common-title';
 .#{$prefix-cls} {
   text-align: center;
-  .back {
-    width: 301px;
-    height: 61px;
-    margin: 0 auto;
-    background-image: url('src/assets/home/common_title.webp');
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
-  }
+  width: 301px;
+  height: 61px;
+  margin: 0 auto;
+  background-image: url('src/assets/home/common_title.webp');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
   h2 {
     margin: 0;
     display: inline;
