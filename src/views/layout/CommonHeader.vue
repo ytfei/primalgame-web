@@ -10,7 +10,7 @@ const state = reactive({
     },
     {
       name: 'Game',
-      routerName: ''
+      routerName: 'Game'
     },
     {
       name: 'Market',
