@@ -5,7 +5,7 @@ import { computed } from 'vue'
 const prefixCls = useNamespace('mining-card')
 
 const props = defineProps<{
-  type: 'stop' // stop, start
+  type: string // stop, start
 }>()
 </script>
 
@@ -33,7 +33,7 @@ const props = defineProps<{
           <h2>Water element mining area</h2>
           <p>Output: 20/h</p>
         </div>
-        <div class="stop-btn" v-if="type === 'start'">
+        <div class="stop-btn">
           <div class="stop-button">End mining</div>
         </div>
       </div>
@@ -132,6 +132,25 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    top: 130px;
+    left: 107px;
+    width: 150px;
+    h2 {
+      font-size: 16px;
+      font-weight: normal;
+      color: #ffffff;
+      line-height: 18px;
+      margin: 0;
+    }
+    p {
+      font-size: 12px;
+      font-weight: normal;
+      color: #ee9314;
+      line-height: 14px;
+    }
   }
   .stop-btn {
     width: 139px;

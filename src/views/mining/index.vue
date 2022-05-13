@@ -9,13 +9,13 @@ const prefixCls = useNamespace('mining-home')
 <template>
   <div :class="prefixCls.multiPrefixCls">
     <div class="layout-1200">
-      <CommonTitle :title="'Diggings'"></CommonTitle>
+      <CommonTitle>Diggings</CommonTitle>
       <div class="mining-area">
         <div class="card-min" v-for="(item, index) in 6" :key="index">
           <MiningCard></MiningCard>
         </div>
       </div>
-      <CommonTitle :title="'Mine NFT'"></CommonTitle>
+      <CommonTitle>Mine NFT</CommonTitle>
       <div class="nft-mining">
         <MiningCard class="owner-mining" :type="'start'"></MiningCard>
       </div>

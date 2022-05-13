@@ -11,7 +11,7 @@ const prefixCls = useNamespace('home-social')
     <div class="layout-1200">
       <div class="social-back">
         <h2>Social media</h2>
-        <div class="socialPlatfrom">
+        <div class="social-from">
           <SocialPlatform></SocialPlatform>
         </div>
       </div>
@@ -42,7 +42,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       left: 460px;
       right: 18px;
     }
-    .socialPlatfrom {
+    .social-from {
       display: flex;
       justify-content: space-between;
       width: 908px;
