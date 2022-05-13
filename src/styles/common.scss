@@ -9,6 +9,12 @@ body {
   width: 100vw;
   overflow: hidden;
 }
+a {
+  text-decoration: none;
+}
+div {
+  background-size: 100% 100%;
+}
 html {
   overflow-x: hidden;
   overflow-y: auto;

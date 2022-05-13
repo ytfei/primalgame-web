@@ -18,7 +18,7 @@ const tests = () => {
         <div class="balance">200.00</div>
         <div class="caption">Game currency</div>
       </div>
-      <Button @click="tests">Exchange</Button>
+      <Button class="exchange" @click="tests">Exchange</Button>
     </div>
   </div>
 </template>
@@ -64,6 +64,10 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       .balance {
         color: #ee9314;
       }
+    }
+    .exchange {
+      width: 110px;
+      height: 38px;
     }
   }
 }
