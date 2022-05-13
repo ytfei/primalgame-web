@@ -21,11 +21,11 @@ defineProps<{
 $prefix-cls: '#{$namespace}-common-title';
 .#{$prefix-cls} {
   text-align: center;
-  width: 301px;
+  padding: auto 90px;
   height: 61px;
   margin: 0 auto;
   background-image: url('src/assets/home/common_title.webp');
-  background-size: contain;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   background-position: center center;
   h2 {

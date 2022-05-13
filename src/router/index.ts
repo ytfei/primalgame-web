@@ -22,7 +22,17 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('src/views/game/index.vue'),
         meta: {
           title: 'Game'
-        }
+        },
+        children: [
+          {
+            path: '/mining',
+            name: 'Mining',
+            component: () => import('src/views/mining/index.vue'),
+            meta: {
+              title: 'Mining'
+            }
+          },
+        ]
       },
       {
         path: '/user',
@@ -31,7 +41,8 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: 'User'
         }
-      }
+      },
+
     ]
   }
 ]
