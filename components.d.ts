@@ -5,10 +5,11 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Button: typeof import('./src/components/Button.vue')['default']
     CommonTitle: typeof import('./src/components/CommonTitle.vue')['default']
     Heart: typeof import('./src/components/Heart.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
-    Button: typeof import('./src/components/Button.vue')['default']
+    ResourcesCollection: typeof import('./src/components/ResourcesCollection.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SocialPlatform: typeof import('./src/components/SocialPlatform.vue')['default']
