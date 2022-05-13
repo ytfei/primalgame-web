@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
-import { computed } from 'vue'
 
 const prefixCls = useNamespace('mining-card')
 </script>

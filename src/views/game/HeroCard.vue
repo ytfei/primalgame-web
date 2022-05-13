@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
-
+import { getSrc } from 'src/utils/utils'
 const prefixCls = useNamespace('hero-card')
 const health = 3
 </script>
@@ -12,7 +12,7 @@ const health = 3
         <img
           class="card-health-img"
           v-for="i in 5" :key="i"
-          :src="`src/assets/img/assets/heart-${i > health ? 'hollow' : 'solid'}.webp`"
+          :src="getSrc(`assets/heart-${i > health ? 'hollow' : 'solid'}.webp`)"
           alt=""
         >
       </div>

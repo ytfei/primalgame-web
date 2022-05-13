@@ -61,6 +61,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       }
       .footer-describe {
         font-size: 16px;
+        margin: 10px 0;
         color: #9b7242;
       }
     }
@@ -70,6 +71,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       color: #9b7242;
       text-align: center;
       margin-top: 60px;
+      line-height: 24px;
     }
   }
 }

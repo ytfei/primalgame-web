@@ -1,37 +1,38 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
+import { getSrc } from 'src/utils/utils'
 import { toRefs } from 'vue'
 const prefixCls = useNamespace('resources-collection')
 const state = {
   elementList: [
     {
       name: 'Life',
-      img: '../assets/img/game/life.webp',
+      img: getSrc('game/life.webp'),
       value: 123
     },
     {
       name: 'Fire',
-      img: '../assets/img/game/fire.webp',
+      img: getSrc('game/fire.webp'),
       value: 123
     },
     {
       name: 'Earth',
-      img: '../assets/img/game/earth.webp',
+      img: getSrc('game/earth.webp'),
       value: 123
     },
     {
       name: 'Wind',
-      img: '../assets/img/game/wind.webp',
+      img: getSrc('game/wind.webp'),
       value: 123
     },
     {
       name: 'Water',
-      img: '../assets/img/game/water.webp',
+      img: getSrc('game/water.webp'),
       value: 123
     },
     {
       name: 'Native skills',
-      img: '../assets/img/game/native-skills.webp',
+      img: getSrc('game/native-skills.webp'),
       value: 123
     }
   ]

@@ -3,6 +3,7 @@ import { useNamespace } from 'src/hooks/useCommon'
 import CommonTitle from 'comps/CommonTitle.vue'
 import ResourcesCollection from 'comps/ResourcesCollection.vue'
 import BattlefieldReport from 'comps/BattlefieldReport.vue'
+import HeroCard from '../HeroCard.vue'
 const prefixCls = useNamespace('pve-wild-monster')
 </script>
 
@@ -12,7 +13,29 @@ const prefixCls = useNamespace('pve-wild-monster')
     <div class="title">
       <CommonTitle>Current enemy</CommonTitle>
     </div>
-    <div class="wild-monster-content"></div>
+    <div class="wild-monster-content">
+      <div class="wild-monster-box">
+        <HeroCard></HeroCard>
+        <div class="wild-monster-tips">Water element may fall * 2000</div>
+        <div class="attack">
+          <Button>Attack</Button>
+        </div>
+      </div>
+      <div class="wild-monster-box">
+        <HeroCard></HeroCard>
+        <div class="wild-monster-tips">Water element may fall * 2000</div>
+        <div class="attack">
+          <Button>Attack</Button>
+        </div>
+      </div>
+      <div class="wild-monster-box">
+        <HeroCard></HeroCard>
+        <div class="wild-monster-tips">Water element may fall * 2000</div>
+        <div class="attack">
+          <Button>Attack</Button>
+        </div>
+      </div>
+    </div>
     <div class="title">
       <CommonTitle>War report</CommonTitle>
     </div>
@@ -30,6 +53,28 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
 .#{$prefix-cls} {
   .title {
     margin: 50px 0 60px 0;
+  }
+  .wild-monster-content {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    .wild-monster-box {
+      width: 370px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .wild-monster-tips {
+        font-size: 14px;
+        color: #8D5513;
+        text-align: center;
+        margin-top: 15px;
+      }
+      .attack {
+        width: 140px;
+        height: 38px;
+        margin-top: 16px;
+      }
+    }
   }
   .battlefield-report {
     padding-bottom: 104px;
