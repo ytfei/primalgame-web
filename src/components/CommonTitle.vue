@@ -1,38 +1,28 @@
 <script lang="ts" setup>
-import { defineProps } from 'vue'
 import { useNamespace } from 'src/hooks/useCommon'
 const prefixCls = useNamespace('common-title')
-
-defineProps<{
-  title?: string
-  subtitle?: string
-}>()
 </script>
 
 <template>
   <div :class="prefixCls.prefixCls">
-    <h2 v-if="title || $slots.default">
-      <slot>{{ title }}</slot>
-    </h2>
+    <span>
+      <slot></slot>
+    </span>
   </div>
 </template>
 
 <style lang="scss" scoped>
-$prefix-cls: '#{$namespace}-common-title';
+$moduleName: 'common-title';
+$prefix-cls: '#{$namespace}-#{$moduleName}';
+$mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
 .#{$prefix-cls} {
   text-align: center;
-  width: 301px;
-  height: 61px;
-  margin: 0 auto;
-  background-image: url('src/assets/home/common_title.webp');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
-  h2 {
-    margin: 0;
-    display: inline;
-    font-size: 15px;
-    line-height: 61px;
+  span {
+    height: 61px;
+    margin: 0 auto;
+    background-image: url('src/assets/home/common_title.webp');
+    background-size: 100% 100%;
+    padding: 18px 94px;
     color: #fffdf5;
   }
 }

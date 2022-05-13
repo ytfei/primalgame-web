@@ -22,7 +22,26 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('src/views/game/index.vue'),
         meta: {
           title: 'Game'
-        }
+        },
+        redirect: '/game/pve-wildmonster',
+        children: [
+          {
+            path: '/game/pve-wildmonster',
+            name: 'PVE-WildMonster',
+            component: () => import('src/views/game/pve-wild-monster/index.vue'),
+            meta: {
+              title: 'PVE-WildMonster'
+            }
+          },
+          {
+            path: '/mining',
+            name: 'Mining',
+            component: () => import('src/views/mining/index.vue'),
+            meta: {
+              title: 'Mining'
+            }
+          },
+        ]
       },
       {
         path: '/user',
@@ -31,7 +50,8 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: 'User'
         }
-      }
+      },
+
     ]
   }
 ]

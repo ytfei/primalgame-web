@@ -2,6 +2,13 @@
 import { useNamespace } from 'src/hooks/useCommon'
 import Heart from 'comps/Heart.vue'
 const prefixCls = useNamespace('hero-card')
+
+defineProps({
+  mining: {
+    type: String,
+    default: 'stop' // stop, start
+  }
+})
 </script>
 
 <template>
@@ -27,6 +34,15 @@ const prefixCls = useNamespace('hero-card')
         <span>0x22222222222</span>
       </div>
     </div>
+    <div class="stop-img" v-if="mining === 'start'">
+      <div class="stop-msg">
+        <h2>Water element mining area</h2>
+        <p>Output: 20/h</p>
+      </div>
+      <div class="stop-btn">
+        <div class="stop-button">End mining</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -43,6 +59,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   padding: 50px 38px;
   box-sizing: border-box;
   margin-bottom: 40px;
+  position: relative;
   .img-content {
     position: relative;
     display: flex;
@@ -73,9 +90,9 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       width: 50px;
       height: 48px;
       background-image: url('src/assets/img/assets/attack.webp');
-      display: flex;
       background-size: 100% 100%;
-      justify-content: center;
+      text-align: center;
+      line-height: 48px;
       position: absolute;
       left: -10px;
       bottom: -10px;
@@ -128,6 +145,54 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
         margin-left: 14px;
       }
     }
+  }
+  .stop-img {
+    width: 370px;
+    height: 456px;
+    background-image: url('src/assets/img/assets/nft-back-holder.webp');
+    background-size: 100% 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+  }
+  .stop-msg {
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    top: 130px;
+    left: 107px;
+    width: 150px;
+    h2 {
+      font-size: 16px;
+      font-weight: normal;
+      color: #ffffff;
+      line-height: 18px;
+      margin: 0;
+    }
+    p {
+      font-size: 12px;
+      font-weight: normal;
+      color: #ee9314;
+      line-height: 14px;
+    }
+  }
+  .stop-btn {
+    width: 139px;
+    height: 38px;
+    background-image: url('src/assets/img/button/button-red.webp');
+    background-size: 100% 100%;
+    font-size: 12px;
+    color: #ffffff;
+    text-align: center;
+    line-height: 32px;
+    cursor: pointer;
+    position: absolute;
+    left: 113px;
+    top: 224px;
   }
 }
 </style>

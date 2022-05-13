@@ -5,8 +5,19 @@
 }
 body {
   font-family: 'FZLTCHJW--GB1', 'FZHPJW--GB1', sans-serif;
-  padding: 0;
   margin: 0;
+  width: 100vw;
+  overflow: hidden;
+}
+a {
+  text-decoration: none;
+}
+div {
+  background-size: 100% 100%;
+}
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .layout-1200 {
   width: 1200px;
