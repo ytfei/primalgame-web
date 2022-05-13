@@ -3,8 +3,8 @@ import { useNamespace } from 'src/hooks/useCommon'
 import CommonTitle from 'comps/CommonTitle.vue'
 import IntroduceItem from './IntroduceItem.vue'
 import IntroduceHero from './IntroduceHero.vue'
-import SocialPlatform from 'comps/SocialPlatform.vue'
 import Timeline from './Timeline.vue'
+import HomeSocial from './HomeSocial.vue'
 const prefixCls = useNamespace('home')
 </script>
 
@@ -13,7 +13,7 @@ const prefixCls = useNamespace('home')
     <!-- <div class="layout-1200"> -->
     <section class="banner"></section>
     <div class="SocialPlatform">
-      <SocialPlatform></SocialPlatform>
+      <HomeSocial></HomeSocial>
     </div>
     <CommonTitle :title="'Hero system'"></CommonTitle>
     <div class="hero_system">
