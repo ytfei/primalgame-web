@@ -45,6 +45,8 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     background-image: url('src/assets/img/button/button.webp');
     color: #b9720c;
     background-size: 100% 100%;
+    border: none;
+    background-color: rgba(0,0,0,0);
   }
   .disabled {
     background-image: url('src/assets/img/button/disabled.webp');
