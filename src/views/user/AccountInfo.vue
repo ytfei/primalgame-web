@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
+import Button from 'comps/Button.vue'
 const prefixCls = useNamespace('account')
+const tests = () => {
+  console.log(66666)
+}
 </script>
 
 <template>
@@ -14,7 +18,7 @@ const prefixCls = useNamespace('account')
         <div class="balance">200.00</div>
         <div class="caption">Game currency</div>
       </div>
-      <button class="button">Exchange</button>
+      <Button @click="tests">Exchange</Button>
     </div>
   </div>
 </template>
@@ -26,7 +30,8 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
 
 .#{$prefix-cls} {
   height: 160px;
-  background: pink;
+  background-image: url('src/assets/img/user/user-banner.webp');
+  background-size: 100% 100%;
   padding: 46px;
   box-sizing: border-box;
   display: flex;

@@ -7,15 +7,15 @@ const prefixCls = useNamespace('hero-card')
 <template>
   <div :class="prefixCls.multiPrefixCls">
     <div class="img-content">
-      <img class="nft-img" src="#" alt="" />
+      <div class="nft-img"></div>
       <div class="heart">
         <Heart :quantity="4"></Heart>
       </div>
       <div class="element">
-        <img src="#" alt="" />
+        <img src="src/assets/img/assets/fire.webp" alt="" />
       </div>
-      <div class="attack">5</div>
-      <div class="life">8</div>
+      <div class="attack"><span>5</span></div>
+      <div class="life"><span>8</span></div>
     </div>
     <div class="text-content">
       <div class="names">
@@ -38,7 +38,8 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
 .#{$prefix-cls} {
   width: 370px;
   height: 456px;
-  background: #f2dea2;
+  background-image: url('src/assets/img/assets/nft-back.webp');
+  background-size: 100% 100%;
   padding: 50px 38px;
   box-sizing: border-box;
   margin-bottom: 40px;
@@ -48,7 +49,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     align-items: center;
     justify-content: center;
     .nft-img {
-      background: #fdb321;
+      background-image: url('src/assets/img/assets/nft-img-back.webp');
       width: 270px;
       height: 270px;
     }
@@ -60,30 +61,40 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     .element {
       width: 45px;
       height: 45px;
-      background: greenyellow;
+      background-image: url('src/assets/img/assets/attribute-back.webp');
       position: absolute;
       top: -8px;
       right: -6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
     .attack {
       width: 50px;
       height: 48px;
-      background: deepskyblue;
+      background-image: url('src/assets/img/assets/attack.webp');
       display: flex;
-      align-items: center;
+      background-size: 100% 100%;
       justify-content: center;
       position: absolute;
       left: -10px;
       bottom: -10px;
+      color: #ffffff;
+      font-size: 22px;
+      span {
+        margin-top: 8px;
+      }
     }
     .life {
       width: 50px;
       height: 54px;
-      background: yellow;
+      background-image: url('src/assets/img/assets/life.webp');
       display: flex;
       align-items: center;
       justify-content: center;
       position: absolute;
+      color: #ffffff;
+      font-size: 22px;
       right: -6px;
       bottom: -12px;
     }
