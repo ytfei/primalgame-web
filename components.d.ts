@@ -7,6 +7,8 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Button: typeof import('./src/components/Button.vue')['default']
     CommonTitle: typeof import('./src/components/CommonTitle.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     Heart: typeof import('./src/components/Heart.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     ResourcesCollection: typeof import('./src/components/ResourcesCollection.vue')['default']

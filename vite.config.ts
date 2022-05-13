@@ -9,7 +9,8 @@ import { configImageminPlugin } from './build/plugin/imagemin'
 import { viteMockServe } from 'vite-plugin-mock'
 import nodePolyfills from 'rollup-plugin-polyfill-node'
 import Components from 'unplugin-vue-components/vite'
-import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import AutoImport from 'unplugin-auto-import/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
 import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill'
 
@@ -27,8 +28,11 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => {
     plugins: [
       vue(),
       vueJsx(),
+      AutoImport({
+        resolvers: [ElementPlusResolver()],
+      }),
       Components({
-        resolvers: [NaiveUiResolver()]
+        resolvers: [ElementPlusResolver()]
       }),
       viteMockServe({
         mockPath: 'mock',
@@ -42,10 +46,6 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => {
         VITE_BUILD_COMPRESS as 'gzip' | 'brotli' | 'none',
         VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE === 'true'
       ),
-      // {
-      //   ...nodePolyfills ({ include: ['node_modules/**/*.js', /node_modules\/.vite\/.*js/] }),
-      //   apply: 'serve'
-      // },
       VITE_USE_IMAGEMIN === 'true' && configImageminPlugin()
     ],
     resolve: {
@@ -93,6 +93,9 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => {
         plugins: [
           nodePolyfills()
         ]
+      },
+      commonjsOptions: {
+        transformMixedEsModules: true
       }
     },
     optimizeDeps: {

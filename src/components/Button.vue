@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { useNamespace } from '../hooks/useCommon'
-import { NButton } from 'naive-ui'
 
 const prefixCls = useNamespace('buttons')
 
@@ -18,7 +17,7 @@ defineProps({
 
 <template>
   <div :class="prefixCls.prefixCls">
-    <NButton
+    <el-button
       :disabled="$props.disabled"
       :class="$props.disabled || $props.gray ? 'disabled' : ''"
       style="
@@ -30,7 +29,7 @@ defineProps({
       class="button"
     >
       <slot></slot>
-    </NButton>
+    </el-button>
   </div>
 </template>
 
