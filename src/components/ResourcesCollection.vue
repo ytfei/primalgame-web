@@ -1,6 +1,42 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
+import { toRefs } from 'vue'
 const prefixCls = useNamespace('resources-collection')
+const state = {
+  elementList: [
+    {
+      name: 'Life',
+      img: '../assets/img/game/life.webp',
+      value: 123
+    },
+    {
+      name: 'Fire',
+      img: '../assets/img/game/fire.webp',
+      value: 123
+    },
+    {
+      name: 'Earth',
+      img: '../assets/img/game/earth.webp',
+      value: 123
+    },
+    {
+      name: 'Wind',
+      img: '../assets/img/game/wind.webp',
+      value: 123
+    },
+    {
+      name: 'Water',
+      img: '../assets/img/game/water.webp',
+      value: 123
+    },
+    {
+      name: 'Native skills',
+      img: '../assets/img/game/native-skills.webp',
+      value: 123
+    }
+  ]
+}
+const { elementList } = toRefs(state)
 </script>
 
 <template>
@@ -8,64 +44,19 @@ const prefixCls = useNamespace('resources-collection')
     <div class="title">Reward resources</div>
     <div class="element">
       <div class="element-content">
-        <div class="element-box">
+        <div class="element-box" v-for="(item, index) in elementList" :key="index">
           <div class="box-left">
-            <img src="../assets/img/game/life.webp" alt="">
-            <span>Life</span>
+            <img :src="item.img" alt="">
+            <span>{{ item.name }}</span>
           </div>
           <div class="box-right">
-            123
-          </div>
-        </div>
-        <div class="element-box">
-          <div class="box-left">
-            <img src="../assets/img/game/life.webp" alt="">
-            <span>Life</span>
-          </div>
-          <div class="box-right">
-            123
-          </div>
-        </div>
-        <div class="element-box">
-          <div class="box-left">
-            <img src="../assets/img/game/life.webp" alt="">
-            <span>Life</span>
-          </div>
-          <div class="box-right">
-            123
-          </div>
-        </div>
-        <div class="element-box">
-          <div class="box-left">
-            <img src="../assets/img/game/life.webp" alt="">
-            <span>Life</span>
-          </div>
-          <div class="box-right">
-            123
-          </div>
-        </div>
-        <div class="element-box">
-          <div class="box-left">
-            <img src="../assets/img/game/life.webp" alt="">
-            <span>Life</span>
-          </div>
-          <div class="box-right">
-            123
-          </div>
-        </div>
-        <div class="element-box">
-          <div class="box-left">
-            <img src="../assets/img/game/life.webp" alt="">
-            <span>Life</span>
-          </div>
-          <div class="box-right">
-            123
+            {{ item.value }}
           </div>
         </div>
       </div>
-      <div class="extract">
+      <Button class="extract">
         Extract
-      </div>
+      </Button>
     </div>
   </div>
 </template>
@@ -110,6 +101,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
             margin-left: 10px;
             font-size: 16px;
             color: #8D5513;
+            width: 63px;
           }
         }
         .box-right {
@@ -128,7 +120,6 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       line-height: 60px;
       color: #ffffff;
       font-size: 18px;
-      background-image: url("src/assets/img/button/button2.webp");
     }
   }
 }

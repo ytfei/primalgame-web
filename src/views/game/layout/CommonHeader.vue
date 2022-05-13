@@ -50,7 +50,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
 
 .#{$prefix-cls} {
   .layout-1200 {
-    padding-top: 52px;
+    padding-top: 20px;
     text-align: center;
     .header-content {
       width: 1200px;

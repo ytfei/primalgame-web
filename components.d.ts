@@ -5,10 +5,14 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    BattlefieldReport: typeof import('./src/components/BattlefieldReport.vue')['default']
     Button: typeof import('./src/components/Button.vue')['default']
     CommonTitle: typeof import('./src/components/CommonTitle.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
+    ElPagination: typeof import('element-plus/es')['ElPagination']
+    ElTable: typeof import('element-plus/es')['ElTable']
+    ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     Heart: typeof import('./src/components/Heart.vue')['default']
     NButton: typeof import('naive-ui')['NButton']
     ResourcesCollection: typeof import('./src/components/ResourcesCollection.vue')['default']

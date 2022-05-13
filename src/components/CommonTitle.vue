@@ -6,13 +6,15 @@ const prefixCls = useNamespace('common-title')
 <template>
   <div :class="prefixCls.prefixCls">
     <span>
-      <slot>{{ title }}</slot>
+      <slot></slot>
     </span>
   </div>
 </template>
 
 <style lang="scss" scoped>
-$prefix-cls: '#{$namespace}-common-title';
+$moduleName: 'common-title';
+$prefix-cls: '#{$namespace}-#{$moduleName}';
+$mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
 .#{$prefix-cls} {
   text-align: center;
   span {

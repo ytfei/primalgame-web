@@ -15,7 +15,7 @@ const prefixCls = useNamespace('home')
     <div class="SocialPlatform">
       <HomeSocial></HomeSocial>
     </div>
-    <CommonTitle :title="'Hero system'"></CommonTitle>
+    <CommonTitle>Hero system</CommonTitle>
     <div class="hero_system">
       <IntroduceHero class="IntroduceHero"></IntroduceHero>
     </div>
