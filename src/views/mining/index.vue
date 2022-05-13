@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
 import CommonTitle from 'comps/CommonTitle.vue'
+import HeroCard from '../user/assets/HeroCard.vue'
 import MiningCard from './MiningCard.vue'
+import ResourcesCollection from 'comps/ResourcesCollection.vue'
 
 const prefixCls = useNamespace('mining-home')
 </script>
@@ -9,15 +11,18 @@ const prefixCls = useNamespace('mining-home')
 <template>
   <div :class="prefixCls.multiPrefixCls">
     <div class="layout-1200">
+      <div class="resources">
+        <ResourcesCollection></ResourcesCollection>
+      </div>
       <CommonTitle>Diggings</CommonTitle>
       <div class="mining-area">
         <div class="card-min" v-for="(item, index) in 6" :key="index">
-          <MiningCard :type="'stop'"></MiningCard>
+          <MiningCard></MiningCard>
         </div>
       </div>
       <CommonTitle>Mine NFT</CommonTitle>
       <div class="nft-mining">
-        <MiningCard class="owner-mining" :type="'start'"></MiningCard>
+        <HeroCard class="owner-mining" :mining="'start'"></HeroCard>
       </div>
     </div>
   </div>
@@ -28,6 +33,9 @@ $moduleName: 'mining-home';
 $prefix-cls: '#{$namespace}-#{$moduleName}';
 $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
 .#{$prefix-cls} {
+  .resources {
+    margin: 5px auto 49px;
+  }
   .mining-area {
     display: flex;
     justify-content: space-between;
