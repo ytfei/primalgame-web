@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
 import { reactive, toRefs } from 'vue'
+import Heart from 'src/components/Heart.vue'
 
 const prefixCls = useNamespace('introduce-hero')
 
@@ -61,16 +62,7 @@ const { list, heroElement } = toRefs(state)
           <div class="heroAvatar">
             <img src="src/assets/home/hero_back.webp" alt="" />
           </div>
-          <div class="healthIcon">
-            <div class="icon" v-for="(item, index) in 5" :key="index">
-              <img v-if="index < 4" src="src/assets/home/loyal.webp" alt="" />
-              <img
-                v-if="index === 4"
-                src="src/assets/home/un_loyal.webp"
-                alt=""
-              />
-            </div>
-          </div>
+          <Heart class="healthIcon" :quantity="4"></Heart>
           <div class="heroElement">
             <img src="src/assets/home/element.webp" alt="" />
           </div>
@@ -171,12 +163,6 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       position: absolute;
       top: 46px;
       left: 20px;
-      .icon {
-        img {
-          width: 32px;
-          height: 30px;
-        }
-      }
     }
     .heroElement {
       position: absolute;

@@ -32,7 +32,15 @@ const routes: Array<RouteRecordRaw> = [
             meta: {
               title: 'PVE-WildMonster'
             }
-          }
+          },
+          {
+            path: '/mining',
+            name: 'Mining',
+            component: () => import('src/views/mining/index.vue'),
+            meta: {
+              title: 'Mining'
+            }
+          },
         ]
       },
       {
@@ -42,7 +50,8 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: 'User'
         }
-      }
+      },
+
     ]
   }
 ]

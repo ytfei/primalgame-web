@@ -19,11 +19,11 @@ const prefixCls = useNamespace('home')
     <div class="hero_system">
       <IntroduceHero class="IntroduceHero"></IntroduceHero>
     </div>
-    <CommonTitle :title="'Restraint relationship'"></CommonTitle>
+    <CommonTitle>Restraint relationship</CommonTitle>
     <div class="restraint">
       <img src="src/assets/home/restraint.webp" alt="" class="restraint_img" />
     </div>
-    <CommonTitle :title="'Hero system'"></CommonTitle>
+    <CommonTitle>Hero system</CommonTitle>
     <div class="introduce">
       <IntroduceItem
         :img="''"
@@ -50,7 +50,7 @@ const prefixCls = useNamespace('home')
         position="right"
       />
     </div>
-    <CommonTitle :title="'Timeline'"></CommonTitle>
+    <CommonTitle>Timeline</CommonTitle>
     <div class="timeline">
       <Timeline></Timeline>
     </div>

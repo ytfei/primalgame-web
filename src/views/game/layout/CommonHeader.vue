@@ -14,7 +14,7 @@ const state = reactive({
     },
     {
       name: 'Mining',
-      routerName: ''
+      routerName: 'Mining'
     },
     {
       name: 'My Heroes',

@@ -14,7 +14,6 @@ declare module '@vue/runtime-core' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     Heart: typeof import('./src/components/Heart.vue')['default']
-    NButton: typeof import('naive-ui')['NButton']
     ResourcesCollection: typeof import('./src/components/ResourcesCollection.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

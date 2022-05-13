@@ -23,7 +23,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     background-image: url('src/assets/home/common_title.webp');
     background-size: 100% 100%;
     padding: 18px 94px;
-    color: #FFFDF5;
+    color: #fffdf5;
   }
 }
 </style>
