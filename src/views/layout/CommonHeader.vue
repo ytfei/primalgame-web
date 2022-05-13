@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
-import { reactive, toRefs } from 'vue'
+import { computed, reactive, toRefs } from 'vue'
 import { useWallet } from 'hooks/web3/useWallet'
+import { useTools } from 'hooks/useTools'
+import { useRouter, useRoute } from 'vue-router'
+const router = useRouter()
+const route = useRoute()
+const { hideSensitive } = useTools()
 const { onConnect, resetWallet, account } = useWallet()
 const connect = async () => {
   await onConnect()
@@ -31,6 +36,12 @@ const state = reactive({
     }
   ]
 })
+const goToUserCenter = () => {
+  router.push({ name: 'User' })
+}
+const classes = computed(() => {
+  return route.path.includes('/game')
+})
 const { menuList } = toRefs(state)
 </script>
 
@@ -38,18 +49,24 @@ const { menuList } = toRefs(state)
   <header :class="prefixCls.multiPrefixCls">
     <div class="header-content">
       <img class="logo" src="#" alt="" />
-      <div class="header-menu">
+      <nav class="header-menu">
         <ul>
           <li v-for="(item, index) in menuList" :key="index">
             <router-link :to="{ name: item.routerName }">
-              <span>{{ item.name }}</span>
+              <span :class="item.name === 'Game' && classes ? 'active' : ''" >{{ item.name }}</span>
             </router-link>
           </li>
         </ul>
+      </nav>
+      <div>
+        <img v-if="!account" @click="connect" class="wallet" src="../../assets/img/layout/wallet.webp" alt="" />
+        <template v-else>
+          <el-button @click="goToUserCenter">
+            {{ hideSensitive(account, 4, 4) }}
+          </el-button>
+          <el-button @click="resetWallet" type="primary">Disconnect Wallet</el-button>
+        </template>
       </div>
-      <router-link :to="{ name: 'User' }">
-        <img class="wallet" src="src/assets/img/layout/wallet.webp" alt="" />
-      </router-link>
     </div>
   </header>
 </template>
@@ -66,7 +83,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     height: 90px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     position: relative;
     .header-menu {
       li {
@@ -76,9 +93,11 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
           display: block;
           color: #a3a3a3;
           margin: 0 36px;
-          text-decoration: none;
         }
         .router-link-exact-active {
+          color: #8d5513;
+        }
+        .active {
           color: #8d5513;
         }
         span {
@@ -90,16 +109,6 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       width: 50px;
       height: 50px;
       background: pink;
-      position: absolute;
-      left: 50px;
-      top: 50%;
-      transform: translate(0, -50%);
-    }
-    .wallet {
-      position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translate(0, -50%);
     }
   }
 }

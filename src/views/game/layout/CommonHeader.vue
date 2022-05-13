@@ -6,7 +6,7 @@ const state = reactive({
   menuList: [
     {
       name: 'PVE-wild monster',
-      routerName: ''
+      routerName: 'PVE-WildMonster'
     },
     {
       name: 'PVE-underground city',
