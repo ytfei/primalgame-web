@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
 import { reactive, toRefs } from 'vue'
+import { getSrc } from 'src/utils/utils'
 
 const prefixCls = useNamespace('social')
 defineProps({
@@ -14,22 +15,22 @@ const state = reactive({
     {
       name: 'twitter',
       url: 'https://twitter.com/OxMetaease',
-      iconPath: 'src/assets/img/home/twitter.webp'
+      iconPath: getSrc('home/twitter.webp')
     },
     {
       name: 'telegram',
       url: 'https://t.me/meta_ease',
-      iconPath: 'src/assets/img/home/telegram.webp'
+      iconPath: getSrc('home/telegram.webp')
     },
     {
       name: 'email',
       url: 'https://medium.com/@oxmetaease',
-      iconPath: 'src/assets/img/home/email.webp'
+      iconPath: getSrc('home/email.webp')
     },
     {
       name: 'discord',
       url: 'https://discord.gg/2x8XpHHYwU',
-      iconPath: 'src/assets/img/home/discord.webp'
+      iconPath: getSrc('home/discord.webp')
     }
   ]
 })

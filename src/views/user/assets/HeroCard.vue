@@ -61,7 +61,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     .element {
       width: 45px;
       height: 45px;
-      background-image: url('src/assets/img/assets/attribute-back.webp');
+      background-image: url('../../../assets/img/assets/attribute-background.webp');
       position: absolute;
       top: -8px;
       right: -6px;
