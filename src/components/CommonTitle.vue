@@ -6,7 +6,7 @@ const prefixCls = useNamespace('common-title')
 <template>
   <div :class="prefixCls.prefixCls">
     <span>
-      <slot>{{ title }}</slot>
+      <slot></slot>
     </span>
   </div>
 </template>
@@ -21,7 +21,7 @@ $prefix-cls: '#{$namespace}-common-title';
     background-image: url('src/assets/home/common_title.webp');
     background-size: 100% 100%;
     padding: 18px 94px;
-    color: #FFFDF5;
+    color: #fffdf5;
   }
 }
 </style>

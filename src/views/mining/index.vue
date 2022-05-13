@@ -12,7 +12,7 @@ const prefixCls = useNamespace('mining-home')
       <CommonTitle>Diggings</CommonTitle>
       <div class="mining-area">
         <div class="card-min" v-for="(item, index) in 6" :key="index">
-          <MiningCard></MiningCard>
+          <MiningCard :type="'stop'"></MiningCard>
         </div>
       </div>
       <CommonTitle>Mine NFT</CommonTitle>
