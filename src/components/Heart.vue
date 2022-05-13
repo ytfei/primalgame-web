@@ -12,14 +12,14 @@ const props = defineProps<{
       class="solid"
       v-for="item in props.quantity"
       :key="item"
-      src="#"
+      src="src/assets/img/assets/heart-solid.webp"
       alt=""
     />
     <img
       class="hollow"
       v-for="item in 5 - props.quantity"
       :key="item"
-      src="#"
+      src="src/assets/img/assets/heart-hollow.webp"
       alt=""
     />
   </div>
@@ -36,10 +36,8 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     height: 24px;
   }
   .solid {
-    background: red;
   }
   .hollow {
-    background: #d8d8d8;
   }
 }
 </style>

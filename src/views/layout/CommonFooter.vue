@@ -42,6 +42,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   background: #dcb172;
   display: flex;
   bottom: 0;
+  font-family: FZLTCHJW--GB1-0, FZLTCHJW--GB1;
   .layout-1200 {
     padding-top: 80px;
     .footer-content {

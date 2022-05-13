@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
-import BoxCard from './BoxCard.vue'
-const prefixCls = useNamespace('box-assets')
+import CommonTitle from 'comps/CommonTitle.vue'
+
+const prefixCls = useNamespace('mining-home')
 </script>
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
-    <BoxCard></BoxCard>
+    <CommonTitle :title="'Diggings'"></CommonTitle>
+    <CommonTitle :title="'Mine NFT'"></CommonTitle>
   </div>
 </template>
 
 <style lang="scss" scoped>
-$moduleName: 'box-assets';
+$moduleName: 'mining-home';
 $prefix-cls: '#{$namespace}-#{$moduleName}';
 $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
-
 .#{$prefix-cls} {
 }
 </style>

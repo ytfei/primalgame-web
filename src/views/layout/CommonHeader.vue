@@ -47,6 +47,9 @@ const { menuList } = toRefs(state)
           </li>
         </ul>
       </div>
+      <router-link :to="{ name: 'User' }">
+        <img class="wallet" src="src/assets/img/layout/wallet.webp" alt="" />
+      </router-link>
     </div>
   </header>
 </template>
@@ -89,6 +92,12 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       background: pink;
       position: absolute;
       left: 50px;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+    .wallet {
+      position: absolute;
+      right: 0;
       top: 50%;
       transform: translate(0, -50%);
     }

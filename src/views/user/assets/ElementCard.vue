@@ -5,7 +5,7 @@ const prefixCls = useNamespace('element-card')
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
-    <img class="nft-img" src="#" alt="" />
+    <div class="nft-img"></div>
     <div class="title">Element name* 20</div>
   </div>
 </template>
@@ -18,11 +18,13 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
 .#{$prefix-cls} {
   width: 370px;
   height: 456px;
-  background: pink;
+  background-image: url('src/assets/img/assets/nft-back.webp');
+  background-size: 100% 100%;
   padding: 50px 38px;
   box-sizing: border-box;
   .nft-img {
-    background: #fdb321;
+    background-image: url('src/assets/img/assets/nft-img-back.webp');
+    background-size: 100% 100%;
     width: 100%;
     height: 297px;
   }

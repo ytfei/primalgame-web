@@ -44,12 +44,12 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   .switch {
     width: 390px;
     height: 64px;
-    background: #ffffff;
     color: #b2b2b2;
     display: flex;
     align-items: center;
     text-align: center;
     margin: 0 auto 50px;
+    background-image: url('src/assets/img/assets/switch-back.webp');
     .nft-assets {
       flex: 1;
       cursor: pointer;
@@ -57,6 +57,9 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       display: flex;
       align-items: center;
       justify-content: center;
+      background-image: url('src/assets/img/assets/nft-switch.webp');
+      background-size: 100% 100%;
+      filter: grayscale(100%);
     }
     .box-assets {
       flex: 1;
@@ -65,14 +68,18 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       display: flex;
       align-items: center;
       justify-content: center;
+      background-image: url('src/assets/img/assets/box-switch.webp');
+      background-size: 100% 100%;
+      filter: grayscale(100%);
     }
     .active {
       color: #ffffff;
-      background: #feb320;
+      filter: grayscale(0%);
     }
   }
   .assets-card {
     margin-top: 30px;
+    min-height: 50vh;
   }
 }
 </style>
