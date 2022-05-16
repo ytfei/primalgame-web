@@ -12,7 +12,7 @@ export function useNFT () {
     const { Contract } = web3.value.eth
     return  new Contract(abi, contract)
   })
-  const getNFTList = async (tokenId: string): Promise<string[]> => {
+  const getNFTList = async (): Promise<string[]> => {
     const [account] = await web3.value.eth.getAccounts()
     return new Promise((resolve, reject) => {
       NFTInstance.value.methods
@@ -79,6 +79,7 @@ export function useNFT () {
   return {
     getSkills,
     getAttribute,
-    getInfo
+    getInfo,
+    getNFTList
   }
 }

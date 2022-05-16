@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
+import { useNFT } from 'hooks/web3/useNFT'
 import Button from 'comps/Button.vue'
 import { reactive, toRefs } from 'vue'
 import HeroCard from './HeroCard.vue'
@@ -9,6 +10,11 @@ const state = reactive({
   nftType: 'hero',
   nftStatus: 'Left'
 })
+const { getNFTList } = useNFT()
+getNFTList()
+  .then((res: unknown) => {
+    console.log(res)
+  })
 const { nftType, nftStatus } = toRefs(state)
 </script>
 
