@@ -4,13 +4,16 @@ import { computed, reactive, toRefs } from 'vue'
 import { useWallet } from 'hooks/web3/useWallet'
 import { useTools } from 'hooks/useTools'
 import { useRouter, useRoute } from 'vue-router'
+import { getLocal } from 'web3modal'
 const router = useRouter()
 const route = useRoute()
 const { hideSensitive } = useTools()
 const { onConnect, resetWallet, account } = useWallet()
+const isConnected = JSON.parse(localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER'))
 const connect = async () => {
   await onConnect()
 }
+isConnected === 'injected' && connect()
 const prefixCls = useNamespace('header')
 const state = reactive({
   menuList: [

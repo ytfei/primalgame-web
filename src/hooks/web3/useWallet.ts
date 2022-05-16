@@ -17,7 +17,7 @@ const walletInfo: WalletInfo = reactive({
 })
 export function useWallet() {
   const web3Modal = new Web3Modal({
-    // cacheProvider: true,
+    cacheProvider: true,
     providerOptions
   })
 
