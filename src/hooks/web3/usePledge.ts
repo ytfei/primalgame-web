@@ -4,19 +4,17 @@ import { useWallet } from "src/hooks/web3/useWallet";
 import { errorHandel } from "hooks/web3/utils";
 
 const { web3 } = useWallet()
-const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.PROPS_STORE) as string)
+const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.PLEDGE) as string)
 
 const contracts = {
-  store: import.meta.env.VITE_PROPS_STORE_CONTRACT_ADDRESS as string,
+  pledge: import.meta.env.VITE_PROPS_STORE_CONTRACT_ADDRESS as string,
 } as Indexable
 
 
-export function usePropsStore () {
-  const propsStore = computed(() => new web3.value.eth.Contract(abi, contracts.store))
+export function usePledge () {
+  const propsStore = computed(() => new web3.value.eth.Contract(abi, contracts.pledge))
 
   const buyProps = async (tokenId: number, price: number, quantity: number) => {
-    console.log(web3);
-    console.log(propsStore);
     const [account] = await web3.value.eth.getAccounts()
     return new Promise((resolve, reject) => {
       propsStore.value.methods

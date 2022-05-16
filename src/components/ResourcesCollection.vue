@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
 import { getSrc } from 'src/utils/utils'
-import { toRefs } from 'vue'
+import { reactive, toRefs } from 'vue'
 const prefixCls = useNamespace('resources-collection')
-const state = {
+const state = reactive({
   elementList: [
     {
       name: 'Life',
@@ -36,7 +36,7 @@ const state = {
       value: 123
     }
   ]
-}
+})
 const { elementList } = toRefs(state)
 </script>
 
