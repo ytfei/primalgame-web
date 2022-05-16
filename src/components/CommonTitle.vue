@@ -20,7 +20,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   span {
     height: 61px;
     margin: 0 auto;
-    background-image: url('src/assets/home/common_title.webp');
+    background-image: url('src/assets/img/home/common_title.webp');
     background-size: 100% 100%;
     padding: 18px 94px;
     color: #fffdf5;

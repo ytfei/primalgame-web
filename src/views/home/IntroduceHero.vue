@@ -59,24 +59,30 @@ const { list, heroElement } = toRefs(state)
     <div class="layout-1200">
       <div class="heroSystem">
         <div class="hero_card">
+          <div class="heroName">
+            <img src="../../assets/img/home/socialmedia.webp" alt="" />
+          </div>
+          <div class="heroName">
+            <h2>Hero name</h2>
+          </div>
           <div class="heroAvatar">
-            <img src="src/assets/home/hero_back.webp" alt="" />
+            <img src="../../assets/img/home/hero_back.webp" alt="" />
           </div>
           <Heart class="healthIcon" :quantity="4"></Heart>
           <div class="heroElement">
-            <img src="src/assets/home/element.webp" alt="" />
+            <img src="../../assets/img/home/element.webp" alt="" />
           </div>
           <div class="heroElement-el">
-            <img src="src/assets/home/fire.webp" alt="" />
+            <img src="../../assets/img/home/fire.webp" alt="" />
           </div>
           <div class="heroAttack">
-            <img src="src/assets/home/lite_back.webp" alt="" />
+            <img src="../../assets/img/home/lite_back.webp" alt="" />
           </div>
           <div class="heroAttack">
             <p>5</p>
           </div>
           <div class="heroHealth">
-            <img src="src/assets/home/health.webp" alt="" />
+            <img src="../../assets/img/home/health.webp" alt="" />
           </div>
           <div class="heroHealth">
             <p>8</p>
@@ -91,10 +97,10 @@ const { list, heroElement } = toRefs(state)
             </p>
           </div>
           <div class="heroSkill">
-            <img src="src/assets/home/skill-back.webp" alt="" />
+            <img src="../../assets/img/home/skill-back.webp" alt="" />
           </div>
           <div class="heroSkill-icon">
-            <img src="src/assets/home/fire.webp" alt="" />
+            <img src="../../assets/img/home/fire.webp" alt="" />
           </div>
         </div>
         <div class="heroIntroduce">
@@ -107,19 +113,19 @@ const { list, heroElement } = toRefs(state)
           </div>
           <div class="attribute">
             <div class="underIntroduce">
-              <img src="src/assets/home/loyal.webp" alt="" />
+              <img src="../../assets/img/home/loyal.webp" alt="" />
               <p>Loyalty points</p>
             </div>
             <div class="underIntroduce">
-              <img src="src/assets/home/element.webp" alt="" />
+              <img src="../../assets/img/home/element.webp" alt="" />
               <p>Attribute element</p>
             </div>
             <div class="underIntroduce">
-              <img src="src/assets/home/lite_back.webp" alt="" />
+              <img src="../../assets/img/home/lite_back.webp" alt="" />
               <p>Attack</p>
             </div>
             <div class="underIntroduce">
-              <img src="src/assets/home/health.webp" alt="" />
+              <img src="../../assets/img/home/health.webp" alt="" />
               <p>Health</p>
             </div>
           </div>
@@ -143,7 +149,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     height: 560px;
     margin-top: 9px;
     margin-left: 2px;
-    background-image: url('src/assets/home/small_back.webp');
+    background-image: url('src/assets/img/home/small_back.webp');
     background-size: contain;
     background-repeat: no-repeat;
     position: relative;
@@ -182,6 +188,26 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
         height: 30px;
       }
     }
+    .heroName {
+      position: absolute;
+      left: 82px;
+      top: -37px;
+      img {
+        width: 289px;
+        height: 73px;
+      }
+      h2 {
+        position: absolute;
+        left: 88px;
+        top: 12px;
+        width: 289px;
+        height: 23px;
+        font-size: 20px;
+        margin: 0;
+        color: #fff;
+        line-height: 23px;
+      }
+    }
     .heroAttack {
       position: absolute;
       left: 38px;
@@ -206,7 +232,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       bottom: 169px;
       img {
         width: 63px;
-        height: 66px;
+        height: 66spx;
       }
       p {
         margin: 0px;
@@ -228,11 +254,11 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       align-items: center;
       position: absolute;
       left: 70px;
-      bottom: 84px;
+      bottom: 86px;
       .hero-msg {
         width: 148px;
         height: 31px;
-        margin: 0;
+        margin: 0 0 10px;
         text-align: center;
         background: linear-gradient(180deg, #fff153 0%, #f3be07 100%);
         box-shadow: inset 0px 1px 3px 0px #f4c30e;
@@ -267,7 +293,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   .heroIntroduce {
     width: 688px;
     height: 572px;
-    background-image: url('src/assets/home/big_back.webp');
+    background-image: url('src/assets/img/home/big_back.webp');
     background-size: contain;
     background-repeat: no-repeat;
   }
@@ -287,16 +313,14 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       h3 {
         margin: 0px 42px 0px 80px;
         font-size: 14px;
-        font-weight: normal;
         color: #8d5513;
-        line-height: 14px;
+        line-height: 16px;
       }
       p {
-        margin: 3px 42px 16px 80px;
+        margin: 3px 42px 10px 80px;
         font-size: 14px;
-        font-weight: normal;
         color: #bd7724;
-        line-height: 14px;
+        line-height: 16px;
       }
     }
   }

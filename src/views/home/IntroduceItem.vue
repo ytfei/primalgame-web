@@ -48,7 +48,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   height: 342px;
   margin: 0px auto 19px;
   display: flex;
-  background-image: url('src/assets/home/systemBack.webp');
+  background-image: url('src/assets/img/home/systemBack.webp');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;

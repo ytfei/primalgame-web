@@ -36,7 +36,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   height: 456px;
   background-image: url('src/assets/img/assets/nft-back.webp');
   background-size: 100% 100%;
-  padding: 50px 36px;
+  padding: 26px 36px;
   box-sizing: border-box;
   position: relative;
   .box-img {
@@ -49,7 +49,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   .box-title {
     margin: 0;
     h2 {
-      margin: 4px 0px;
+      margin: 10px 0px;
       font-size: 16px;
       font-weight: normal;
       color: #8d5513;
@@ -58,7 +58,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   }
   .box-production,
   .box-number {
-    margin: 2px 0px;
+    margin: 9px 0px;
     display: flex;
     justify-content: start;
 
