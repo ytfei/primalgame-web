@@ -3,10 +3,16 @@ import { useNamespace } from 'src/hooks/useCommon'
 import { getSrc } from 'src/utils/utils'
 const prefixCls = useNamespace('hero-card')
 const health = 3
+defineProps({
+  size: {
+    type: String,
+    default: 'small'  // small, large
+  },
+})
 </script>
 
 <template>
-  <div :class="prefixCls.multiPrefixCls">
+  <div :class="[prefixCls.multiPrefixCls, $props.size]">
     <div class="img-wrapper">
       <div class="card-health">
         <img
@@ -39,8 +45,11 @@ $prefix-cls: '#{$namespace}-#{$moduleName}';
 
 .#{$prefix-cls} {
   padding: 28px 36px 20px 36px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   width: 270px;
-  height: 334px;
   box-sizing: border-box;
   background-image: url("src/assets/img/game/card-background.webp");
   font-family: 'FZHPJW--GB1', serif;
@@ -71,7 +80,6 @@ $prefix-cls: '#{$namespace}-#{$moduleName}';
     background-color: #FFF6D8;
     .card-img {
       width: 194px;
-      height: 194px;
       transform: rotate(1deg);
       object-fit: cover;
     }
@@ -111,6 +119,7 @@ $prefix-cls: '#{$namespace}-#{$moduleName}';
     color: $textColor;
     margin-top: 14px;
     margin-bottom: 8px;
+    margin-right: auto;
     .card-quality {
       margin-left: 6px;
       color: #EE9314;
@@ -120,6 +129,7 @@ $prefix-cls: '#{$namespace}-#{$moduleName}';
     display: grid;
     grid-template-columns: repeat(2, 50%);
     grid-gap: 8px;
+    width: 100%;
     font-size: 10px;
     .card-info-item {
       padding: 3px 14px;
@@ -128,6 +138,22 @@ $prefix-cls: '#{$namespace}-#{$moduleName}';
       background: linear-gradient(180deg, #FFF153 0%, #F3BE07 100%);
       box-shadow: inset 0 1px 2px 0 #F4C30E;
       border-radius: 2px;
+    }
+  }
+
+  &.large {
+    padding: 42px 48px 26px 48px;
+    width: 370px;
+    .img-wrapper {
+      width: 270px;
+      height: 270px;
+      .card-img {
+        width: 264px;
+      }
+    }
+    .card-name {
+      margin-top: 22px;
+      margin-bottom: 12px;
     }
   }
 }

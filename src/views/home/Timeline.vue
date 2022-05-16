@@ -45,27 +45,27 @@ const prefixCls = useNamespace('timeline')
         </div>
         <img
           class="roadline-1"
-          src="../../assets/home/roadline_1.webp"
+          src="../../assets/img/home/roadline_1.webp"
           alt=""
         />
         <img
           class="roadline-2"
-          src="../../assets/home/roadline_2.webp"
+          src="../../assets/img/home/roadline_2.webp"
           alt=""
         />
         <img
           class="roadline-3"
-          src="../../assets/home/roadline_3.webp"
+          src="../../assets/img/home/roadline_3.webp"
           alt=""
         />
         <img
           class="roadline-4"
-          src="../../assets/home/roadline_4.webp"
+          src="../../assets/img/home/roadline_4.webp"
           alt=""
         />
         <img
           class="roadline-5"
-          src="../../assets/home/roadline_5.webp"
+          src="../../assets/img/home/roadline_5.webp"
           alt=""
         />
       </div>
@@ -85,7 +85,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     div {
       width: 255px;
       height: 255px;
-      background-image: url('src/assets/home/timeline-back.webp');
+      background-image: url('src/assets/img/home/timeline-back.webp');
       background-size: contain;
       background-repeat: no-repeat;
       display: flex;

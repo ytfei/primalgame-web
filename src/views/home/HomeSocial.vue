@@ -29,7 +29,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     width: 1088px;
     height: 239px;
     margin: 0px auto;
-    background-image: url('../../assets/home/social_media.webp');
+    background-image: url('../../assets/img/home/social_media.webp');
     background-size: contain;
     background-repeat: no-repeat;
     position: relative;

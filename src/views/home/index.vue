@@ -21,7 +21,7 @@ const prefixCls = useNamespace('home')
     </div>
     <CommonTitle>Restraint relationship</CommonTitle>
     <div class="restraint">
-      <img src="src/assets/home/restraint.webp" alt="" class="restraint_img" />
+      <img src="../../assets/img/home/restraint.webp" alt="" class="restraint_img" />
     </div>
     <CommonTitle>Hero system</CommonTitle>
     <div class="introduce">
@@ -63,7 +63,7 @@ $moduleName: 'home';
 $prefix-cls: '#{$namespace}-#{$moduleName}';
 $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
 .#{$prefix-cls} {
-  background-image: url('src/assets/home/home_back.webp');
+  background-image: url('src/assets/img/home/home_back.webp');
   .banner {
     height: 600px;
     width: 100%;
