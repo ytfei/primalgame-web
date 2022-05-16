@@ -232,7 +232,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       bottom: 169px;
       img {
         width: 63px;
-        height: 66spx;
+        height: 66px;
       }
       p {
         margin: 0px;
