@@ -2,6 +2,7 @@ import { useWallet } from "src/hooks/web3/useWallet";
 import { contractAbiMap, ContractAbiTypeEnum } from "src/enums/contractAbiEnum";
 import { computed } from "vue";
 import { errorHandel } from "hooks/web3/utils";
+import { AttrType } from "src/enums/assetsEnum";
 
 const { web3 } = useWallet()
 const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.NFT) as string)
@@ -29,11 +30,10 @@ export function useNFT () {
     })
   }
   const getSkills = async (tokenId: string): Promise<string[]> => {
-    const [account] = await web3.value.eth.getAccounts()
     return new Promise((resolve, reject) => {
       NFTInstance.value.methods
         .getPrimalAllSkill(tokenId)
-        .send({ from: account })
+        .call()
         .then((res: any) => {
           resolve(res)
         })
@@ -44,14 +44,18 @@ export function useNFT () {
         })
     })
   }
-  const getAttribute = async (tokenId: string): Promise<string[]> => {
-    const [account] = await web3.value.eth.getAccounts()
+  const getAttribute = async (tokenId: string): Promise<unknown> => {
     return new Promise((resolve, reject) => {
       NFTInstance.value.methods
         .getPrimalAllAttribute(tokenId)
-        .send({ from: account })
+        .call()
         .then((res: any) => {
-          resolve(res)
+          const result: Indexable = {}
+          res.forEach((item: string, index: number) => {
+            result[AttrType[index]] = item
+          })
+          console.log(result)
+          resolve(result)
         })
         .catch((error: Error) => {
           errorHandel(error, (errorInfo: ErrorInfo) => {
@@ -61,11 +65,10 @@ export function useNFT () {
     })
   }
   const getInfo = async (tokenId: string): Promise<string[]> => {
-    const [account] = await web3.value.eth.getAccounts()
     return new Promise((resolve, reject) => {
       NFTInstance.value.methods
         .getPrimalInfo(tokenId)
-        .send({ from: account })
+        .call()
         .then((res: any) => {
           resolve(res)
         })

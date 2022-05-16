@@ -1,11 +1,11 @@
 // 阵营
-enum FactionType {
+export enum FactionType {
   Angel, // 天使  0
   Devil // 恶魔 1
 }
 
 // 稀有度
-enum RarityType {
+export enum RarityType {
   Normal,  // 普通 0
   Green, // 绿色  1
   Blue,// 蓝色 2
@@ -14,7 +14,7 @@ enum RarityType {
 }
 
 // 元素
-enum ElementType {
+export enum ElementType {
   Wind,// 风 0
   Life,// 生命 1
   Water,// 水 2
@@ -23,7 +23,7 @@ enum ElementType {
 }
 
 // 矿类型
-enum PoolType {
+export enum PoolType {
   Wind,// 风 0
   Life,// 生命 1
   Water,// 水 2
@@ -33,7 +33,7 @@ enum PoolType {
 }
 
 // 属性
-enum AttrType {
+export enum AttrType {
   Hp,// 生命 0
   Attack,// 攻击 1
   Crit,// 暴击 2
@@ -43,7 +43,7 @@ enum AttrType {
 }
 
 // 技能类型
-enum SkillType {
+export enum SkillType {
   WindAffinity,// 风元素亲和 0
   LifeAffinity,// 生命 1
   WaterAffinity,// 水 2

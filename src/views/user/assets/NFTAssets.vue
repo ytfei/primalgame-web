@@ -10,13 +10,13 @@ const state = reactive({
   nftType: 'hero',
   nftStatus: 'Left'
 })
-const { getNFTList } = useNFT()
+const { getNFTList, getAttribute } = useNFT()
 
 const { nftType, nftStatus } = toRefs(state)
 </script>
 
 <template>
-  <div :class="prefixCls.multiPrefixCls"><button @click="getNFTList">xxx</button>
+  <div :class="prefixCls.multiPrefixCls"><button @click="getAttribute('7')">xxx</button>
     <div class="nft-type-content">
       <div class="nft-type">
         <Button
