@@ -34,7 +34,7 @@ const routes: Array<RouteRecordRaw> = [
             }
           },
           {
-            path: '/mining',
+            path: '/game/mining',
             name: 'Mining',
             component: () => import('src/views/mining/index.vue'),
             meta: {

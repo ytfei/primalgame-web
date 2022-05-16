@@ -22,6 +22,24 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   background-size: 100% 100%;
   padding: 50px 38px;
   box-sizing: border-box;
+  position: relative;
+  &:hover:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    content: 'Exchange for other elements';
+    padding: 0 115px;
+    text-align: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    color: #ffffff;
+    background-image: url('src/assets/img/assets/nft-transparent-background.webp');
+    background-size: 100% 100%;
+  }
   .nft-img {
     background-image: url('src/assets/img/assets/nft-img-back.webp');
     background-size: 100% 100%;

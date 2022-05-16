@@ -50,9 +50,12 @@ const { nftType, nftStatus } = toRefs(state)
         </div>
       </div>
     </div>
-    <div class="nft-card-content">
+    <div class="nft-card-content" v-if="1 === 2">
       <HeroCard v-if="nftType === 'hero'"></HeroCard>
       <ElementCard v-else></ElementCard>
+    </div>
+    <div class="nft-no-data" v-else>
+      No NFT assets,you can go to the <span>event</span> page to buy <br /> blind box,open NFT can also buy hero NFT through<br /><span>the trade market</span>
     </div>
   </div>
 </template>
@@ -104,7 +107,6 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     }
   }
   .nft-card-content {
-    padding-bottom: 140px;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -112,6 +114,15 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       content: '';
       width: 370px;
       height: 456px;
+    }
+  }
+  .nft-no-data {
+    text-align: center;
+    font-size: 18px;
+    color: #FFFFFF;
+    margin-top: 150px;
+    span {
+      color: #FEC434;
     }
   }
 }

@@ -21,6 +21,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   background-image: url('src/assets/img/assets/nft-back.webp');
   background-size: 100% 100%;
   padding: 50px 36px;
+  margin-bottom: 40px;
   box-sizing: border-box;
   .box-img {
     width: 100%;

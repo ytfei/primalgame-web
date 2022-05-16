@@ -60,6 +60,24 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   box-sizing: border-box;
   margin-bottom: 40px;
   position: relative;
+  cursor: pointer;
+  &:hover:after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    content: 'View NFT details';
+    width: 100%;
+    height: 100%;
+    padding: 0 115px;
+    box-sizing: border-box;
+    text-align: center;
+    color: #ffffff;
+    background-image: url('src/assets/img/assets/nft-transparent-background.webp');
+    background-size: 100% 100%;
+  }
   .img-content {
     position: relative;
     display: flex;
