@@ -49,12 +49,11 @@ export function useNFT () {
       NFTInstance.value.methods
         .getPrimalAllAttribute(tokenId)
         .call()
-        .then((res: any) => {
+        .then((res: string[]) => {
           const result: Indexable = {}
           res.forEach((item: string, index: number) => {
             result[AttrType[index]] = item
           })
-          console.log(result)
           resolve(result)
         })
         .catch((error: Error) => {
