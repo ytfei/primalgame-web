@@ -14,22 +14,8 @@ const prefixCls = useNamespace('pve-wild-monster')
       <CommonTitle>Current enemy</CommonTitle>
     </div>
     <div class="wild-monster-content">
-      <div class="wild-monster-box">
-        <HeroCard></HeroCard>
-        <div class="wild-monster-tips">Water element may fall * 2000</div>
-        <div class="attack">
-          <Button>Attack</Button>
-        </div>
-      </div>
-      <div class="wild-monster-box">
-        <HeroCard></HeroCard>
-        <div class="wild-monster-tips">Water element may fall * 2000</div>
-        <div class="attack">
-          <Button>Attack</Button>
-        </div>
-      </div>
-      <div class="wild-monster-box">
-        <HeroCard></HeroCard>
+      <div v-for="item in 3" class="wild-monster-box">
+        <HeroCard size="large"></HeroCard>
         <div class="wild-monster-tips">Water element may fall * 2000</div>
         <div class="attack">
           <Button>Attack</Button>

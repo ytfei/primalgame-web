@@ -60,23 +60,23 @@ const { list, heroElement } = toRefs(state)
       <div class="heroSystem">
         <div class="hero_card">
           <div class="heroAvatar">
-            <img src="src/assets/home/hero_back.webp" alt="" />
+            <img src="../../assets/img/home/hero_back.webp" alt="" />
           </div>
           <Heart class="healthIcon" :quantity="4"></Heart>
           <div class="heroElement">
-            <img src="src/assets/home/element.webp" alt="" />
+            <img src="../../assets/img/home/element.webp" alt="" />
           </div>
           <div class="heroElement-el">
-            <img src="src/assets/home/fire.webp" alt="" />
+            <img src="../../assets/img/home/fire.webp" alt="" />
           </div>
           <div class="heroAttack">
-            <img src="src/assets/home/lite_back.webp" alt="" />
+            <img src="../../assets/img/home/lite_back.webp" alt="" />
           </div>
           <div class="heroAttack">
             <p>5</p>
           </div>
           <div class="heroHealth">
-            <img src="src/assets/home/health.webp" alt="" />
+            <img src="../../assets/img/home/health.webp" alt="" />
           </div>
           <div class="heroHealth">
             <p>8</p>
@@ -91,10 +91,10 @@ const { list, heroElement } = toRefs(state)
             </p>
           </div>
           <div class="heroSkill">
-            <img src="src/assets/home/skill-back.webp" alt="" />
+            <img src="../../assets/img/home/skill-back.webp" alt="" />
           </div>
           <div class="heroSkill-icon">
-            <img src="src/assets/home/fire.webp" alt="" />
+            <img src="../../assets/img/home/fire.webp" alt="" />
           </div>
         </div>
         <div class="heroIntroduce">
@@ -107,19 +107,19 @@ const { list, heroElement } = toRefs(state)
           </div>
           <div class="attribute">
             <div class="underIntroduce">
-              <img src="src/assets/home/loyal.webp" alt="" />
+              <img src="../../assets/img/home/loyal.webp" alt="" />
               <p>Loyalty points</p>
             </div>
             <div class="underIntroduce">
-              <img src="src/assets/home/element.webp" alt="" />
+              <img src="../../assets/img/home/element.webp" alt="" />
               <p>Attribute element</p>
             </div>
             <div class="underIntroduce">
-              <img src="src/assets/home/lite_back.webp" alt="" />
+              <img src="../../assets/img/home/lite_back.webp" alt="" />
               <p>Attack</p>
             </div>
             <div class="underIntroduce">
-              <img src="src/assets/home/health.webp" alt="" />
+              <img src="../../assets/img/home/health.webp" alt="" />
               <p>Health</p>
             </div>
           </div>
@@ -143,7 +143,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     height: 560px;
     margin-top: 9px;
     margin-left: 2px;
-    background-image: url('src/assets/home/small_back.webp');
+    background-image: url('src/assets/img/home/small_back.webp');
     background-size: contain;
     background-repeat: no-repeat;
     position: relative;
@@ -267,7 +267,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   .heroIntroduce {
     width: 688px;
     height: 572px;
-    background-image: url('src/assets/home/big_back.webp');
+    background-image: url('src/assets/img/home/big_back.webp');
     background-size: contain;
     background-repeat: no-repeat;
   }
