@@ -1,10 +1,17 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
+import { getSrc } from 'src/utils/utils'
+import { useBattle } from 'hooks/web3/useBattle'
 import CommonTitle from 'comps/CommonTitle.vue'
 import ResourcesCollection from 'comps/ResourcesCollection.vue'
 import BattlefieldReport from 'comps/BattlefieldReport.vue'
 import HeroCard from '../HeroCard.vue'
+const { get1V1Enemies } = useBattle()
 const prefixCls = useNamespace('pve-wild-monster')
+const get1V1EnemiesList = (() => {
+  get1V1Enemies()
+})
+// get1V1EnemiesList()
 </script>
 
 <template>
@@ -12,6 +19,7 @@ const prefixCls = useNamespace('pve-wild-monster')
     <ResourcesCollection></ResourcesCollection>
     <div class="title">
       <CommonTitle>Current enemy</CommonTitle>
+      <img class="refresh" :src="getSrc('game/refresh.webp')" alt="">
     </div>
     <div class="wild-monster-content">
       <div v-for="item in 3" class="wild-monster-box">
@@ -38,7 +46,14 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
 
 .#{$prefix-cls} {
   .title {
+    position: relative;
     margin: 50px 0 60px 0;
+    .refresh {
+      position: absolute;
+      right: 0;
+      top: 0;
+      cursor: pointer;
+    }
   }
   .wild-monster-content {
     display: flex;

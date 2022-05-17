@@ -3,7 +3,7 @@ import { contractAbiMap, ContractAbiTypeEnum } from "src/enums/contractAbiEnum";
 import { computed } from "vue";
 import { errorHandel } from "hooks/web3/utils";
 
-const { web3 } = useWallet()
+const { web3, checkConnect } = useWallet()
 const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.NFT) as string)
 const contract = import.meta.env.VITE_NFT_CONTRACT_ADDRESS as string
 
@@ -78,12 +78,14 @@ export function useBattle () {
     })
   }
   const get1V1Enemies = async () => {
+    await checkConnect()
     const [account] = await web3.value.eth.getAccounts()
     return new Promise((resolve, reject) => {
       instance.value.methods
         .get1V1Enemies(account)
         .call()
         .then((res: any) => {
+          console.log(res)
           resolve(res)
         })
         .catch((error: Error) => {
