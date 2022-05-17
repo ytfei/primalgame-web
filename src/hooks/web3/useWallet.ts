@@ -54,9 +54,13 @@ export function useWallet() {
     walletInfo.account = null
   }
 
+  const checkConnect = async () => {
+    !walletInfo.web3 && await onConnect()
+  }
   return {
     ...toRefs(walletInfo),
     onConnect,
-    resetWallet
+    resetWallet,
+    checkConnect
   }
 }

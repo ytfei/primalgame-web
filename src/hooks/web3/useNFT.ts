@@ -4,7 +4,7 @@ import { computed } from "vue";
 import { errorHandel } from "hooks/web3/utils";
 import { AttrEnum, SkillEnum, RarityEnum, FactionEnum, ElementEnum } from "src/enums/assetsEnum";
 
-const { web3, onConnect } = useWallet()
+const { web3, checkConnect } = useWallet()
 const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.NFT) as string)
 const contract = import.meta.env.VITE_NFT_CONTRACT_ADDRESS as string
 
@@ -14,7 +14,7 @@ export function useNFT () {
     return  new Contract(abi, contract)
   })
   const getNFTList = async (): Promise<object[]> => {
-    await onConnect()
+    await checkConnect()
     const [account] = await web3.value.eth.getAccounts()
     return new Promise((resolve, reject) => {
       NFTInstance.value.methods

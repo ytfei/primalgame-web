@@ -1,10 +1,20 @@
 <script setup lang="ts">
-import { useNamespace } from 'src/hooks/useCommon'
+import { useNamespace } from 'hooks/useCommon'
 import CommonTitle from 'comps/CommonTitle.vue'
-import HeroCard from '../user/assets/HeroCard.vue'
+import HeroCard from '../../user/assets/HeroCard.vue'
 import MiningCard from './MiningCard.vue'
 import ResourcesCollection from 'comps/ResourcesCollection.vue'
+import SelectHero from '../SelectHero.vue'
+import { getNFTList } from 'src/hooks/web3/useNFT'
 
+const minePool = [
+  { type: 'wind', value: 0 },
+  { type: 'life', value: 1 },
+  { type: 'water', value: 2 },
+  { type: 'fire', value: 3 },
+  { type: 'Earth', value: 4 },
+  { type: 'Source', value: 5 },
+]
 const prefixCls = useNamespace('mining-home')
 </script>
 
@@ -16,7 +26,7 @@ const prefixCls = useNamespace('mining-home')
       </div>
       <CommonTitle>Diggings</CommonTitle>
       <div class="mining-area">
-        <div class="card-min" v-for="(item, index) in 6" :key="index">
+        <div class="card-min" v-for="(item, index) in minePool" :key="index">
           <MiningCard></MiningCard>
         </div>
       </div>
@@ -25,6 +35,7 @@ const prefixCls = useNamespace('mining-home')
         <HeroCard class="owner-mining" :mining="'start'"></HeroCard>
       </div>
     </div>
+    <select-hero title="Select the hero NFT that can dig XXX resources"></select-hero>
   </div>
 </template>
 

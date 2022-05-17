@@ -36,7 +36,7 @@ const routes: Array<RouteRecordRaw> = [
           {
             path: '/game/mining',
             name: 'Mining',
-            component: () => import('src/views/mining/index.vue'),
+            component: () => import('src/views/game/mining/index.vue'),
             meta: {
               title: 'Mining'
             }
