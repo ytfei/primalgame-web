@@ -23,6 +23,7 @@ interface ErrorInfo extends Error {
 }
 
 declare interface HeroList {
+  tokenId: string,
   attrs: any,
   element: string,
   faction: string,

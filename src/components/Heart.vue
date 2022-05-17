@@ -2,7 +2,7 @@
 import { useNamespace } from 'src/hooks/useCommon'
 const prefixCls = useNamespace('heart')
 const props = defineProps<{
-  quantity: Number
+  quantity: string
 }>()
 </script>
 
@@ -10,14 +10,14 @@ const props = defineProps<{
   <div :class="prefixCls.multiPrefixCls">
     <img
       class="solid"
-      v-for="item in props.quantity"
+      v-for="item in parseInt(props.quantity)"
       :key="item"
       src="src/assets/img/assets/heart-solid.webp"
       alt=""
     />
     <img
       class="hollow"
-      v-for="item in 5 - props.quantity"
+      v-for="item in 5 - parseInt(props.quantity)"
       :key="item"
       src="src/assets/img/assets/heart-hollow.webp"
       alt=""

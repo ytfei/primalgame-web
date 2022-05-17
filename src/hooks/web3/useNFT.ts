@@ -25,6 +25,7 @@ export function useNFT () {
           for (const value of res) {
             const heroInfo = await getInfo(value).then((res: any) => {
               const result: HeroList = {
+                tokenId: '',
                 attrs: {},
                 skills: [],
                 stamina: '',
@@ -32,6 +33,7 @@ export function useNFT () {
                 faction: '',
                 element: ''
               }
+              result.tokenId = value
               result.stamina = res.stamina
               result.rarity = RarityEnum[res.rarity]
               result.faction = FactionEnum[res.faction]

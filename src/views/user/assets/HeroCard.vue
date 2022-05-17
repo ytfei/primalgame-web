@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
 import Heart from 'comps/Heart.vue'
+import { getSrc } from 'src/utils/utils'
 import { toRefs } from 'vue'
 const prefixCls = useNamespace('hero-card')
 
@@ -23,10 +24,10 @@ const { data } = toRefs(props)
     <div class="img-content">
       <div class="nft-img"></div>
       <div class="heart">
-        <Heart :quantity="parseInt(data.stamina)"></Heart>
+        <Heart :quantity="data.stamina"></Heart>
       </div>
       <div class="element">
-        <img src="src/assets/img/assets/fire.webp" alt="" />
+        <img :src="getSrc(`assets/element/${data.element}.webp`)" alt="" />
       </div>
       <div class="attack"><span>{{data.attrs.Attack}}</span></div>
       <div class="life"><span>{{data.attrs.Hp}}</span></div>
@@ -34,11 +35,11 @@ const { data } = toRefs(props)
     <div class="text-content">
       <div class="names">
         <div class="name-label">Hero names</div>
-        <span>common</span>
+        <span>{{ data.rarity }}</span>
       </div>
       <div class="token">
         <div class="token-label">Token id</div>
-        <span>0x22222222222</span>
+        <span>{{ data.tokenId }}</span>
       </div>
     </div>
     <div class="stop-img" v-if="mining === 'start'">
