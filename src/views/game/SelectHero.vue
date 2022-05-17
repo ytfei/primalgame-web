@@ -39,7 +39,7 @@ const { heroList, dialogVisible } = toRefs(props)
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
-    <el-dialog :width="enemyInfo ? '900px' : '620px'" v-model="dialogVisible" :title="$props.title">
+    <el-dialog :width="enemyInfo ? '900px' : '620px'" :model-value="dialogVisible" :title="$props.title">
       <div class="container">
         <div v-if="enemyInfo" class="hero-card-wrapper">
           <div class="hero-card-title">xxxx</div>
@@ -62,7 +62,7 @@ const { heroList, dialogVisible } = toRefs(props)
               >{{ item.rarity }} {{ item.tokenId }}</el-radio>
             </el-scrollbar>
           </div>
-          <el-button type="primary" @click="onClick" size="large">ok</el-button>
+          <el-button :disabled="!selectedTokenId" type="primary" @click="onClick" size="large">ok</el-button>
         </div>
       </div>
     </el-dialog>

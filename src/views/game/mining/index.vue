@@ -27,8 +27,9 @@ const getHeroList = async () => {
   console.log(state.heroList)
 }
 getHeroList()
-const confirm = (value) => {
+const confirm = (value: HeroInfo) => {
   console.log(value)
+  state.dialogVisible = false
 }
 const { heroList, dialogVisible } = toRefs(state)
 </script>
