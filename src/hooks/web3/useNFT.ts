@@ -22,18 +22,16 @@ export function useNFT () {
         .call()
         .then(async (res: any) => {
           const newArray: object[] = []
-          for (const [index, value] of res.entries()) {
-            let newObject: any = {}
-            await getInfo(value).then((res: any) => {
+          for (const value of res) {
+            const heroInfo = await getInfo(value).then((res: any) => {
               const result: HeroList = {
                 attrs: {},
-                skills: {},
+                skills: [],
                 stamina: '',
                 rarity: '',
                 faction: '',
                 element: ''
               }
-              console.log(res)
               result.stamina = res.stamina
               result.rarity = RarityEnum[res.rarity]
               result.faction = FactionEnum[res.faction]
@@ -42,11 +40,11 @@ export function useNFT () {
                 result.attrs[AttrEnum[index]] = item
               })
               res.exists.forEach((item: string, index: number) => {
-                result.skills[SkillEnum[index]] = item
+                item === '1' && result.skills.push(SkillEnum[index])
               })
-              newObject = result
+              return result
             })
-            newArray.splice(index, 0, newObject)
+            newArray.push(heroInfo)
           }
           resolve(newArray)
         })
