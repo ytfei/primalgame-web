@@ -53,7 +53,7 @@ const { nftType, nftStatus } = toRefs(state)
         </div>
       </div>
     </div>
-    <div class="nft-card-content" v-if="1 === 2">
+    <div class="nft-card-content" v-if="false">
       <HeroCard v-if="nftType === 'hero'"></HeroCard>
       <ElementCard v-else></ElementCard>
     </div>

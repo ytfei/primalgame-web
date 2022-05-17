@@ -6,7 +6,7 @@ const prefixCls = useNamespace('box-assets')
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
-    <div class="box-card-content" v-if="1 === 2">
+    <div class="box-card-content" v-if="false">
       <BoxCard></BoxCard>
       <BoxCard></BoxCard>
       <BoxCard></BoxCard>
