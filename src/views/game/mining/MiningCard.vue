@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useNamespace } from 'src/hooks/useCommon'
+import { useNamespace } from 'hooks/useCommon'
 
 const prefixCls = useNamespace('mining-card')
 </script>

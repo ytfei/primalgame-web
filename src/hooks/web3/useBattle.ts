@@ -1,23 +1,71 @@
+import { useWallet } from "src/hooks/web3/useWallet";
 import { contractAbiMap, ContractAbiTypeEnum } from "src/enums/contractAbiEnum";
 import { computed } from "vue";
-import { useWallet } from "src/hooks/web3/useWallet";
 import { errorHandel } from "hooks/web3/utils";
 
 const { web3 } = useWallet()
-const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.PLEDGE) as string)
+const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.NFT) as string)
+const contract = import.meta.env.VITE_NFT_CONTRACT_ADDRESS as string
 
-const contracts = {
-  pledge: import.meta.env.VITE_PLEDGE_CONTRACT_ADDRESS as string,
-} as Indexable
-
-
-export function usePledge () {
-  const instance = computed(() => new web3.value.eth.Contract(abi, contracts.pledge))
-
-  const getPoolAttr = async (poolType: number) => {
+export function useBattle () {
+  const instance = computed( () => {
+    const { Contract } = web3.value.eth
+    return  new Contract(abi, contract)
+  })
+  // 1v1
+  const refresh1V1 = async () => {
+    const [account] = await web3.value.eth.getAccounts()
     return new Promise((resolve, reject) => {
       instance.value.methods
-        .getPoolAttr(poolType)
+        .refresh1V1()
+        .send({ from: account })
+        .then((res: any) => {
+          resolve(res)
+        })
+        .catch((error: Error) => {
+          errorHandel(error, (errorInfo: ErrorInfo) => {
+            reject(errorInfo)
+          })
+        })
+    })
+  }
+  const battle1V1 = async (tokenId: string, enemyTokenId: string) => {
+    const [account] = await web3.value.eth.getAccounts()
+    return new Promise((resolve, reject) => {
+      instance.value.methods
+        .battle1V1(tokenId, enemyTokenId)
+        .send({ from: account })
+        .then((res: any) => {
+          resolve(res)
+        })
+        .catch((error: Error) => {
+          errorHandel(error, (errorInfo: ErrorInfo) => {
+            reject(errorInfo)
+          })
+        })
+    })
+  }
+  const takeReward = async (tokenId: string, enemyTokenId: string) => {
+    const [account] = await web3.value.eth.getAccounts()
+    return new Promise((resolve, reject) => {
+      instance.value.methods
+        .takeReward(tokenId, enemyTokenId)
+        .send({ from: account })
+        .then((res: any) => {
+          resolve(res)
+        })
+        .catch((error: Error) => {
+          errorHandel(error, (errorInfo: ErrorInfo) => {
+            reject(errorInfo)
+          })
+        })
+    })
+  }
+  const getRewardInfo = async () => {
+    const [account] = await web3.value.eth.getAccounts()
+    return new Promise((resolve, reject) => {
+      instance.value.methods
+        .pendingReward(account)
         .call()
         .then((res: any) => {
           resolve(res)
@@ -29,77 +77,12 @@ export function usePledge () {
         })
     })
   }
-
-  const stake = async (tokenId: number, poolType: number) => {
+  const get1V1Enemies = async () => {
     const [account] = await web3.value.eth.getAccounts()
     return new Promise((resolve, reject) => {
       instance.value.methods
-        .stake(tokenId, poolType)
-        .send({ from: account })
-        .then((res: any) => {
-          resolve(res)
-        })
-        .catch((error: Error) => {
-          errorHandel(error, (errorInfo: ErrorInfo) => {
-            reject(errorInfo)
-          })
-        })
-    })
-  }
-  const unStake = async (tokenId: number, poolType: number) => {
-    const [account] = await web3.value.eth.getAccounts()
-    return new Promise((resolve, reject) => {
-      instance.value.methods
-        .unStake(tokenId, poolType)
-        .send({ from: account })
-        .then((res: any) => {
-          resolve(res)
-        })
-        .catch((error: Error) => {
-          errorHandel(error, (errorInfo: ErrorInfo) => {
-            reject(errorInfo)
-          })
-        })
-    })
-  }
-  const pendingReward = async () => {
-    const [account] = await web3.value.eth.getAccounts()
-    return new Promise((resolve, reject) => {
-      instance.value.methods
-        .pendingReward(account)
-        .send({ from: account })
-        .then((res: any) => {
-          resolve(res)
-        })
-        .catch((error: Error) => {
-          errorHandel(error, (errorInfo: ErrorInfo) => {
-            reject(errorInfo)
-          })
-        })
-    })
-  }
-  const takeReward = async () => {
-    const [account] = await web3.value.eth.getAccounts()
-    return new Promise((resolve, reject) => {
-      instance.value.methods
-        .takeReward()
-        .send({ from: account })
-        .then((res: any) => {
-          resolve(res)
-        })
-        .catch((error: Error) => {
-          errorHandel(error, (errorInfo: ErrorInfo) => {
-            reject(errorInfo)
-          })
-        })
-    })
-  }
-  const plunder = async (tokenId: number, poolType: number) => {
-    const [account] = await web3.value.eth.getAccounts()
-    return new Promise((resolve, reject) => {
-      instance.value.methods
-        .plunder(tokenId, poolType)
-        .send({ from: account })
+        .get1V1Enemies(account)
+        .call()
         .then((res: any) => {
           resolve(res)
         })
@@ -111,11 +94,10 @@ export function usePledge () {
     })
   }
   return {
-    getPoolAttr,
-    stake,
-    unStake,
-    pendingReward,
+    refresh1V1,
+    battle1V1,
     takeReward,
-    plunder,
+    getRewardInfo,
+    get1V1Enemies
   }
 }

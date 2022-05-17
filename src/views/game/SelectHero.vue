@@ -4,6 +4,15 @@ import { reactive, ref } from 'vue'
 import HeroCard from './HeroCard.vue'
 
 const prefixCls = useNamespace('select-hero')
+defineProps({
+  title: {
+    type: String,
+    required: true
+  },
+  enemyInfo: {
+    type: Object,
+  }
+})
 const state = reactive({
   dialog: true,
 })
@@ -13,9 +22,9 @@ const { dialog } = state
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
-    <el-dialog width="900px" v-model="dialog" title="Select the hero NFT that can dig XXX resources">
+    <el-dialog :width="enemyInfo ? '900px' : '620px'" v-model="dialog" :title="$props.title">
       <div class="container">
-        <div class="hero-card-wrapper">
+        <div v-if="enemyInfo" class="hero-card-wrapper">
           <div class="hero-card-title">xxxx</div>
           <HeroCard></HeroCard>
         </div>
