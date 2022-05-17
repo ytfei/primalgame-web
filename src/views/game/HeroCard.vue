@@ -1,13 +1,18 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
 import { getSrc } from 'src/utils/utils'
+import { PropType } from 'vue'
+import { HeroInfo } from 'types/store'
 const prefixCls = useNamespace('hero-card')
-const health = 3
 defineProps({
   size: {
     type: String,
     default: 'small'  // small, large
   },
+  hero: {
+    type: Object as PropType<HeroInfo>,
+    default: () => ({})
+  }
 })
 </script>
 
@@ -18,23 +23,25 @@ defineProps({
         <img
           class="card-health-img"
           v-for="i in 5" :key="i"
-          :src="getSrc(`assets/heart-${i > health ? 'hollow' : 'solid'}.webp`)"
+          :src="getSrc(`assets/heart-${i > Number.parseInt(hero.stamina) ? 'hollow' : 'solid'}.webp`)"
           alt=""
         >
       </div>
-      <div class="card-attribute"></div>
-      <div class="card-attack">1</div>
-      <div class="card-spirit">1</div>
+      <div class="card-attribute">
+        <img v-if="hero.element" :src="`/src/assets/img/assets/element/${hero.element}.webp`" alt="">
+      </div>
+      <div class="card-attack">{{ hero?.attrs?.attack }}</div>
+      <div class="card-spirit">{{ hero?.attrs?.hp }}</div>
       <img class="card-img" src="" alt="">
     </div>
     <div class="card-name">
-      XXXXX <span class="card-quality">xxx</span>
+      {{ hero.rarity }} <span class="card-quality">{{ hero.tokenId }}</span>
     </div>
     <div class="card-info">
-      <div class="card-info-item">Critical：</div>
-      <div class="card-info-item">Critical：</div>
-      <div class="card-info-item">Critical：</div>
-      <div class="card-info-item">Critical：</div>
+      <div class="card-info-item">Critical：{{ hero?.attrs?.crit }}</div>
+      <div class="card-info-item">Speed：{{ hero?.attrs?.speed }}</div>
+      <div class="card-info-item">Dodge：{{ hero?.attrs?.dodge }}</div>
+      <div class="card-info-item">Defense：{{ hero?.attrs?.defense }}</div>
     </div>
   </div>
 </template>
@@ -97,6 +104,9 @@ $prefix-cls: '#{$namespace}-#{$moduleName}';
       top: -4px;
       right: -10px;
       background-image: url("src/assets/img/assets/attribute-background.webp");
+      img {
+        width: 18px;
+      }
     }
     .card-attack {
       @extend .position-basic;
@@ -132,8 +142,9 @@ $prefix-cls: '#{$namespace}-#{$moduleName}';
     width: 100%;
     font-size: 10px;
     .card-info-item {
-      padding: 3px 14px;
+      padding: 3px 2px;
       border: 1px solid #A46C1D;
+      text-align: center;
       color: $textColor;
       background: linear-gradient(180deg, #FFF153 0%, #F3BE07 100%);
       box-shadow: inset 0 1px 2px 0 #F4C30E;

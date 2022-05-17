@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
-import { reactive, ref } from 'vue'
+import { reactive, PropType, toRefs, computed } from 'vue'
 import HeroCard from './HeroCard.vue'
+import { HeroInfo } from 'types/store'
 
 const prefixCls = useNamespace('select-hero')
-defineProps({
+const props = defineProps({
   title: {
     type: String,
+    required: true
+  },
+  heroList: {
+    type: Array as PropType<HeroInfo[]>,
     required: true
   },
   enemyInfo: {
@@ -15,9 +20,13 @@ defineProps({
 })
 const state = reactive({
   dialog: true,
+  selectedTokenId: '1'
 })
-const radio1 = ref('1')
-const { dialog } = state
+const selectedHero = computed(() => {
+  return props.heroList.find((hero: HeroInfo) => hero.tokenId === state.selectedTokenId)
+})
+const { dialog, selectedTokenId } = toRefs(state)
+const { heroList } = toRefs(props)
 </script>
 
 <template>
@@ -29,15 +38,20 @@ const { dialog } = state
           <HeroCard></HeroCard>
         </div>
         <div class="hero-card-wrapper">
-          <div class="hero-card-title">xxxx</div>
-          <HeroCard></HeroCard>
+          <div class="hero-card-title">Heroes in the second round</div>
+          <HeroCard :hero="selectedHero"></HeroCard>
         </div>
         <div class="hero-list-wrapper">
           <div class="hero-list">
             <el-scrollbar height="320px">
-              <el-radio class="hero-list-item" v-model="radio1" label="1" size="large" border>Option A</el-radio>
-              <el-radio class="hero-list-item" v-model="radio1" label="2" size="large" border>Option B</el-radio>
-
+              <el-radio
+                v-for="item in heroList" :key="item.tokenId"
+                class="hero-list-item"
+                v-model="selectedTokenId"
+                :label="item.tokenId"
+                size="large"
+                border
+              >{{ item.rarity }} {{ item.tokenId }}</el-radio>
             </el-scrollbar>
           </div>
           <el-button type="primary" size="large">ok</el-button>

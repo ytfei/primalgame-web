@@ -21,13 +21,3 @@ declare type PromiseResult<T = any> = Promise<Result<T>>
 interface ErrorInfo extends Error {
   code: number
 }
-
-declare interface HeroList {
-  tokenId: string,
-  attrs: any,
-  element: string,
-  faction: string,
-  rarity: string,
-  skills: any,
-  stamina: string
-}

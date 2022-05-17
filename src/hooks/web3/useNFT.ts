@@ -3,6 +3,7 @@ import { contractAbiMap, ContractAbiTypeEnum } from "src/enums/contractAbiEnum";
 import { computed } from "vue";
 import { errorHandel } from "hooks/web3/utils";
 import { AttrEnum, SkillEnum, RarityEnum, FactionEnum, ElementEnum } from "src/enums/assetsEnum";
+import { HeroInfo } from 'types/store'
 
 const { web3, checkConnect } = useWallet()
 const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.NFT) as string)
@@ -13,7 +14,7 @@ export function useNFT () {
     const { Contract } = web3.value.eth
     return  new Contract(abi, contract)
   })
-  const getNFTList = async (): Promise<object[]> => {
+  const getNFTList = async (): Promise<HeroInfo[]> => {
     await checkConnect()
     const [account] = await web3.value.eth.getAccounts()
     return new Promise((resolve, reject) => {
@@ -21,10 +22,11 @@ export function useNFT () {
         .getOwnedTokens(account)
         .call()
         .then(async (res: any) => {
-          const newArray: object[] = []
-          for (const value of res) {
-            const heroInfo = await getInfo(value).then((res: any) => {
-              const result: HeroList = {
+          console.log(res)
+          const newArray: HeroInfo[] = []
+          for (const tokenId of res) {
+            const heroInfo = await getInfo(tokenId).then((res: any) => {
+              const result: HeroInfo = {
                 tokenId: '',
                 attrs: {},
                 skills: [],
@@ -33,7 +35,7 @@ export function useNFT () {
                 faction: '',
                 element: ''
               }
-              result.tokenId = value
+              result.tokenId = tokenId
               result.stamina = res.stamina
               result.rarity = RarityEnum[res.rarity]
               result.faction = FactionEnum[res.faction]
@@ -48,6 +50,7 @@ export function useNFT () {
             })
             newArray.push(heroInfo)
           }
+          console.log(newArray)
           resolve(newArray)
         })
         .catch((error: Error) => {
