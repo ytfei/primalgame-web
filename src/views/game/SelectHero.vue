@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
-import { reactive, PropType, toRefs, computed } from 'vue'
+import { reactive, PropType, toRefs, computed, toRaw } from 'vue'
 import HeroCard from './HeroCard.vue'
 import { HeroInfo } from 'types/store'
 
 const prefixCls = useNamespace('select-hero')
 const props = defineProps({
+  dialogVisible: {
+    type: Boolean,
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -18,20 +22,24 @@ const props = defineProps({
     type: Object,
   }
 })
+const emits = defineEmits(['confirm'])
 const state = reactive({
   dialog: true,
-  selectedTokenId: '1'
+  selectedTokenId: ''
 })
 const selectedHero = computed(() => {
   return props.heroList.find((hero: HeroInfo) => hero.tokenId === state.selectedTokenId)
 })
-const { dialog, selectedTokenId } = toRefs(state)
-const { heroList } = toRefs(props)
+const onClick = () => {
+  emits('confirm', toRaw(selectedHero.value))
+}
+const { selectedTokenId } = toRefs(state)
+const { heroList, dialogVisible } = toRefs(props)
 </script>
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
-    <el-dialog :width="enemyInfo ? '900px' : '620px'" v-model="dialog" :title="$props.title">
+    <el-dialog :width="enemyInfo ? '900px' : '620px'" v-model="dialogVisible" :title="$props.title">
       <div class="container">
         <div v-if="enemyInfo" class="hero-card-wrapper">
           <div class="hero-card-title">xxxx</div>
@@ -54,7 +62,7 @@ const { heroList } = toRefs(props)
               >{{ item.rarity }} {{ item.tokenId }}</el-radio>
             </el-scrollbar>
           </div>
-          <el-button type="primary" size="large">ok</el-button>
+          <el-button type="primary" @click="onClick" size="large">ok</el-button>
         </div>
       </div>
     </el-dialog>

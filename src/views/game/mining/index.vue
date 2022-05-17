@@ -19,19 +19,23 @@ const minePool = [
 ]
 const prefixCls = useNamespace('mining-home')
 const state = reactive({
-  heroList: [] as HeroInfo[]
+  heroList: [] as HeroInfo[],
+  dialogVisible: false,
 })
 const getHeroList = async () => {
   state.heroList = await getNFTList()
   console.log(state.heroList)
 }
 getHeroList()
-const { heroList } = toRefs(state)
+const confirm = (value) => {
+  console.log(value)
+}
+const { heroList, dialogVisible } = toRefs(state)
 </script>
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
-    <div class="layout-1200">
+    <div class="layout-1200"><button @click="dialogVisible = !dialogVisible">xxx</button>
       <div class="resources">
         <ResourcesCollection></ResourcesCollection>
       </div>
@@ -44,7 +48,7 @@ const { heroList } = toRefs(state)
 <!--        <HeroCard class="owner-mining" :mining="'start'"></HeroCard>-->
       </div>
     </div>
-    <select-hero :hero-list="heroList" title="Select the hero NFT that can dig XXX resources"></select-hero>
+    <select-hero :dialog-visible="dialogVisible" :hero-list="heroList" @confirm="confirm" title="Select the hero NFT that can dig XXX resources"></select-hero>
   </div>
 </template>
 
