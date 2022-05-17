@@ -10,7 +10,7 @@ const prefixCls = useNamespace('layout')
 <template>
   <div :class="prefixCls.multiPrefixCls">
     <Header></Header>
-    <main>
+    <main v-loading="getLoading().value">
       <router-view></router-view>
     </main>
     <Footer></Footer>
@@ -26,6 +26,9 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   main {
     min-height: calc(100vh - 412px);
     background: #a9e1f2;
+    ::v-deep(.el-loading-mask) {
+      display: none;
+    }
   }
 }
 </style>

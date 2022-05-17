@@ -8,11 +8,14 @@ export function useLoading() {
   }
   function setLoading(value: boolean) {
     globalLoading.value = value
-    ElLoading.service({
+    const loading = ElLoading.service({
       lock: true,
       text: 'Loading',
       background: 'rgba(255,255,255,0.8)'
     })
+    if (!globalLoading.value) {
+      loading.close()
+    }
   }
   return {
     getLoading,
