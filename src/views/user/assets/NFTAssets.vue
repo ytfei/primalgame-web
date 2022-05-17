@@ -16,9 +16,11 @@ const state = reactive({
 })
 const getNFTAssets = (async () => {
   setLoading(true)
+  console.log(getLoading().value)
   const result = await getNFTList()
   state.heroList = result
-  setLoading(false)
+  await setLoading(false)
+  console.log(getLoading().value)
 })
 onMounted(() => {
   getNFTAssets()
@@ -31,7 +33,7 @@ const { nftType, nftStatus, heroList } = toRefs(state)
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
-    <Button @click="testss">{{ getLoading }}</Button>
+    <Button @click="testss">{{ getLoading().value }}</Button>
     <div class="nft-type-content">
       <div class="nft-type">
         <Button

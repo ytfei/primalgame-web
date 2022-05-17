@@ -1,14 +1,16 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
+import { useLoading } from 'src/hooks/useLoading'
 import Header from './CommonHeader.vue'
 import Footer from './CommonFooter.vue'
+const { getLoading } = useLoading()
 const prefixCls = useNamespace('layout')
 </script>
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
     <Header></Header>
-    <main v-loading="false">
+    <main>
       <router-view></router-view>
     </main>
     <Footer></Footer>

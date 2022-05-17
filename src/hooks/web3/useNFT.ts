@@ -37,7 +37,7 @@ export function useNFT () {
               result.stamina = res.stamina
               result.rarity = RarityEnum[res.rarity]
               result.faction = FactionEnum[res.faction]
-              result.element = ElementEnum[res.element]
+              result.element = ElementEnum[res.element].toLowerCase()
               res.attrs.forEach((item: string, index: number) => {
                 result.attrs[AttrEnum[index].toLowerCase()] = item
               })
