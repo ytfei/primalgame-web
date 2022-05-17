@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { useNamespace } from 'hooks/useCommon'
 import CommonTitle from 'comps/CommonTitle.vue'
-import HeroCard from '../../user/assets/HeroCard.vue'
 import MiningCard from './MiningCard.vue'
 import ResourcesCollection from 'comps/ResourcesCollection.vue'
 import SelectHero from '../SelectHero.vue'
-import { getNFTList } from 'src/hooks/web3/useNFT'
+import { useNFT } from 'src/hooks/web3/useNFT'
+import { reactive, toRefs } from 'vue'
+import { HeroInfo } from 'types/store'
 
+const { getNFTList } = useNFT()
 const minePool = [
   { type: 'wind', value: 0 },
   { type: 'life', value: 1 },
@@ -16,6 +18,15 @@ const minePool = [
   { type: 'Source', value: 5 },
 ]
 const prefixCls = useNamespace('mining-home')
+const state = reactive({
+  heroList: [] as HeroInfo[]
+})
+const getHeroList = async () => {
+  state.heroList = await getNFTList()
+  console.log(state.heroList)
+}
+getHeroList()
+const { heroList } = toRefs(state)
 </script>
 
 <template>
@@ -26,16 +37,14 @@ const prefixCls = useNamespace('mining-home')
       </div>
       <CommonTitle>Diggings</CommonTitle>
       <div class="mining-area">
-        <div class="card-min" v-for="(item, index) in minePool" :key="index">
-          <MiningCard></MiningCard>
-        </div>
+        <MiningCard class="mining-card" v-for="(item, index) in minePool" :key="index"></MiningCard>
       </div>
       <CommonTitle>Mine NFT</CommonTitle>
       <div class="nft-mining">
-        <HeroCard class="owner-mining" :mining="'start'"></HeroCard>
+<!--        <HeroCard class="owner-mining" :mining="'start'"></HeroCard>-->
       </div>
     </div>
-    <select-hero title="Select the hero NFT that can dig XXX resources"></select-hero>
+    <select-hero :hero-list="heroList" title="Select the hero NFT that can dig XXX resources"></select-hero>
   </div>
 </template>
 
@@ -52,8 +61,8 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     justify-content: space-between;
     flex-flow: row wrap;
     align-items: center;
-    margin: 40px 0px 70px;
-    .card-min {
+    margin: 40px 0 70px;
+    .mining-card {
       margin-bottom: 23px;
     }
   }

@@ -7,3 +7,13 @@ export interface UserInfo {
   homePath?: string
   roles: []
 }
+
+export interface HeroInfo {
+  tokenId: string
+  attrs: any
+  element: string
+  faction: string
+  rarity: string
+  skills: any
+  stamina: string
+}

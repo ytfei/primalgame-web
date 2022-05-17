@@ -20,7 +20,7 @@ const { data } = toRefs(props)
 </script>
 
 <template>
-  <div :class="prefixCls.multiPrefixCls">
+  <div :class="prefixCls.multiPrefixCls">{{ data.stamina }}
     <div class="img-content">
       <div class="nft-img"></div>
       <div class="heart">
