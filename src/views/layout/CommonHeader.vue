@@ -8,7 +8,7 @@ const router = useRouter()
 const route = useRoute()
 const { hideSensitive } = useTools()
 const { onConnect, resetWallet, account } = useWallet()
-const isConnected = JSON.parse(localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER') || '')
+const isConnected = JSON.parse(localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER') || 'null')
 const connect = async () => {
   await onConnect()
 }
