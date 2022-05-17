@@ -22,7 +22,7 @@ interface ErrorInfo extends Error {
   code: number
 }
 
-interface HeroList {
+declare interface HeroList {
   attrs: any,
   element: string,
   faction: string,

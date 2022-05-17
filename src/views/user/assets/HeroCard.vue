@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
 import Heart from 'comps/Heart.vue'
+import { toRefs } from 'vue'
 const prefixCls = useNamespace('hero-card')
 
-defineProps({
+const props = defineProps({
   mining: {
     type: String,
     default: 'stop' // stop, start
-  }
+  },
+  data: {
+    type: Object as any,
+    required: true
+  },
 })
+console.log(props.data)
+const { data } = toRefs(props)
 </script>
 
 <template>
@@ -16,13 +23,13 @@ defineProps({
     <div class="img-content">
       <div class="nft-img"></div>
       <div class="heart">
-        <Heart :quantity="4"></Heart>
+        <Heart :quantity="parseInt(data.stamina)"></Heart>
       </div>
       <div class="element">
         <img src="src/assets/img/assets/fire.webp" alt="" />
       </div>
-      <div class="attack"><span>5</span></div>
-      <div class="life"><span>8</span></div>
+      <div class="attack"><span>{{data.attrs.Attack}}</span></div>
+      <div class="life"><span>{{data.attrs.Hp}}</span></div>
     </div>
     <div class="text-content">
       <div class="names">

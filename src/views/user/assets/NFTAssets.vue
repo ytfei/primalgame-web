@@ -2,19 +2,24 @@
 import { useNamespace } from 'src/hooks/useCommon'
 import { useNFT } from 'hooks/web3/useNFT'
 import Button from 'comps/Button.vue'
-import { reactive, toRefs } from 'vue'
+import { onMounted, reactive, toRefs } from 'vue'
 import HeroCard from './HeroCard.vue'
 import ElementCard from './ElementCard.vue'
 const prefixCls = useNamespace('nft-assets')
+const { getNFTList } = useNFT()
 const state = reactive({
   nftType: 'hero',
-  nftStatus: 'Left'
+  nftStatus: 'Left',
+  heroList: [] as any
 })
-const { getNFTList } = useNFT()
-getNFTList().then((res: object[]) => {
-  console.log(res)
+const getNFTAssets = (async () => {
+  const result = await getNFTList()
+  state.heroList = result
 })
-const { nftType, nftStatus } = toRefs(state)
+onMounted(() => {
+  getNFTAssets()
+})
+const { nftType, nftStatus, heroList } = toRefs(state)
 </script>
 
 <template>
@@ -55,8 +60,8 @@ const { nftType, nftStatus } = toRefs(state)
         </div>
       </div>
     </div>
-    <div class="nft-card-content" v-if="false">
-      <HeroCard v-if="nftType === 'hero'"></HeroCard>
+    <div class="nft-card-content" v-if="heroList.length > 0">
+      <HeroCard v-for="(item, index) in heroList" :data="item" :key="index" v-if="nftType === 'hero'"></HeroCard>
       <ElementCard v-else></ElementCard>
     </div>
     <div class="nft-no-data" v-else>
