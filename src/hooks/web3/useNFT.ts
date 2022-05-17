@@ -2,7 +2,7 @@ import { useWallet } from "src/hooks/web3/useWallet";
 import { contractAbiMap, ContractAbiTypeEnum } from "src/enums/contractAbiEnum";
 import { computed } from "vue";
 import { errorHandel } from "hooks/web3/utils";
-import { AttrEnum, SkillEnum } from "src/enums/assetsEnum";
+import { AttrEnum, SkillEnum, RarityEnum, FactionEnum, ElementEnum } from "src/enums/assetsEnum";
 
 const { web3, onConnect } = useWallet()
 const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.NFT) as string)
@@ -25,10 +25,19 @@ export function useNFT () {
           for (const [index, value] of res.entries()) {
             let newObject: any = {}
             await getInfo(value).then((res: any) => {
-              const result: Indexable = {
+              const result: HeroList = {
                 attrs: {},
-                skills: {}
+                skills: {},
+                stamina: '',
+                rarity: '',
+                faction: '',
+                element: ''
               }
+              console.log(res)
+              result.stamina = res.stamina
+              result.rarity = RarityEnum[res.rarity]
+              result.faction = FactionEnum[res.faction]
+              result.element = ElementEnum[res.element]
               res.attrs.forEach((item: string, index: number) => {
                 result.attrs[AttrEnum[index]] = item
               })
