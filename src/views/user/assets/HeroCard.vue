@@ -29,8 +29,8 @@ const { data } = toRefs(props)
       <div class="element">
         <img :src="getSrc(`assets/element/${data.element}.webp`)" alt="" />
       </div>
-      <div class="attack"><span>{{data.attrs.Attack}}</span></div>
-      <div class="life"><span>{{data.attrs.Hp}}</span></div>
+      <div class="attack"><span>{{data.attrs.attack}}</span></div>
+      <div class="life"><span>{{data.attrs.hp}}</span></div>
     </div>
     <div class="text-content">
       <div class="names">

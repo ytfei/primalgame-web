@@ -8,7 +8,7 @@ const prefixCls = useNamespace('layout')
 <template>
   <div :class="prefixCls.multiPrefixCls">
     <Header></Header>
-    <main>
+    <main v-loading="false">
       <router-view></router-view>
     </main>
     <Footer></Footer>

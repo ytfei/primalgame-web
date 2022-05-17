@@ -39,7 +39,7 @@ export function useNFT () {
               result.faction = FactionEnum[res.faction]
               result.element = ElementEnum[res.element]
               res.attrs.forEach((item: string, index: number) => {
-                result.attrs[AttrEnum[index]] = item
+                result.attrs[AttrEnum[index].toLowerCase()] = item
               })
               res.exists.forEach((item: string, index: number) => {
                 item === '1' && result.skills.push(SkillEnum[index])

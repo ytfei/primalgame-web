@@ -5,6 +5,8 @@ import Button from 'comps/Button.vue'
 import { onMounted, reactive, toRefs } from 'vue'
 import HeroCard from './HeroCard.vue'
 import ElementCard from './ElementCard.vue'
+import { useLoading } from 'src/hooks/useLoading'
+const { setLoading, getLoading } = useLoading()
 const prefixCls = useNamespace('nft-assets')
 const { getNFTList } = useNFT()
 const state = reactive({
@@ -13,17 +15,23 @@ const state = reactive({
   heroList: [] as any
 })
 const getNFTAssets = (async () => {
+  setLoading(true)
   const result = await getNFTList()
   state.heroList = result
+  setLoading(false)
 })
 onMounted(() => {
   getNFTAssets()
+})
+const testss = (() => {
+  setLoading(true)
 })
 const { nftType, nftStatus, heroList } = toRefs(state)
 </script>
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
+    <Button @click="testss">{{ getLoading }}</Button>
     <div class="nft-type-content">
       <div class="nft-type">
         <Button
@@ -61,8 +69,12 @@ const { nftType, nftStatus, heroList } = toRefs(state)
       </div>
     </div>
     <div class="nft-card-content" v-if="heroList.length > 0">
-      <HeroCard v-for="(item, index) in heroList" :data="item" :key="index" v-if="nftType === 'hero'"></HeroCard>
-      <ElementCard v-else></ElementCard>
+      <template v-if="nftType === 'hero'">
+        <HeroCard v-for="(item, index) in heroList" :data="item" :key="index"></HeroCard>
+      </template>
+      <template v-else>
+        <ElementCard></ElementCard>
+      </template>
     </div>
     <div class="nft-no-data" v-else>
       No NFT assets,you can go to the <span>event</span> page to buy <br /> blind box,open NFT can also buy hero NFT through<br /><span>the trade market</span>
