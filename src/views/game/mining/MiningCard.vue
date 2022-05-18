@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useNamespace } from 'hooks/useCommon'
+import SelectHero from '../SelectHero.vue'
 
 const prefixCls = useNamespace('mining-card')
 </script>
@@ -24,6 +25,7 @@ const prefixCls = useNamespace('mining-card')
         <div class="mining-button">Mining</div>
       </div>
     </div>
+    <select-hero :dialog-visible="dialogVisible" :hero-list="heroList" @confirm="confirm" title="Select the hero NFT that can dig XXX resources"></select-hero>
   </div>
 </template>
 

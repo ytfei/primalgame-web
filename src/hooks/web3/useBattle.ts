@@ -4,8 +4,8 @@ import { computed } from "vue";
 import { errorHandel } from "hooks/web3/utils";
 
 const { web3, checkConnect } = useWallet()
-const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.NFT) as string)
-const contract = import.meta.env.VITE_NFT_CONTRACT_ADDRESS as string
+const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.BATTLE) as string)
+const contract = import.meta.env.VITE_BATTLE_CONTRACT_ADDRESS as string
 
 export function useBattle () {
   const instance = computed( () => {
