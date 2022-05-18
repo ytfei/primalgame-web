@@ -23,10 +23,8 @@ const props = defineProps({
   },
   attrType: {
     type: String
-  },
-  attack: {
-    type: Boolean
   }
+
 })
 const emits = defineEmits(['confirm', 'update:dialog-visible'])
 const state = reactive({
@@ -37,9 +35,16 @@ const selectedHero = computed(() => {
   return props.heroList.find((hero: HeroInfo) => hero.tokenId === state.selectedTokenId)
 })
 const filterHeroList = computed(() => {
-  return props.attrType
-    ? props.heroList.filter((hero: HeroInfo) => hero.element === props.attrType)
-    : props.heroList
+  console.log(props.heroList)
+  // props.heroList?.forEach((hero: HeroInfo) => {
+  //   console.log(hero.skills)
+  // })
+  if (!props.attrType) {
+    return props.heroList
+  }
+  return  props.heroList.filter((hero: HeroInfo) =>  {
+    return hero.skills.some((skill: string) => skill.indexOf(props.attrType || 'null') !== -1)
+  })
 })
 const onClick = () => {
   emits('confirm', toRaw(selectedHero.value))

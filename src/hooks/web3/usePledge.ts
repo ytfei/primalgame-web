@@ -32,21 +32,27 @@ export function usePledge () {
 
   const stake = async (tokenId: string, poolType: number) => {
     const [account] = await web3.value.eth.getAccounts()
-    const gas = await instance.value.methods.stake(tokenId, poolType).estimateGas({ from: account })
-    console.log(gas)
-    // return new Promise((resolve, reject) => {
-    //   instance.value.methods
-    //     .stake(tokenId, poolType)
-    //     .send({ from: account })
-    //     .then((res: any) => {
-    //       resolve(res)
-    //     })
-    //     .catch((error: Error) => {
-    //       errorHandel(error, (errorInfo: ErrorInfo) => {
-    //         reject(errorInfo)
-    //       })
-    //     })
+    // const gas = await instance.value.methods.stake(tokenId, poolType).estimateGas({ from: account },
+    //   (error: Error, amount: number) => {
+    //     console.log(error, amount)
+    //   }).then((res: any) => {
+    //   console.log(res)
+    //   return res
     // })
+    // console.log(gas)
+    return new Promise((resolve, reject) => {
+      instance.value.methods
+        .stake(tokenId, poolType)
+        .send({ from: account })
+        .then((res: any) => {
+          resolve(res)
+        })
+        .catch((error: Error) => {
+          errorHandel(error, (errorInfo: ErrorInfo) => {
+            reject(errorInfo)
+          })
+        })
+    })
   }
   const unStake = async (tokenId: string, poolType: number) => {
     const [account] = await web3.value.eth.getAccounts()

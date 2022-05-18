@@ -22,9 +22,13 @@ const props = defineProps({
 })
 const state = reactive({
   dialogVisible: false,
+  isAttack: true,
 })
+const attack = () => {
+  state.isAttack = true
+  state.dialogVisible = true
+}
 const confirm = async (value: HeroInfo) => {
-  console.log(value)
   const isApproved = await getApprovedAll(pledgeAddress)
   if (!isApproved) {
     await approveForAll(pledgeAddress).catch((error: string) => {
@@ -35,7 +39,8 @@ const confirm = async (value: HeroInfo) => {
   await stake(value.tokenId, props.info.value)
   state.dialogVisible = false
 }
-const { dialogVisible } = toRefs(state)
+
+const { dialogVisible, isAttack } = toRefs(state)
 </script>
 
 <template>
@@ -54,7 +59,7 @@ const { dialogVisible } = toRefs(state)
         <h3>12，234，567</h3>
       </div>
       <div class="box-btn">
-        <div class="attack-button" >Attack</div>
+        <div class="attack-button" @click="attack">Attack</div>
         <div class="mining-button" @click="dialogVisible = true">Mining</div>
       </div>
     </div>
@@ -63,7 +68,7 @@ const { dialogVisible } = toRefs(state)
       :hero-list="heroList"
       @confirm="confirm"
       title="Select the hero NFT that can dig XXX resources"
-      :attr-type="$props.info?.type"
+      :attr-type="isAttack ? 'plunder' : $props.info?.type"
     ></select-hero>
   </div>
 </template>

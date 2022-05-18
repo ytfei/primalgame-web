@@ -6,11 +6,9 @@ import { errorHandel } from "hooks/web3/utils";
 
 const { web3 } = useWallet()
 const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.ERC20) as string)
-type ERC20ContractType = 'mtee' | 'hgc' | 'busd'
+type ERC20ContractType = 'currency'
 const contracts = {
-  mtee: import.meta.env.VITE_MTEE_CONTRACT_ADDRESS as string,
-  hgc: import.meta.env.VITE_HGC_CONTRACT_ADDRESS as string,
-  busd: import.meta.env.VITE_BUSD_CONTRACT_ADDRESS as string
+  currency: import.meta.env.VITE_CURRENCY_CONTRACT_ADDRESS as string,
 } as Indexable
 
 export function useERC20 (contractType: ERC20ContractType) {

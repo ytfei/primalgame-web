@@ -44,7 +44,7 @@ export function useNFT () {
                 result.attrs[AttrEnum[index].toLowerCase()] = item
               })
               res.exists.forEach((item: string, index: number) => {
-                item === '1' && result.skills.push(SkillEnum[index])
+                item === '1' && result.skills.push(SkillEnum[index].toLowerCase())
               })
               return result
             })
