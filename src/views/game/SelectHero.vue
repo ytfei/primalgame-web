@@ -66,11 +66,11 @@ const { heroList, dialogVisible } = toRefs(props)
     >
       <div class="container">
         <div v-if="enemyInfo" class="hero-card-wrapper">
-          <div class="hero-card-title">xxxx</div>
-          <HeroCard></HeroCard>
+          <div class="hero-card-title">Opposite enemy</div>
+          <HeroCard :hero="enemyInfo"></HeroCard>
         </div>
         <div class="hero-card-wrapper">
-          <div class="hero-card-title">Heroes in the second round</div>
+          <div class="hero-card-title">War hero</div>
           <HeroCard :hero="selectedHero"></HeroCard>
         </div>
         <div class="hero-list-wrapper">

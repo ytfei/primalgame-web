@@ -2,31 +2,89 @@
 import { useNamespace } from 'src/hooks/useCommon'
 import { getSrc } from 'src/utils/utils'
 import { useBattle } from 'hooks/web3/useBattle'
+import { useNFT } from 'hooks/web3/useNFT'
+import { useLoading } from 'src/hooks/useLoading'
+import { useWallet } from 'hooks/web3/useWallet'
 import CommonTitle from 'comps/CommonTitle.vue'
 import ResourcesCollection from 'comps/ResourcesCollection.vue'
 import BattlefieldReport from 'comps/BattlefieldReport.vue'
 import HeroCard from '../HeroCard.vue'
-const { get1V1Enemies } = useBattle()
-const prefixCls = useNamespace('pve-wild-monster')
-const get1V1EnemiesList = (() => {
-  get1V1Enemies()
+import SelectHero from '../SelectHero.vue'
+import { HeroInfo, ResourceInfo } from 'types/store'
+import { onMounted, reactive, toRefs } from 'vue'
+import { useERC20 } from 'hooks/web3/useErc20'
+const battleAddress = import.meta.env.VITE_BATTLE_CONTRACT_ADDRESS as string
+const { approve } = useERC20('currency')
+const { account } = useWallet()
+const state = reactive({
+  heroList: [] as HeroInfo[],
+  enemyList: [] as HeroInfo[],
+  dialogVisible: false,
+  enemyInfo: {} as HeroInfo,
+  resourceInfo: {} as ResourceInfo
 })
-// get1V1EnemiesList()
+const { setLoading } = useLoading()
+const { getNFTList, getApprovedAll, approveForAll } = useNFT()
+const { get1V1Enemies, refresh1V1, battle1V1, getRewardInfo } = useBattle()
+const prefixCls = useNamespace('pve-wild-monster')
+const get1V1EnemiesList = (async () => {
+  const data: any = await get1V1Enemies()
+  state.enemyList = data
+})
+const getNFTAssets = (async () => {
+  setLoading(true)
+  const result = await getNFTList()
+  console.log(result)
+  state.heroList = result
+  await get1V1EnemiesList()
+  await getPendingReward()
+  await setLoading(false)
+})
+const refresh1v1 = (async () => {
+  const isApproved = await approve(battleAddress, 1000)
+  await refresh1V1()
+})
+const getPendingReward = (async () => {
+  const data: any = await getRewardInfo()
+  state.resourceInfo = data
+  console.log(data, 9696969)
+})
+const attack = ((enemyInfo: HeroInfo) => {
+  if (enemyInfo.status === '0') {
+    state.dialogVisible = true
+    console.log(state.dialogVisible)
+    state.enemyInfo = enemyInfo
+  }
+})
+const onClick = (async (selectedHero: HeroInfo) => {
+  const isApproved = await getApprovedAll(battleAddress)
+  if (!isApproved) {
+    await approveForAll(battleAddress).catch((error: string) => {
+      throw new Error(error)
+    })
+  }
+  await battle1V1(selectedHero.tokenId, state.enemyInfo.tokenId)
+  console.log(selectedHero)
+})
+onMounted(async () => {
+  await getNFTAssets()
+})
+const { heroList, enemyList, dialogVisible, enemyInfo, resourceInfo } = toRefs(state)
 </script>
 
 <template>
   <div :class="prefixCls.multiPrefixCls" class="layout-1200">
-    <ResourcesCollection></ResourcesCollection>
+    <ResourcesCollection :resourceInfo="resourceInfo"></ResourcesCollection>
     <div class="title">
       <CommonTitle>Current enemy</CommonTitle>
-      <img class="refresh" :src="getSrc('game/refresh.webp')" alt="">
+      <img @click="refresh1v1" class="refresh" :src="getSrc('game/refresh.webp')" alt="">
     </div>
     <div class="wild-monster-content">
-      <div v-for="item in 3" class="wild-monster-box">
-        <HeroCard size="large"></HeroCard>
+      <div v-for="(item, index) in enemyList" :key="index" class="wild-monster-box">
+        <HeroCard size="large" :hero="item"></HeroCard>
         <div class="wild-monster-tips">Water element may fall * 2000</div>
         <div class="attack">
-          <Button>Attack</Button>
+          <Button :disabled="item.status === '1'" @click="attack(item)">Attack</Button>
         </div>
       </div>
     </div>
@@ -36,6 +94,7 @@ const get1V1EnemiesList = (() => {
     <div class="battlefield-report">
       <BattlefieldReport></BattlefieldReport>
     </div>
+    <SelectHero @confirm="onClick" :dialogVisible="dialogVisible" :heroList="heroList" :enemyInfo="enemyInfo" :title="`Select the hero NFT that can be plundered by random ore pool`"></SelectHero>
   </div>
 </template>
 

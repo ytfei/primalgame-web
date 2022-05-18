@@ -32,10 +32,10 @@ export function useERC20 (contractType: ERC20ContractType) {
   }
   async function approve (address: string, price: number) {
     const [account] = await web3.value.eth.getAccounts()
-    const balance = await getBalance(account)
-    if (Number.parseFloat(balance) < price) {
-      return Promise.reject(new Error('Insufficient balance'))
-    }
+    // const balance = await getBalance(account)
+    // if (Number.parseFloat(balance) < price) {
+    //   return Promise.reject(new Error('Insufficient balance'))
+    // }
     return new Promise((resolve, reject) => {
       erc20Instance.value.methods
         .approve(address, (utils.toWei(price.toString())))

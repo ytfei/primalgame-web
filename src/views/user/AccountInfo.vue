@@ -1,24 +1,25 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
+import { useWallet } from 'hooks/web3/useWallet'
+import { useTools } from 'hooks/useTools'
 import Button from 'comps/Button.vue'
+const { hideSensitive } = useTools()
 const prefixCls = useNamespace('account')
-const tests = () => {
-  console.log(66666)
-}
+const { account } = useWallet()
 </script>
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
     <div class="account">
       <div class="avatar"></div>
-      <span>0x21d21d…3d5vg</span>
+      <span>{{ hideSensitive(account, 4, 4) }}</span>
     </div>
     <div class="currency-content">
       <div class="currency">
         <div class="balance">200.00</div>
         <div class="caption">Game currency</div>
       </div>
-      <Button class="exchange" @click="tests">Exchange</Button>
+      <Button class="exchange">Exchange</Button>
     </div>
   </div>
 </template>

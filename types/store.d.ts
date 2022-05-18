@@ -16,4 +16,13 @@ export interface HeroInfo {
   rarity: string
   skills: any
   stamina: string
+  status?: string  // 野怪击败状态
+}
+
+export interface ResourceInfo {
+  earth: string
+  fire: string
+  source: string
+  water: string
+  wind: string
 }

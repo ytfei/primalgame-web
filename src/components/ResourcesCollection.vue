@@ -37,12 +37,20 @@ const state = reactive({
     }
   ]
 })
+const props = defineProps({
+  resourceInfo: {
+    type: Object,
+    required: true
+  }
+})
 const { elementList } = toRefs(state)
+const { resourceInfo } = toRefs(props)
 </script>
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
     <div class="title">Reward resources</div>
+    {{ resourceInfo.life }}
     <div class="element">
       <div class="element-content">
         <div class="element-box" v-for="(item, index) in elementList" :key="index">

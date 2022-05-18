@@ -42,7 +42,7 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   .button {
     width: 100%;
     background-image: url('src/assets/img/button/button.webp');
-    color: #b9720c;
+    color: #FFFFFF;
     height: 100%;
     background-size: 100% 100%;
     border: none;

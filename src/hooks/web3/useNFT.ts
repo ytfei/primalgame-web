@@ -1,8 +1,8 @@
 import { useWallet } from "src/hooks/web3/useWallet";
 import { contractAbiMap, ContractAbiTypeEnum } from "src/enums/contractAbiEnum";
 import { computed } from "vue";
-import { errorHandel } from "hooks/web3/utils";
-import { AttrEnum, SkillEnum, RarityEnum, FactionEnum, ElementEnum } from "src/enums/assetsEnum";
+import { errorHandel, getNFTCardList } from "hooks/web3/utils";
+import { AttrEnum, SkillEnum } from "src/enums/assetsEnum";
 import { HeroInfo } from 'types/store'
 
 const { web3, checkConnect } = useWallet()
@@ -22,35 +22,7 @@ export function useNFT () {
         .getOwnedTokens(account)
         .call()
         .then(async (res: any) => {
-          console.log(res)
-          const newArray: HeroInfo[] = []
-          for (const tokenId of res) {
-            const heroInfo = await getInfo(tokenId).then((res: any) => {
-              const result: HeroInfo = {
-                tokenId: '',
-                attrs: {},
-                skills: [],
-                stamina: '',
-                rarity: '',
-                faction: '',
-                element: ''
-              }
-              result.tokenId = tokenId
-              result.stamina = res.stamina
-              result.rarity = RarityEnum[res.rarity]
-              result.faction = FactionEnum[res.faction]
-              result.element = ElementEnum[res.element].toLowerCase()
-              res.attrs.forEach((item: string, index: number) => {
-                result.attrs[AttrEnum[index].toLowerCase()] = item
-              })
-              res.exists.forEach((item: string, index: number) => {
-                item === '1' && result.skills.push(SkillEnum[index].toLowerCase())
-              })
-              return result
-            })
-            newArray.push(heroInfo)
-          }
-          console.log(newArray)
+          const newArray: any = await getNFTCardList(res)
           resolve(newArray)
         })
         .catch((error: Error) => {
