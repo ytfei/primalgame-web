@@ -79,7 +79,7 @@ export function useNFT () {
         })
     })
   }
-  const getAttribute = async (tokenId: number): Promise<object> => {
+  const getAttribute = async (tokenId: string): Promise<object> => {
     return new Promise((resolve, reject) => {
       NFTInstance.value.methods
         .getPrimalAllAttribute(tokenId)
@@ -113,10 +113,45 @@ export function useNFT () {
         })
     })
   }
+
+  const getApprovedAll = async (toAddress: string)  => {
+    const [account] = await web3.value.eth.getAccounts()
+    return new Promise((resolve, reject) => {
+      NFTInstance.value.methods
+        .isApprovedForAll(account, toAddress)
+        .call({})
+        .then((res: string) => {
+          resolve(res)
+        })
+        .catch((error: Error) => {
+          errorHandel(error, (errorInfo: ErrorInfo) => {
+            reject(errorInfo)
+          })
+        })
+    })
+  }
+  const approveForAll = async (address: string) => {
+    const [account] = await web3.value.eth.getAccounts()
+    return new Promise((resolve, reject) => {
+      NFTInstance.value.methods
+        .setApprovalForAll(address, true)
+        .send({ from: account })
+        .then((res: any) => {
+          resolve(res)
+        })
+        .catch((error: Error) => {
+          errorHandel(error, (errorInfo: ErrorInfo) => {
+            reject(errorInfo)
+          })
+        })
+    })
+  }
   return {
     getSkills,
     getAttribute,
     getInfo,
-    getNFTList
+    getNFTList,
+    getApprovedAll,
+    approveForAll
   }
 }

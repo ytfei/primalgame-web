@@ -3,7 +3,6 @@ import { useNamespace } from 'hooks/useCommon'
 import CommonTitle from 'comps/CommonTitle.vue'
 import MiningCard from './MiningCard.vue'
 import ResourcesCollection from 'comps/ResourcesCollection.vue'
-import SelectHero from '../SelectHero.vue'
 import { useNFT } from 'src/hooks/web3/useNFT'
 import { reactive, toRefs } from 'vue'
 import { HeroInfo } from 'types/store'
@@ -20,36 +19,31 @@ const minePool = [
 const prefixCls = useNamespace('mining-home')
 const state = reactive({
   heroList: [] as HeroInfo[],
-  dialogVisible: false,
 })
 const getHeroList = async () => {
   state.heroList = await getNFTList()
   console.log(state.heroList)
 }
 getHeroList()
-const confirm = (value: HeroInfo) => {
-  console.log(value)
-  state.dialogVisible = false
-}
-const { heroList, dialogVisible } = toRefs(state)
+
+const { heroList } = toRefs(state)
 </script>
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
-    <div class="layout-1200"><button @click="dialogVisible = !dialogVisible">xxx</button>
+    <div class="layout-1200">
       <div class="resources">
         <ResourcesCollection></ResourcesCollection>
       </div>
       <CommonTitle>Diggings</CommonTitle>
       <div class="mining-area">
-        <MiningCard class="mining-card" v-for="(item, index) in minePool" :key="index"></MiningCard>
+        <MiningCard :info="item" :hero-list="heroList" class="mining-card" v-for="(item, index) in minePool" :key="index"></MiningCard>
       </div>
       <CommonTitle>Mine NFT</CommonTitle>
       <div class="nft-mining">
 <!--        <HeroCard class="owner-mining" :mining="'start'"></HeroCard>-->
       </div>
     </div>
-    <select-hero :dialog-visible="dialogVisible" :hero-list="heroList" @confirm="confirm" title="Select the hero NFT that can dig XXX resources"></select-hero>
   </div>
 </template>
 

@@ -1,8 +1,41 @@
 <script setup lang="ts">
 import { useNamespace } from 'hooks/useCommon'
 import SelectHero from '../SelectHero.vue'
+import { reactive, toRefs, PropType } from 'vue'
+import { HeroInfo } from 'types/store'
+import { useNFT } from 'hooks/web3/useNFT'
+import { usePledge } from 'hooks/web3/usePledge'
 
+const pledgeAddress = import.meta.env.VITE_PLEDGE_CONTRACT_ADDRESS as string
+const { getApprovedAll, approveForAll } = useNFT()
+const { stake } = usePledge()
 const prefixCls = useNamespace('mining-card')
+const props = defineProps({
+  info: {
+    type: Object as PropType<{ type: string, value: number }>,
+    required: true,
+  },
+  heroList: {
+    type: Array as PropType<HeroInfo[]>,
+    required: true
+  }
+})
+const state = reactive({
+  dialogVisible: false,
+})
+const confirm = async (value: HeroInfo) => {
+  console.log(value)
+  const isApproved = await getApprovedAll(pledgeAddress)
+  if (!isApproved) {
+    await approveForAll(pledgeAddress).catch((error: string) => {
+      throw new Error(error)
+    })
+  }
+  console.log(value.tokenId, props.info.value)
+  await stake(value.tokenId, props.info.value)
+  state.dialogVisible = false
+}
+const { dialogVisible } = toRefs(state)
 </script>
 
 <template>
@@ -21,11 +54,17 @@ const prefixCls = useNamespace('mining-card')
         <h3>12，234，567</h3>
       </div>
       <div class="box-btn">
-        <div class="attack-button">Attack</div>
-        <div class="mining-button">Mining</div>
+        <div class="attack-button" >Attack</div>
+        <div class="mining-button" @click="dialogVisible = true">Mining</div>
       </div>
     </div>
-    <select-hero :dialog-visible="dialogVisible" :hero-list="heroList" @confirm="confirm" title="Select the hero NFT that can dig XXX resources"></select-hero>
+    <select-hero
+      v-model:dialog-visible="dialogVisible"
+      :hero-list="heroList"
+      @confirm="confirm"
+      title="Select the hero NFT that can dig XXX resources"
+      :attr-type="$props.info?.type"
+    ></select-hero>
   </div>
 </template>
 
@@ -60,12 +99,12 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   }
   .box-production,
   .box-number {
-    margin: 9px 0px;
+    margin: 9px 0;
     display: flex;
     justify-content: start;
 
     h3 {
-      margin: 0px 10px;
+      margin: 0 10px;
       font-size: 12px;
       font-weight: normal;
       color: #8d5513;

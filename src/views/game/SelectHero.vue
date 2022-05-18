@@ -20,9 +20,15 @@ const props = defineProps({
   },
   enemyInfo: {
     type: Object,
+  },
+  attrType: {
+    type: String
+  },
+  attack: {
+    type: Boolean
   }
 })
-const emits = defineEmits(['confirm'])
+const emits = defineEmits(['confirm', 'update:dialog-visible'])
 const state = reactive({
   dialog: true,
   selectedTokenId: ''
@@ -30,8 +36,16 @@ const state = reactive({
 const selectedHero = computed(() => {
   return props.heroList.find((hero: HeroInfo) => hero.tokenId === state.selectedTokenId)
 })
+const filterHeroList = computed(() => {
+  return props.attrType
+    ? props.heroList.filter((hero: HeroInfo) => hero.element === props.attrType)
+    : props.heroList
+})
 const onClick = () => {
   emits('confirm', toRaw(selectedHero.value))
+}
+const onClose = () => {
+  emits('update:dialog-visible', false)
 }
 const { selectedTokenId } = toRefs(state)
 const { heroList, dialogVisible } = toRefs(props)
@@ -39,7 +53,12 @@ const { heroList, dialogVisible } = toRefs(props)
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
-    <el-dialog :width="enemyInfo ? '900px' : '620px'" :model-value="dialogVisible" :title="$props.title">
+    <el-dialog
+      :width="enemyInfo ? '900px' : '620px'"
+      :model-value="dialogVisible"
+      :title="$props.title"
+      @close="onClose"
+    >
       <div class="container">
         <div v-if="enemyInfo" class="hero-card-wrapper">
           <div class="hero-card-title">xxxx</div>
@@ -53,7 +72,7 @@ const { heroList, dialogVisible } = toRefs(props)
           <div class="hero-list">
             <el-scrollbar height="320px">
               <el-radio
-                v-for="item in heroList" :key="item.tokenId"
+                v-for="item in filterHeroList" :key="item.tokenId"
                 class="hero-list-item"
                 v-model="selectedTokenId"
                 :label="item.tokenId"

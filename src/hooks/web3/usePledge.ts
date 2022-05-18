@@ -30,23 +30,25 @@ export function usePledge () {
     })
   }
 
-  const stake = async (tokenId: number, poolType: number) => {
+  const stake = async (tokenId: string, poolType: number) => {
     const [account] = await web3.value.eth.getAccounts()
-    return new Promise((resolve, reject) => {
-      instance.value.methods
-        .stake(tokenId, poolType)
-        .send({ from: account })
-        .then((res: any) => {
-          resolve(res)
-        })
-        .catch((error: Error) => {
-          errorHandel(error, (errorInfo: ErrorInfo) => {
-            reject(errorInfo)
-          })
-        })
-    })
+    const gas = await instance.value.methods.stake(tokenId, poolType).estimateGas({ from: account })
+    console.log(gas)
+    // return new Promise((resolve, reject) => {
+    //   instance.value.methods
+    //     .stake(tokenId, poolType)
+    //     .send({ from: account })
+    //     .then((res: any) => {
+    //       resolve(res)
+    //     })
+    //     .catch((error: Error) => {
+    //       errorHandel(error, (errorInfo: ErrorInfo) => {
+    //         reject(errorInfo)
+    //       })
+    //     })
+    // })
   }
-  const unStake = async (tokenId: number, poolType: number) => {
+  const unStake = async (tokenId: string, poolType: number) => {
     const [account] = await web3.value.eth.getAccounts()
     return new Promise((resolve, reject) => {
       instance.value.methods
@@ -94,7 +96,7 @@ export function usePledge () {
         })
     })
   }
-  const plunder = async (tokenId: number, poolType: number) => {
+  const plunder = async (tokenId: string, poolType: number) => {
     const [account] = await web3.value.eth.getAccounts()
     return new Promise((resolve, reject) => {
       instance.value.methods
