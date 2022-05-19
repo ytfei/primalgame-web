@@ -3,9 +3,10 @@ import { contractAbiMap, ContractAbiTypeEnum } from "src/enums/contractAbiEnum";
 import { PoolEnum } from 'src/enums/assetsEnum'
 import { utils } from 'web3/dist/web3.min.js'
 import { computed } from "vue";
+import { useNFT } from 'hooks/web3/useNFT'
 import { errorHandel, getNFTCardList } from "hooks/web3/utils";
 import { ResourceInfo } from 'types/store'
-
+const { getInfo } = useNFT()
 const { web3, checkConnect } = useWallet()
 const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.BATTLE) as string)
 const contract = import.meta.env.VITE_BATTLE_CONTRACT_ADDRESS as string
@@ -50,15 +51,26 @@ export function useBattle () {
         .send({ from: account, gas: gas * 2 })
         .then((res: any) => {
           console.log(res)
+          const result: object[] = []
+          const resultLength = Object.keys(res)
+          if (resultLength.length > 2) { // 有捕获事件
+            for (let i = 0; i < resultLength.length; i++) {
+              let value = null
+              value = web3.value.eth.abi.decodeParameter('bool', res.events[i].raw.data)
+              console.log(value)
+              result.push(value)
+            }
+          } else { // 没有捕获事件
+            for (let i = 0; i < resultLength.length; i++) {
+              let value = null
+              value = web3.value.eth.abi.decodeParameter('bool', res.events[i].raw.data)
+              console.log(value)
+              result.push(value)
+            }
+          }
+          resolve(result)
+          console.log(result)
         })
-        // .on('receipt', function (receipt: any) {
-        //   console.log(receipt)
-        //   const result: object[] = []
-        //   receipt.events.forEach((item: any) => {
-        //     result.push(web3.value.eth.abi.decodeParameter('bool', item.raw.data))
-        //   })
-        //   resolve(result)
-        // })
         .catch((error: Error) => {
           errorHandel(error, (errorInfo: ErrorInfo) => {
             reject(errorInfo)
@@ -110,11 +122,10 @@ export function useBattle () {
         .get1V1Enemies(account)
         .call()
         .then(async (res: any) => {
-          const enemiesList: any = await getNFTCardList(res.enemies)
-          enemiesList.forEach((item: any, index: number) => {
-            item.status = res.defeat[index] // 英雄是否被击败
-          })
-          resolve(enemiesList)
+          console.log(res)
+          const promiseArray = res.enemies.map((tokenId: string) => getInfo(tokenId))
+          const result = await Promise.allSettled(promiseArray)
+          resolve(result.filter((item: any) => item.status === 'fulfilled').map((item: any) => item.value))
         })
         .catch((error: Error) => {
           errorHandel(error, (errorInfo: ErrorInfo) => {

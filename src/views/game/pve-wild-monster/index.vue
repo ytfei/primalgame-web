@@ -29,6 +29,7 @@ const prefixCls = useNamespace('pve-wild-monster')
 const get1V1EnemiesList = (async () => {
   const data: any = await get1V1Enemies()
   state.enemyList = data
+  console.log(state.enemyList)
 })
 const getNFTAssets = (async () => {
   setLoading(true)
@@ -47,13 +48,13 @@ const refresh1v1 = (async () => {
 const getPendingReward = (async () => {
   const data: any = await getRewardInfo()
   state.resourceInfo = data
-  console.log(data, 9696969)
 })
 const get1V1ForFreeStatus = (async () => {
   const status: boolean | unknown = await get1V1ForFree()
   state.freeStatus = status
 })
 const attack = ((enemyInfo: HeroInfo) => {
+  console.log(enemyInfo)
   if (enemyInfo.status === '0') {
     state.dialogVisible = true
     console.log(state.dialogVisible)
@@ -69,7 +70,6 @@ const onClick = (async (selectedHero: HeroInfo) => {
   }
   const data = await battle1V1(selectedHero.tokenId, state.enemyInfo.tokenId)
   console.log(data, 9696969696969)
-  console.log(selectedHero)
 })
 onMounted(async () => {
   await getNFTAssets()
