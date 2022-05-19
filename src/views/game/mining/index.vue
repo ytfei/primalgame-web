@@ -8,7 +8,7 @@ import { reactive, toRefs } from 'vue'
 import { HeroInfo } from 'types/store'
 import HeroCard from 'src/views/user/assets/HeroCard.vue'
 import { usePledge } from 'hooks/web3/usePledge'
-const { getStakeNFTList, unStake } = usePledge()
+const { getStakeNFTList, unStake, pendingReward, takeReward } = usePledge()
 
 const { getNFTList } = useNFT()
 interface MinePoolItem { type: string; value: number }
@@ -25,6 +25,7 @@ const prefixCls = useNamespace('mining-home')
 const state = reactive({
   heroList: [] as HeroInfo[],
   stakeNFTList: [] as StakeNftItem[],
+  reward: {} as any
 })
 const cancelStake = async (item: StakeNftItem) => {
   await unStake(item.tokenId, item.poolType)
@@ -33,7 +34,9 @@ const cancelStake = async (item: StakeNftItem) => {
 const getHeroList = async () => {
   state.heroList = await getNFTList()
 }
-
+const getReward = async () => {
+  state.reward = await pendingReward()
+}
 const getStakeNFT = async () => {
   const requestArray = minePool.map((item: MinePoolItem) => getStakeNFTList(item.value))
   const result = await Promise.allSettled(requestArray)
@@ -43,16 +46,21 @@ const getStakeNFT = async () => {
     .map((item: any) => item.value)
     .flat()
 }
+const onTackReward = async () => {
+  await takeReward()
+  getReward()
+}
 getHeroList()
+getReward()
 getStakeNFT()
-const { heroList, stakeNFTList } = toRefs(state)
+const { heroList, stakeNFTList, reward } = toRefs(state)
 </script>
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
     <div class="layout-1200">
       <div class="resources">
-<!--        <ResourcesCollection></ResourcesCollection>-->
+        <ResourcesCollection :resource-info="reward" :take-reward="onTackReward"></ResourcesCollection>
       </div>
       <CommonTitle>Diggings</CommonTitle>
       <div class="mining-area">

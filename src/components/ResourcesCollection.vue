@@ -2,48 +2,29 @@
 import { useNamespace } from 'src/hooks/useCommon'
 import { getSrc } from 'src/utils/utils'
 import { computed } from 'vue'
+import { useFormat} from 'hooks/useFormat'
+
+const { amountFormat } = useFormat()
 const prefixCls = useNamespace('resources-collection')
 const props = defineProps({
   resourceInfo: {
     type: Object,
     required: true
+  },
+  takeReward: {
+    type: Function,
+    default: () => {}
   }
 })
-const resourceInfos = computed(() => {
-  const elementList: object[] = [
-      {
-        name: 'Life',
-        img: getSrc('game/life.webp'),
-        value: props.resourceInfo.life
-      },
-    {
-      name: 'Fire',
-      img: getSrc('game/fire.webp'),
-    value: props.resourceInfo.fire
-},
-  {
-    name: 'Earth',
-      img: getSrc('game/earth.webp'),
-    value: props.resourceInfo.earth
-  },
-  {
-    name: 'Wind',
-      img: getSrc('game/wind.webp'),
-    value: props.resourceInfo.wind
-  },
-  {
-    name: 'Water',
-      img: getSrc('game/water.webp'),
-    value: props.resourceInfo.water
-  },
-  {
-    name: 'Native skills',
-      img: getSrc('game/native-skills.webp'),
-    value: props.resourceInfo.source
-  }
-]
-  return elementList
-})
+const resourceInfos = computed(() => Object.entries(props.resourceInfo).map(([key, value]) => ({
+  name: key,
+  img: getSrc(`game/${key}.webp`),
+  value
+})))
+
+const onTakeReward = () => {
+  props.takeReward()
+}
 </script>
 
 <template>
@@ -57,11 +38,11 @@ const resourceInfos = computed(() => {
             <span>{{ item.name }}</span>
           </div>
           <div class="box-right">
-            {{ item.value }}
+            {{ amountFormat(item.value, { fractionDigits: 6 }) }}
           </div>
         </div>
       </div>
-      <Button class="extract">
+      <Button @click="onTakeReward" class="extract">
         Extract
       </Button>
     </div>
@@ -94,11 +75,12 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
       .element-box {
         width: 242px;
         height: 70px;
+        padding: 0 20px;
         background-image: url("src/assets/img/game/element-box-back.webp");
         background-size: 100% 100%;
         display: flex;
         align-items: center;
-        padding-left: 26px;
+        justify-content: space-between;
         box-sizing: border-box;
         margin-bottom: 22px;
         .box-left {
@@ -108,11 +90,9 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
             margin-left: 10px;
             font-size: 16px;
             color: #8D5513;
-            width: 63px;
           }
         }
         .box-right {
-          margin-left: 46px;
           font-size: 18px;
           color: #8D5513;
         }
