@@ -125,7 +125,11 @@ export function useBattle () {
           console.log(res)
           const promiseArray = res.enemies.map((tokenId: string) => getInfo(tokenId))
           const result = await Promise.allSettled(promiseArray)
-          resolve(result.filter((item: any) => item.status === 'fulfilled').map((item: any) => item.value))
+          const newResult = result.filter((item: any) => item.status === 'fulfilled').map((item: any) => item.value)
+          res.defeat.forEach((item: string, index: number) => {
+            newResult[index].status = item
+          })
+          resolve(newResult)
         })
         .catch((error: Error) => {
           errorHandel(error, (errorInfo: ErrorInfo) => {
