@@ -1,11 +1,10 @@
 import { useWallet } from "src/hooks/web3/useWallet";
 import { contractAbiMap, ContractAbiTypeEnum } from "src/enums/contractAbiEnum";
 import { PoolEnum } from 'src/enums/assetsEnum'
-import { utils } from 'web3/dist/web3.min.js'
 import { computed } from "vue";
 import { useNFT } from 'hooks/web3/useNFT'
-import { errorHandel, getNFTCardList } from "hooks/web3/utils";
-import { ResourceInfo } from 'types/store'
+import { errorHandel} from "hooks/web3/utils";
+
 const { getInfo } = useNFT()
 const { web3, checkConnect } = useWallet()
 const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.BATTLE) as string)
@@ -51,25 +50,25 @@ export function useBattle () {
         .send({ from: account, gas: gas * 2 })
         .then((res: any) => {
           console.log(res)
-          const result: object[] = []
-          const resultLength = Object.keys(res)
-          if (resultLength.length > 2) { // 有捕获事件
-            for (let i = 0; i < resultLength.length; i++) {
-              let value = null
-              value = web3.value.eth.abi.decodeParameter('bool', res.events[i].raw.data)
-              console.log(value)
-              result.push(value)
-            }
-          } else { // 没有捕获事件
-            for (let i = 0; i < resultLength.length; i++) {
-              let value = null
-              value = web3.value.eth.abi.decodeParameter('bool', res.events[i].raw.data)
-              console.log(value)
-              result.push(value)
-            }
+          const result: any = {}
+          const resultLength = Object.keys(res.events)
+          let value1 = null
+          let value2 = null
+          let value3 = null
+          value1 = web3.value.eth.abi.decodeParameters(['uint', 'uint', 'uint', 'bool', 'bool', 'uint[]'], res.events[0].raw.data)
+          console.log(value1)
+          if (resultLength.length > 2) {
+            value2 = web3.value.eth.abi.decodeParameters(['uint'], res.events[1].raw.data)
+            value3 = web3.value.eth.abi.decodeParameters(['uint256', 'uint256'], res.events[2].raw.data)
+            result.captureSelfId = value3[0]
+            result.captureEnemieId = value3[1]
+          } else {
+            value2 = web3.value.eth.abi.decodeParameters(['uint256', 'uint256'], res.events[1].raw.data)
+            result.captureSelfId = value2[0]
+            result.captureEnemieId = value2[1]
           }
+          result.success = value1[3]
           resolve(result)
-          console.log(result)
         })
         .catch((error: Error) => {
           errorHandel(error, (errorInfo: ErrorInfo) => {

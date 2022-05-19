@@ -9,18 +9,22 @@ import ResourcesCollection from 'comps/ResourcesCollection.vue'
 import BattlefieldReport from 'comps/BattlefieldReport.vue'
 import HeroCard from '../HeroCard.vue'
 import SelectHero from '../SelectHero.vue'
+import { ElMessageBox } from 'element-plus'
+import type { Action } from 'element-plus'
 import { HeroInfo, ResourceInfo } from 'types/store'
 import { onMounted, reactive, toRefs } from 'vue'
 import { useERC20 } from 'hooks/web3/useErc20'
 const battleAddress = import.meta.env.VITE_BATTLE_CONTRACT_ADDRESS as string
 const { approve } = useERC20('currency')
+
 const state = reactive({
   heroList: [] as HeroInfo[],
   enemyList: [] as HeroInfo[],
   dialogVisible: false,
   enemyInfo: {} as HeroInfo,
   resourceInfo: {} as ResourceInfo,
-  freeStatus: true as unknown
+  freeStatus: true as unknown,
+  battleResult: {} as any
 })
 const { setLoading } = useLoading()
 const { getNFTList, getApprovedAll, approveForAll } = useNFT()
@@ -62,17 +66,24 @@ const attack = ((enemyInfo: HeroInfo) => {
   }
 })
 const onClick = (async (selectedHero: HeroInfo) => {
-  const isApproved = await getApprovedAll(battleAddress)
-  if (!isApproved) {
-    await approveForAll(battleAddress).catch((error: string) => {
-      throw new Error(error)
-    })
-  }
-  const data = await battle1V1(selectedHero.tokenId, state.enemyInfo.tokenId)
-  console.log(data, 9696969696969)
+  // const isApproved = await getApprovedAll(battleAddress)
+  // if (!isApproved) {
+  //   await approveForAll(battleAddress).catch((error: string) => {
+  //     throw new Error(error)
+  //   })
+  // }
+  // const result = await battle1V1(selectedHero.tokenId, state.enemyInfo.tokenId)
+  // state.battleResult = result
 })
 onMounted(async () => {
   await getNFTAssets()
+  await ElMessageBox.alert('Congratulations on your victory in battle. Defeat the enemy this time and get', 'Battle victory', {
+    confirmButtonText: 'OK',
+    callback: (action: Action) => {
+      console.log(action)
+      state.dialogVisible = false
+    }
+  })
 })
 const { heroList, enemyList, dialogVisible, enemyInfo, resourceInfo } = toRefs(state)
 </script>
@@ -99,7 +110,7 @@ const { heroList, enemyList, dialogVisible, enemyInfo, resourceInfo } = toRefs(s
     <div class="battlefield-report">
       <BattlefieldReport></BattlefieldReport>
     </div>
-    <SelectHero @confirm="onClick" :dialogVisible="dialogVisible" :heroList="heroList" :enemyInfo="enemyInfo" :title="`Select the hero NFT that can be plundered by random ore pool`"></SelectHero>
+    <select-hero @confirm="onClick" v-model:dialog-visible="dialogVisible" :heroList="heroList" :enemyInfo="enemyInfo" title="Select the hero NFT that can be plundered by random ore pool"></select-hero>
   </div>
 </template>
 

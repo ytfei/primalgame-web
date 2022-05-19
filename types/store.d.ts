@@ -26,3 +26,9 @@ export interface ResourceInfo {
   water: string
   wind: string
 }
+
+export interface BattleResult { // 战斗结果
+  captureSelfId: string // 自己是否被捕获id值为0没被捕
+  captureEnemieId: string // 自己是否被捕获id值为0没被捕
+  success: boolean
+}
