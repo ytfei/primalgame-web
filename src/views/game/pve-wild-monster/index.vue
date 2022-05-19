@@ -4,7 +4,6 @@ import { getSrc } from 'src/utils/utils'
 import { useBattle } from 'hooks/web3/useBattle'
 import { useNFT } from 'hooks/web3/useNFT'
 import { useLoading } from 'src/hooks/useLoading'
-import { useWallet } from 'hooks/web3/useWallet'
 import CommonTitle from 'comps/CommonTitle.vue'
 import ResourcesCollection from 'comps/ResourcesCollection.vue'
 import BattlefieldReport from 'comps/BattlefieldReport.vue'
@@ -15,17 +14,17 @@ import { onMounted, reactive, toRefs } from 'vue'
 import { useERC20 } from 'hooks/web3/useErc20'
 const battleAddress = import.meta.env.VITE_BATTLE_CONTRACT_ADDRESS as string
 const { approve } = useERC20('currency')
-const { account } = useWallet()
 const state = reactive({
   heroList: [] as HeroInfo[],
   enemyList: [] as HeroInfo[],
   dialogVisible: false,
   enemyInfo: {} as HeroInfo,
-  resourceInfo: {} as ResourceInfo
+  resourceInfo: {} as ResourceInfo,
+  freeStatus: true as unknown
 })
 const { setLoading } = useLoading()
 const { getNFTList, getApprovedAll, approveForAll } = useNFT()
-const { get1V1Enemies, refresh1V1, battle1V1, getRewardInfo } = useBattle()
+const { get1V1Enemies, refresh1V1, battle1V1, getRewardInfo, get1V1ForFree } = useBattle()
 const prefixCls = useNamespace('pve-wild-monster')
 const get1V1EnemiesList = (async () => {
   const data: any = await get1V1Enemies()
@@ -37,17 +36,22 @@ const getNFTAssets = (async () => {
   console.log(result)
   state.heroList = result
   await get1V1EnemiesList()
+  await get1V1ForFreeStatus()
   await getPendingReward()
   await setLoading(false)
 })
 const refresh1v1 = (async () => {
-  const isApproved = await approve(battleAddress, 1000)
+  // await approve(battleAddress, 10000)
   await refresh1V1()
 })
 const getPendingReward = (async () => {
   const data: any = await getRewardInfo()
   state.resourceInfo = data
   console.log(data, 9696969)
+})
+const get1V1ForFreeStatus = (async () => {
+  const status: boolean | unknown = await get1V1ForFree()
+  state.freeStatus = status
 })
 const attack = ((enemyInfo: HeroInfo) => {
   if (enemyInfo.status === '0') {
@@ -63,7 +67,8 @@ const onClick = (async (selectedHero: HeroInfo) => {
       throw new Error(error)
     })
   }
-  await battle1V1(selectedHero.tokenId, state.enemyInfo.tokenId)
+  const data = await battle1V1(selectedHero.tokenId, state.enemyInfo.tokenId)
+  console.log(data, 9696969696969)
   console.log(selectedHero)
 })
 onMounted(async () => {
