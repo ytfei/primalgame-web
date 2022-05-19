@@ -1,59 +1,57 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
 import { getSrc } from 'src/utils/utils'
-import { reactive, toRefs } from 'vue'
+import { computed } from 'vue'
 const prefixCls = useNamespace('resources-collection')
-const state = reactive({
-  elementList: [
-    {
-      name: 'Life',
-      img: getSrc('game/life.webp'),
-      value: 123
-    },
-    {
-      name: 'Fire',
-      img: getSrc('game/fire.webp'),
-      value: 123
-    },
-    {
-      name: 'Earth',
-      img: getSrc('game/earth.webp'),
-      value: 123
-    },
-    {
-      name: 'Wind',
-      img: getSrc('game/wind.webp'),
-      value: 123
-    },
-    {
-      name: 'Water',
-      img: getSrc('game/water.webp'),
-      value: 123
-    },
-    {
-      name: 'Native skills',
-      img: getSrc('game/native-skills.webp'),
-      value: 123
-    }
-  ]
-})
 const props = defineProps({
   resourceInfo: {
     type: Object,
     required: true
   }
 })
-const { elementList } = toRefs(state)
-const { resourceInfo } = toRefs(props)
+const resourceInfos = computed(() => {
+  const elementList: object[] = [
+      {
+        name: 'Life',
+        img: getSrc('game/life.webp'),
+        value: props.resourceInfo.life
+      },
+    {
+      name: 'Fire',
+      img: getSrc('game/fire.webp'),
+    value: props.resourceInfo.fire
+},
+  {
+    name: 'Earth',
+      img: getSrc('game/earth.webp'),
+    value: props.resourceInfo.earth
+  },
+  {
+    name: 'Wind',
+      img: getSrc('game/wind.webp'),
+    value: props.resourceInfo.wind
+  },
+  {
+    name: 'Water',
+      img: getSrc('game/water.webp'),
+    value: props.resourceInfo.water
+  },
+  {
+    name: 'Native skills',
+      img: getSrc('game/native-skills.webp'),
+    value: props.resourceInfo.source
+  }
+]
+  return elementList
+})
 </script>
 
 <template>
   <div :class="prefixCls.multiPrefixCls">
     <div class="title">Reward resources</div>
-    {{ resourceInfo.life }}
     <div class="element">
       <div class="element-content">
-        <div class="element-box" v-for="(item, index) in elementList" :key="index">
+        <div class="element-box" v-for="(item, index) in resourceInfos" :key="index">
           <div class="box-left">
             <img :src="item.img" alt="">
             <span>{{ item.name }}</span>

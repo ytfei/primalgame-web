@@ -17,6 +17,7 @@ export function useBattle () {
   })
   // 1v1
   const refresh1V1 = async () => {
+    // console.log(web3.value.eth.abi.decodeParameters(['uint', 'uint', 'uint', 'bool', 'bool', 'uint[]'], "0x0000000000000000000000000000000000000000000000000000000000000007000000000000000000000000000000000000000000000000000000000000012400000000000000000000000000000000000000000000000000000000628497ce0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000c0000000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000005800000000000000000000000000000000000000000000000000000000000000408000000000000000000000000000000000000000000000000000000000000058000000000000000000000000000000000000000000000000000000000000004080000000000000000000000000000000000000000000000000000000000000580000000000000000000000000000000000000000000000000000000000000040800000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"))
     const [account] = await web3.value.eth.getAccounts()
     return new Promise((resolve, reject) => {
       instance.value.methods
@@ -34,25 +35,35 @@ export function useBattle () {
     })
   }
   const battle1V1 = async (tokenId: string, enemyTokenId: string) => {
-    console.log(web3.value.eth.abi.decodeParameter('bool', '0x0000000000000000000000000000000000000000000000000000000000000001'))
+    // console.log(web3.value.eth.abi.decodeParameter('bool', '0x0000000000000000000000000000000000000000000000000000000000000001'))
     const [account] = await web3.value.eth.getAccounts()
+    const gas = await instance.value.methods.battle1V1(tokenId, enemyTokenId).estimateGas({ from: account },
+      (error: Error, amount: number) => {
+        console.log(error, amount)
+      }).then((res: any) => {
+      return res
+    })
     return new Promise((resolve, reject) => {
       console.log(tokenId, enemyTokenId)
       instance.value.methods
         .battle1V1(tokenId, enemyTokenId)
-        .send({ from: account })
-        .on('receipt', function (receipt) {
-          console.log(receipt)
+        .send({ from: account, gas: gas * 2 })
+        .then((res: any) => {
+          console.log(res)
         })
-        // .then((res: any) => {
-        //   console.log(res, 88888)
-        //   resolve(res)
-        // })
-        // .catch((error: Error) => {
-        //   errorHandel(error, (errorInfo: ErrorInfo) => {
-        //     reject(errorInfo)
+        // .on('receipt', function (receipt: any) {
+        //   console.log(receipt)
+        //   const result: object[] = []
+        //   receipt.events.forEach((item: any) => {
+        //     result.push(web3.value.eth.abi.decodeParameter('bool', item.raw.data))
         //   })
+        //   resolve(result)
         // })
+        .catch((error: Error) => {
+          errorHandel(error, (errorInfo: ErrorInfo) => {
+            reject(errorInfo)
+          })
+        })
     })
   }
   const takeReward = async (tokenId: string, enemyTokenId: string) => {
@@ -112,11 +123,29 @@ export function useBattle () {
         })
     })
   }
+  const get1V1ForFree = async () => {
+    await checkConnect()
+    const [account] = await web3.value.eth.getAccounts()
+    return new Promise((resolve, reject) => {
+      instance.value.methods
+        .refresh1v1ForFree(account)
+        .call()
+        .then((res: boolean) => {
+          resolve(res)
+        })
+        .catch((error: Error) => {
+          errorHandel(error, (errorInfo: ErrorInfo) => {
+            reject(errorInfo)
+          })
+        })
+    })
+  }
   return {
     refresh1V1,
     battle1V1,
     takeReward,
     getRewardInfo,
-    get1V1Enemies
+    get1V1Enemies,
+    get1V1ForFree
   }
 }
