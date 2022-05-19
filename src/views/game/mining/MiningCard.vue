@@ -37,7 +37,7 @@ const confirm = async (value: HeroInfo) => {
     })
   }
   console.log(value.tokenId, props.info.value)
-  if (state.isAttack) {
+  if (!state.isAttack) {
     await stake(value.tokenId, props.info.value)
   } else {
     await plunder(value.tokenId, props.info.value)
