@@ -12,14 +12,14 @@ const props = defineProps<{
       class="solid"
       v-for="item in parseInt(props.quantity)"
       :key="item"
-      src="src/assets/img/assets/heart-solid.webp"
+      src="/src/assets/img/assets/heart-solid.webp"
       alt=""
     />
     <img
       class="hollow"
       v-for="item in 5 - parseInt(props.quantity)"
       :key="item"
-      src="src/assets/img/assets/heart-hollow.webp"
+      src="/src/assets/img/assets/heart-hollow.webp"
       alt=""
     />
   </div>

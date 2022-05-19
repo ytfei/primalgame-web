@@ -1,7 +1,7 @@
 import { useWallet } from "src/hooks/web3/useWallet";
 import { contractAbiMap, ContractAbiTypeEnum } from "src/enums/contractAbiEnum";
 import { computed } from "vue";
-import { errorHandel, getNFTCardList } from "hooks/web3/utils";
+import { errorHandel, setHeroInfo } from "hooks/web3/utils";
 import { AttrEnum, SkillEnum } from "src/enums/assetsEnum";
 import { HeroInfo } from 'types/store'
 
@@ -22,8 +22,9 @@ export function useNFT () {
         .getOwnedTokens(account)
         .call()
         .then(async (res: any) => {
-          const newArray: any = await getNFTCardList(res)
-          resolve(newArray)
+          const requestArray = res.map((tokenId: string) => getInfo(tokenId))
+          const result = await Promise.allSettled(requestArray)
+          resolve(result.map((item: PromiseSettledResult<any>) => item.status === 'fulfilled' && item.value).filter((item: any) => item))
         })
         .catch((error: Error) => {
           errorHandel(error, (errorInfo: ErrorInfo) => {
@@ -70,13 +71,15 @@ export function useNFT () {
         })
     })
   }
-  const getInfo = async (tokenId: string): Promise<string[]> => {
+  const getInfo = async (tokenId: string): Promise<HeroInfo> => {
     return new Promise((resolve, reject) => {
       NFTInstance.value.methods
         .getPrimalInfo(tokenId)
         .call()
         .then((res: any) => {
-          resolve(res)
+          const result = setHeroInfo(res)
+          result.tokenId = tokenId
+          resolve(result)
         })
         .catch((error: Error) => {
           errorHandel(error, (errorInfo: ErrorInfo) => {

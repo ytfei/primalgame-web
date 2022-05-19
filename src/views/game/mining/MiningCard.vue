@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { useNamespace } from 'hooks/useCommon'
 import SelectHero from '../SelectHero.vue'
-import { reactive, toRefs, PropType } from 'vue'
+import { reactive, toRefs, PropType, watch } from 'vue'
 import { HeroInfo } from 'types/store'
 import { useNFT } from 'hooks/web3/useNFT'
 import { usePledge } from 'hooks/web3/usePledge'
 
 const pledgeAddress = import.meta.env.VITE_PLEDGE_CONTRACT_ADDRESS as string
 const { getApprovedAll, approveForAll } = useNFT()
-const { stake } = usePledge()
+const { stake, getPoolAttr, plunder } = usePledge()
 const prefixCls = useNamespace('mining-card')
 const props = defineProps({
   info: {
@@ -22,7 +22,8 @@ const props = defineProps({
 })
 const state = reactive({
   dialogVisible: false,
-  isAttack: true,
+  isAttack: false,
+  poolInfo: { yield: '', amount: '' }
 })
 const attack = () => {
   state.isAttack = true
@@ -36,11 +37,27 @@ const confirm = async (value: HeroInfo) => {
     })
   }
   console.log(value.tokenId, props.info.value)
-  await stake(value.tokenId, props.info.value)
+  if (state.isAttack) {
+    await stake(value.tokenId, props.info.value)
+  } else {
+    await plunder(value.tokenId, props.info.value)
+  }
+  getPoolInfo()
   state.dialogVisible = false
 }
 
-const { dialogVisible, isAttack } = toRefs(state)
+const getPoolInfo = async () => {
+  getPoolAttr(props.info.value).then((res:{ yield: string, amount: string }) => {
+    state.poolInfo = res
+  })
+}
+getPoolInfo()
+watch(() => state.dialogVisible, (val: boolean) => {
+  if (!val) {
+    state.isAttack = false
+  }
+})
+const { dialogVisible, isAttack, poolInfo } = toRefs(state)
 </script>
 
 <template>
@@ -48,15 +65,15 @@ const { dialogVisible, isAttack } = toRefs(state)
     <div class="min-card">
       <div class="box-img"></div>
       <div class="box-title">
-        <h2>Earth element mine</h2>
+        <h2>{{ $props.info.type }}</h2>
       </div>
       <div class="box-production">
         <p>Based on production</p>
-        <h3>10/h</h3>
+        <h3>{{ poolInfo.yield }}/h</h3>
       </div>
       <div class="box-number">
         <p>The number of mining</p>
-        <h3>12，234，567</h3>
+        <h3>{{ poolInfo.amount }}</h3>
       </div>
       <div class="box-btn">
         <div class="attack-button" @click="attack">Attack</div>

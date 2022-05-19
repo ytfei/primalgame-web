@@ -24,7 +24,6 @@ const props = defineProps({
   attrType: {
     type: String
   }
-
 })
 const emits = defineEmits(['confirm', 'update:dialog-visible'])
 const state = reactive({
@@ -53,7 +52,6 @@ const onClose = () => {
   emits('update:dialog-visible', false)
 }
 const { selectedTokenId } = toRefs(state)
-const { heroList, dialogVisible } = toRefs(props)
 </script>
 
 <template>
