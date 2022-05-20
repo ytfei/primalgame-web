@@ -124,7 +124,10 @@ export function useBattle () {
           console.log(res)
           const promiseArray = res.enemies.map((tokenId: string) => getInfo(tokenId))
           const result = await Promise.allSettled(promiseArray)
+          console.log(result)
           const newResult = result.filter((item: any) => item.status === 'fulfilled').map((item: any) => item.value)
+          console.log(newResult)
+          console.log(res.defeat)
           res.defeat.forEach((item: string, index: number) => {
             newResult[index].status = item // 添加野怪攻击状态
           })

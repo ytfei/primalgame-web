@@ -10,6 +10,10 @@ const props = defineProps({
     type: Boolean,
     required: true
   },
+  submitLoading: {
+    type: Boolean,
+    default: false
+  },
   title: {
     type: String,
     required: true
@@ -34,10 +38,6 @@ const selectedHero = computed(() => {
   return props.heroList.find((hero: HeroInfo) => hero.tokenId === state.selectedTokenId)
 })
 const filterHeroList = computed(() => {
-  console.log(props.heroList)
-  // props.heroList?.forEach((hero: HeroInfo) => {
-  //   console.log(hero.skills)
-  // })
   if (!props.attrType) {
     return props.heroList
   }
@@ -73,7 +73,7 @@ const { selectedTokenId } = toRefs(state)
         </div>
         <div class="hero-list-wrapper">
           <div class="hero-list">
-            <el-scrollbar height="320px">
+            <el-scrollbar v-if="filterHeroList.length > 0" height="320px">
               <el-radio
                 v-for="item in filterHeroList" :key="item.tokenId"
                 class="hero-list-item"
@@ -83,8 +83,15 @@ const { selectedTokenId } = toRefs(state)
                 border
               >{{ item.rarity }} {{ item.tokenId }}</el-radio>
             </el-scrollbar>
+            <div v-else class="hero-list-empty">No more NFT to play</div>
           </div>
-          <el-button :disabled="!selectedTokenId" type="primary" @click="onClick" size="large">ok</el-button>
+          <el-button
+            :loading="submitLoading"
+            :disabled="!selectedTokenId"
+            type="primary"
+            @click="onClick"
+            size="large"
+          >ok</el-button>
         </div>
       </div>
     </el-dialog>
@@ -117,6 +124,13 @@ $prefix-cls: '#{$namespace}-#{$moduleName}';
     .hero-list {
       height: 320px;
       padding-bottom: 10px;
+      .hero-list-empty {
+        padding-top: 140px;
+        text-align: center;
+        font-size: 16px;
+        line-height: 18px;
+        color: #aaa;
+      }
       .hero-list-item {
         margin-right: 24px;
         padding: 10px 16px;
