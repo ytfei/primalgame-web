@@ -35,7 +35,6 @@ export function useBattle () {
     })
   }
   const battle1V1 = async (tokenId: string, enemyTokenId: string) => {
-    // console.log(web3.value.eth.abi.decodeParameter('bool', '0x0000000000000000000000000000000000000000000000000000000000000001'))
     const [account] = await web3.value.eth.getAccounts()
     const gas = await instance.value.methods.battle1V1(tokenId, enemyTokenId).estimateGas({ from: account },
       (error: Error, amount: number) => {
@@ -49,32 +48,15 @@ export function useBattle () {
       instance.value.methods
         .battle1V1(tokenId, enemyTokenId)
         .send({ from: account })
-        // .on('receipt', function (receipt: any) {
-        //   console.log(96969696969)
-        //   console.log(receipt)
-        // })
         .then((res: any) => {
-          console.log(6666666)
           console.log(res)
-          // const result: any = {}
-          // const resultLength = Object.keys(res.events)
-          // let value1 = null
-          // let value2 = null
-          // let value3 = null
-          // value1 = web3.value.eth.abi.decodeParameters(['uint', 'uint', 'uint', 'bool', 'bool', 'uint[]'], res.events[0].raw.data)
-          // console.log(value1)
-          // if (resultLength.length > 2) {
-          //   value2 = web3.value.eth.abi.decodeParameters(['uint'], res.events[1].raw.data)
-          //   value3 = web3.value.eth.abi.decodeParameters(['uint256', 'uint256'], res.events[2].raw.data)
-          //   result.captureSelfId = value3[0]
-          //   result.captureEnemieId = value3[1]
-          // } else {
-          //   value2 = web3.value.eth.abi.decodeParameters(['uint256', 'uint256'], res.events[1].raw.data)
-          //   result.captureSelfId = value2[0]
-          //   result.captureEnemieId = value2[1]
-          // }
-          // result.success = value1[3]
-          // resolve(result)
+          const plunderBattleReport = web3.value.eth.abi.decodeParameters(['uint', 'uint', 'bool', 'bool', 'uint[]'], res.events[0].raw.data)
+          const captureEvents = web3.value.eth.abi.decodeParameters(['uint256', 'uint256'], res.events[1].raw.data)
+          resolve({
+            success: plunderBattleReport[3],
+            captureSelfId: captureEvents[0],
+            captureEnemieId: captureEvents[1]
+          })
         })
         .catch((error: Error) => {
           errorHandel(error, (errorInfo: ErrorInfo) => {
