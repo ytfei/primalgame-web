@@ -66,24 +66,40 @@ const attack = ((enemyInfo: HeroInfo) => {
   }
 })
 const onClick = (async (selectedHero: HeroInfo) => {
-  // const isApproved = await getApprovedAll(battleAddress)
-  // if (!isApproved) {
-  //   await approveForAll(battleAddress).catch((error: string) => {
-  //     throw new Error(error)
-  //   })
-  // }
-  // const result = await battle1V1(selectedHero.tokenId, state.enemyInfo.tokenId)
-  // state.battleResult = result
+  const isApproved = await getApprovedAll(battleAddress)
+  if (!isApproved) {
+    await approveForAll(battleAddress).catch((error: string) => {
+      throw new Error(error)
+    })
+  }
+  const result: any = await battle1V1(selectedHero.tokenId, state.enemyInfo.tokenId)
+  state.battleResult = result
+  if (result.success) {
+    await ElMessageBox.alert('Congratulations on your victory in battle. Defeat the enemy this time and get', 'Battle victory', {
+      confirmButtonText: 'OK',
+      callback: (action: Action) => {
+        console.log(action)
+        state.dialogVisible = false
+      }
+    })
+  } else {
+    let message = ''
+    if (result.captureEnemieId === '0') {
+      message = 'You are failed to defeat enemy, try to improve your combat effectiveness~ You can obtain high level NFT by synthesizing low level NFT on my hero page; or buy high level NFT directly in the market.'
+    } else {
+      message = 'You are failed to defeat your enemy and NFT was captured. qaq'
+    }
+    await ElMessageBox.alert(message, 'Battle failed', {
+      confirmButtonText: 'OK',
+      callback: (action: Action) => {
+        console.log(action)
+        state.dialogVisible = false
+      }
+    })
+  }
 })
 onMounted(async () => {
   await getNFTAssets()
-  await ElMessageBox.alert('Congratulations on your victory in battle. Defeat the enemy this time and get', 'Battle victory', {
-    confirmButtonText: 'OK',
-    callback: (action: Action) => {
-      console.log(action)
-      state.dialogVisible = false
-    }
-  })
 })
 const { heroList, enemyList, dialogVisible, enemyInfo, resourceInfo } = toRefs(state)
 </script>
