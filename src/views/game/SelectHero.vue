@@ -23,7 +23,7 @@ const props = defineProps({
     required: true
   },
   enemyInfo: {
-    type: Object,
+    type: Object as PropType<HeroInfo>,
   },
   attrType: {
     type: String

@@ -68,7 +68,7 @@ const { list, heroElement } = toRefs(state)
           <div class="heroAvatar">
             <img src="../../assets/img/home/hero_back.webp" alt="" />
           </div>
-          <Heart class="healthIcon" :quantity="4"></Heart>
+          <Heart class="healthIcon" quantity="4"></Heart>
           <div class="heroElement">
             <img src="../../assets/img/home/element.webp" alt="" />
           </div>
