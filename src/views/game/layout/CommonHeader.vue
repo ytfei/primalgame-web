@@ -8,18 +8,18 @@ const state = reactive({
       name: 'PVE-wild monster',
       routerName: 'PVE-WildMonster'
     },
-    {
-      name: 'PVE-underground city',
-      routerName: ''
-    },
+    // {
+    //   name: 'PVE-underground city',
+    //   routerName: ''
+    // },
     {
       name: 'Mining',
       routerName: 'Mining'
     },
-    {
-      name: 'My Heroes',
-      routerName: ''
-    }
+    // {
+    //   name: 'My Heroes',
+    //   routerName: ''
+    // }
   ]
 })
 const { menuList } = toRefs(state)

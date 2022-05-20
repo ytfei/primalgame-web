@@ -30,6 +30,21 @@ export function useERC20 (contractType: ERC20ContractType) {
         })
     })
   }
+
+  async function allowance (address: string): Promise<string> {
+    const [account] = await web3.value.eth.getAccounts()
+    return new Promise((resolve, reject) => {
+      erc20Instance.value.methods
+        .allowance(account, address).call()
+        .then((res: boolean) => resolve(utils.fromWei(res)))
+        .catch((error: Error) => {
+          errorHandel(error, (errorInfo: ErrorInfo) => {
+            reject(errorInfo)
+          })
+        })
+    })
+  }
+
   async function approve (address: string, price: number) {
     const [account] = await web3.value.eth.getAccounts()
     // const balance = await getBalance(account)
@@ -53,5 +68,6 @@ export function useERC20 (contractType: ERC20ContractType) {
   return {
     getBalance,
     approve,
+    allowance
   }
 }

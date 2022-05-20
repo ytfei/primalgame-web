@@ -24,18 +24,18 @@ const state = reactive({
       name: 'Game',
       routerName: 'Game'
     },
-    {
-      name: 'Market',
-      routerName: ''
-    },
-    {
-      name: 'Earn',
-      routerName: ''
-    },
-    {
-      name: 'Activity',
-      routerName: ''
-    }
+    // {
+    //   name: 'Market',
+    //   routerName: ''
+    // },
+    // {
+    //   name: 'Earn',
+    //   routerName: ''
+    // },
+    // {
+    //   name: 'Activity',
+    //   routerName: ''
+    // }
   ]
 })
 const goToUserCenter = () => {

@@ -153,7 +153,7 @@ const { heroList, enemyList, dialogVisible, enemyInfo, resourceInfo } = toRefs(s
       <CommonTitle>War report</CommonTitle>
     </div>
     <div class="battlefield-report">
-<!--      <BattlefieldReport></BattlefieldReport>-->
+      <BattlefieldReport></BattlefieldReport>
     </div>
     <select-hero @confirm="onClick" v-model:dialog-visible="dialogVisible" :heroList="heroList" :enemyInfo="enemyInfo" title="Select the hero NFT that can be plundered by random ore pool"></select-hero>
   </div>

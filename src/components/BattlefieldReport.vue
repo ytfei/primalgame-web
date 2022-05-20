@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
+import { ElPagination } from 'element-plus'
+
 const prefixCls = useNamespace('battlefield-report')
 const tableData = [
   {
@@ -38,7 +40,7 @@ const tableData = [
       <el-table-column prop="address" label="Address" />
     </el-table>
     <div class="pagination">
-      <el-pagination background layout="prev, pager, next" :total="1000" />
+<!--      <el-pagination />-->
     </div>
   </div>
 </template>
