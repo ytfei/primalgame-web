@@ -8,8 +8,11 @@ import { reactive, toRefs } from 'vue'
 import { HeroInfo } from 'types/store'
 import HeroCard from 'src/views/user/assets/HeroCard.vue'
 import { usePledge } from 'hooks/web3/usePledge'
-const { getStakeNFTList, unStake, pendingReward, takeReward } = usePledge()
+import { ElMessageBox } from 'element-plus'
+import { useLoading } from 'hooks/useLoading'
 
+const { setLoading } = useLoading()
+const { getStakeNFTList, unStake, pendingReward, takeReward } = usePledge()
 const { getNFTList } = useNFT()
 interface MinePoolItem { type: string; value: number }
 interface StakeNftItem extends HeroInfo { poolType: number }
@@ -28,8 +31,17 @@ const state = reactive({
   reward: {} as any
 })
 const cancelStake = async (item: StakeNftItem) => {
-  await unStake(item.tokenId, item.poolType)
-  getStakeNFT()
+  ElMessageBox.confirm('Confirm End ?', 'Tips', {
+    confirmButtonText: 'ok',
+    cancelButtonText: 'cancel',
+    type: 'warning'
+  }).then(async () => {
+    setLoading(true)
+    await unStake(item.tokenId, item.poolType)
+    load()
+    setLoading(false)
+    ElMessageBox({ title: 'End confirmation', message: 'success' })
+  })
 }
 const getHeroList = async () => {
   state.heroList = await getNFTList()
@@ -50,9 +62,13 @@ const onTackReward = async () => {
   await takeReward()
   getReward()
 }
-getHeroList()
-getReward()
-getStakeNFT()
+const load = () => {
+  console.log('load')
+  getHeroList()
+  getReward()
+  getStakeNFT()
+}
+load()
 const { heroList, stakeNFTList, reward } = toRefs(state)
 </script>
 
@@ -64,7 +80,7 @@ const { heroList, stakeNFTList, reward } = toRefs(state)
       </div>
       <CommonTitle>Diggings</CommonTitle>
       <div class="mining-area">
-        <MiningCard :info="item" :hero-list="heroList" class="mining-card" v-for="(item, index) in minePool" :key="index"></MiningCard>
+        <MiningCard :info="item" @reload="load" :hero-list="heroList" class="mining-card" v-for="(item, index) in minePool" :key="index"></MiningCard>
       </div>
       <CommonTitle>Mine NFT</CommonTitle>
       <el-empty v-if="stakeNFTList.length < 1" description="no data" />
@@ -105,10 +121,9 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
     }
   }
   .nft-mining {
-    display: flex;
-    justify-content: space-between;
-    flex-flow: row wrap;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(3, 370px);
+    grid-gap: 46px;
     margin-top: 40px;
     .card-wrapper {
       position: relative;

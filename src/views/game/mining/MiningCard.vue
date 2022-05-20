@@ -5,11 +5,13 @@ import { reactive, toRefs, PropType, watch } from 'vue'
 import { HeroInfo } from 'types/store'
 import { useNFT } from 'hooks/web3/useNFT'
 import { usePledge } from 'hooks/web3/usePledge'
+import { ElMessageBox } from 'element-plus'
 
 const pledgeAddress = import.meta.env.VITE_PLEDGE_CONTRACT_ADDRESS as string
 const { getApprovedAll, approveForAll } = useNFT()
 const { stake, getPoolAttr, plunder } = usePledge()
 const prefixCls = useNamespace('mining-card')
+const emits = defineEmits(['reload'])
 const props = defineProps({
   info: {
     type: Object as PropType<{ type: string, value: number }>,
@@ -23,6 +25,7 @@ const props = defineProps({
 const state = reactive({
   dialogVisible: false,
   isAttack: false,
+  loading: false,
   poolInfo: { yield: '', amount: '' }
 })
 const attack = () => {
@@ -30,20 +33,41 @@ const attack = () => {
   state.dialogVisible = true
 }
 const confirm = async (value: HeroInfo) => {
+  state.loading = true
   const isApproved = await getApprovedAll(pledgeAddress)
   if (!isApproved) {
     await approveForAll(pledgeAddress).catch((error: string) => {
+      state.loading = false
       throw new Error(error)
     })
   }
   console.log(value.tokenId, props.info.value)
   if (!state.isAttack) {
-    await stake(value.tokenId, props.info.value)
+    await stake(value.tokenId, props.info.value).catch((error: string) => {
+      state.loading = false
+      throw new Error(error)
+    })
   } else {
-    await plunder(value.tokenId, props.info.value)
+    const result = await plunder(value.tokenId, props.info.value).catch((error: string) => {
+      state.loading = false
+      throw new Error(error)
+    })
+    if (result.battleReport) {
+      ElMessageBox.confirm('failed!', 'Tips', {
+        confirmButtonText: 'ok',
+        cancelButtonText: 'cancel',
+      })
+    } else {
+      ElMessageBox.confirm('success', 'Tips', {
+        confirmButtonText: 'ok',
+        cancelButtonText: 'cancel',
+      })
+    }
   }
+  state.loading = false
   getPoolInfo()
   state.dialogVisible = false
+  emits('reload')
 }
 
 const getPoolInfo = async () => {
@@ -57,7 +81,7 @@ watch(() => state.dialogVisible, (val: boolean) => {
     state.isAttack = false
   }
 })
-const { dialogVisible, isAttack, poolInfo } = toRefs(state)
+const { dialogVisible, isAttack, poolInfo, loading } = toRefs(state)
 </script>
 
 <template>
@@ -84,6 +108,7 @@ const { dialogVisible, isAttack, poolInfo } = toRefs(state)
       v-model:dialog-visible="dialogVisible"
       :hero-list="heroList"
       @confirm="confirm"
+      :submit-loading="loading"
       title="Select the hero NFT that can dig XXX resources"
       :attr-type="isAttack ? 'plunder' : $props.info?.type"
     ></select-hero>
