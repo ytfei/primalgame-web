@@ -24,7 +24,6 @@ const state = reactive({
   enemyInfo: {} as HeroInfo,
   resourceInfo: {} as ResourceInfo,
   freeStatus: true as unknown,
-  battleResult: {} as any
 })
 const { setLoading } = useLoading()
 const { getNFTList, getApprovedAll, approveForAll } = useNFT()
@@ -85,6 +84,7 @@ const attack = ((enemyInfo: HeroInfo) => {
   }
 })
 const onClick = (async (selectedHero: HeroInfo) => {
+  await setLoading(true)
   const isApproved = await getApprovedAll(battleAddress)
   if (!isApproved) {
     await approveForAll(battleAddress).catch((error: string) => {
@@ -92,7 +92,7 @@ const onClick = (async (selectedHero: HeroInfo) => {
     })
   }
   const result: any = await battle1V1(selectedHero.tokenId, state.enemyInfo.tokenId)
-  state.battleResult = result
+  await setLoading(false)
   console.log(result)
   if (result.success) {
     await ElMessageBox.alert('Congratulations on your victory in battle. Defeat the enemy this time and get', 'Battle victory', {
@@ -117,6 +117,7 @@ const onClick = (async (selectedHero: HeroInfo) => {
       }
     })
   }
+  await get1V1EnemiesList()
 })
 const takeRewards = (async () => {
   setLoading(true)
