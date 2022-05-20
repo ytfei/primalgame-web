@@ -7,7 +7,7 @@ import { useNFT } from 'hooks/web3/useNFT'
 import { usePledge } from 'hooks/web3/usePledge'
 import { ElMessageBox } from 'element-plus'
 
-const pledgeAddress = import.meta.env.VITE_PLEDGE_CONTRACT_ADDRESS as string
+const pledgeAddress = '0xa80BE52e91B151955E32A5a635810d4F9a1a487b'
 const { getApprovedAll, approveForAll } = useNFT()
 const { stake, getPoolAttr, plunder } = usePledge()
 const prefixCls = useNamespace('mining-card')

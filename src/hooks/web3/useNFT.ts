@@ -7,7 +7,7 @@ import { HeroInfo } from 'types/store'
 
 const { web3, checkConnect } = useWallet()
 const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.NFT) as string)
-const contract = import.meta.env.VITE_NFT_CONTRACT_ADDRESS as string
+const contract = '0xF2F281a7A0f148AdA64552db2B51444bf117aE5C'
 
 export function useNFT () {
   const NFTInstance = computed( () => {
