@@ -52,13 +52,14 @@ const confirm = async (value: HeroInfo) => {
       state.loading = false
       throw new Error(error)
     })
+    console.log(result)
     if (result.battleReport) {
-      ElMessageBox.confirm('failed!', 'Tips', {
+      ElMessageBox.confirm('success!', 'Tips', {
         confirmButtonText: 'ok',
         cancelButtonText: 'cancel',
       })
     } else {
-      ElMessageBox.confirm('success', 'Tips', {
+      ElMessageBox.confirm('failed', 'Tips', {
         confirmButtonText: 'ok',
         cancelButtonText: 'cancel',
       })

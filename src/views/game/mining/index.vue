@@ -10,6 +10,7 @@ import HeroCard from 'src/views/user/assets/HeroCard.vue'
 import { usePledge } from 'hooks/web3/usePledge'
 import { ElMessageBox } from 'element-plus'
 import { useLoading } from 'hooks/useLoading'
+import { PoolEnum } from 'src/enums/assetsEnum'
 
 const { setLoading } = useLoading()
 const { getStakeNFTList, unStake, pendingReward, takeReward } = usePledge()
@@ -89,8 +90,8 @@ const { heroList, stakeNFTList, reward } = toRefs(state)
           <HeroCard  :data="item" class="owner-mining" :mining="'start'"></HeroCard>
           <div class="stop-img">
             <div class="stop-msg">
-              <h2>Water element mining area</h2>
-              <p>Output: 20/h</p>
+              <h2>{{ PoolEnum[item.poolType] }} element mining area</h2>
+<!--              <p>Output: 20/h</p>-->
             </div>
             <div class="stop-btn">
               <div @click="cancelStake(item)" class="stop-button">End mining</div>
