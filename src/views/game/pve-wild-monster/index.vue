@@ -28,7 +28,7 @@ const state = reactive({
 })
 const { setLoading } = useLoading()
 const { getNFTList, getApprovedAll, approveForAll } = useNFT()
-const { get1V1Enemies, refresh1V1, battle1V1, getRewardInfo, get1V1ForFree } = useBattle()
+const { get1V1Enemies, refresh1V1, battle1V1, getRewardInfo, get1V1ForFree, takeReward } = useBattle()
 const prefixCls = useNamespace('pve-wild-monster')
 const get1V1EnemiesList = (async () => {
   const data: any = await get1V1Enemies()
@@ -40,14 +40,29 @@ const getNFTAssets = (async () => {
   const result = await getNFTList()
   console.log(result)
   state.heroList = result
-  await get1V1EnemiesList()
   await get1V1ForFreeStatus()
   await getPendingReward()
+  await get1V1EnemiesList()
   await setLoading(false)
 })
 const refresh1v1 = (async () => {
-  // await approve(battleAddress, 10000)
-  await refresh1V1()
+  setLoading(true)
+  await approve(battleAddress, 10000000000)
+  if (!state.freeStatus) {
+    await ElMessageBox.alert('You will get a chance to refresh enemy every 24:00 UTC. And extra refresh operation will cost ***game currency that day.', 'Remind：', {
+      confirmButtonText: 'Pay',
+      callback: async (action: Action) => {
+        console.log(action)
+        if (action === 'confirm') {
+          await refresh1V1()
+        }
+      }
+    })
+  } else {
+    await refresh1V1()
+  }
+  await get1V1EnemiesList()
+  await setLoading(false)
 })
 const getPendingReward = (async () => {
   const data: any = await getRewardInfo()
@@ -56,6 +71,10 @@ const getPendingReward = (async () => {
 const get1V1ForFreeStatus = (async () => {
   const status: boolean | unknown = await get1V1ForFree()
   state.freeStatus = status
+  console.log(status)
+  if (!status) {
+    await get1V1EnemiesList()
+  }
 })
 const attack = ((enemyInfo: HeroInfo) => {
   console.log(enemyInfo)
@@ -74,6 +93,7 @@ const onClick = (async (selectedHero: HeroInfo) => {
   }
   const result: any = await battle1V1(selectedHero.tokenId, state.enemyInfo.tokenId)
   state.battleResult = result
+  console.log(result)
   if (result.success) {
     await ElMessageBox.alert('Congratulations on your victory in battle. Defeat the enemy this time and get', 'Battle victory', {
       confirmButtonText: 'OK',
@@ -98,6 +118,14 @@ const onClick = (async (selectedHero: HeroInfo) => {
     })
   }
 })
+const takeRewards = (async () => {
+  setLoading(true)
+  await takeReward().then(async (res: any) => {
+    if (res) {
+      await getNFTAssets()
+    }
+  })
+})
 onMounted(async () => {
   await getNFTAssets()
 })
@@ -106,7 +134,7 @@ const { heroList, enemyList, dialogVisible, enemyInfo, resourceInfo } = toRefs(s
 
 <template>
   <div :class="prefixCls.multiPrefixCls" class="layout-1200">
-    <ResourcesCollection :resourceInfo="resourceInfo"></ResourcesCollection>
+    <ResourcesCollection :resourceInfo="resourceInfo" :take-reward="takeRewards"></ResourcesCollection>
     <div class="title">
       <CommonTitle>Current enemy</CommonTitle>
       <img @click="refresh1v1" class="refresh" :src="getSrc('game/refresh.webp')" alt="">

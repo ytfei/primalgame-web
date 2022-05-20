@@ -25,7 +25,8 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   font-family: FZHPJW--GB1-0, FZHPJW--GB1;
   main {
     min-height: calc(100vh - 412px);
-    background: #a9e1f2;
+    background-image: url("src/assets/img/layout/background.webp");
+    background-size: 100% 100%;
     ::v-deep(.el-loading-mask) {
       display: none;
     }
