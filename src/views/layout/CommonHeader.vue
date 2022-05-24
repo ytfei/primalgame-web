@@ -12,6 +12,10 @@ const isConnected = JSON.parse(localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDE
 const connect = async () => {
   await onConnect()
 }
+const unConnect = async () => {
+  await resetWallet()
+  router.push({ name: 'Home' })
+}
 isConnected === 'injected' && connect()
 const prefixCls = useNamespace('header')
 const state = reactive({
@@ -66,7 +70,7 @@ const { menuList } = toRefs(state)
           <el-button @click="goToUserCenter">
             {{ hideSensitive(account, 4, 4) }}
           </el-button>
-          <el-button @click="resetWallet" type="primary">Disconnect Wallet</el-button>
+          <el-button @click="unConnect" type="primary">Disconnect Wallet</el-button>
         </template>
       </div>
     </div>
