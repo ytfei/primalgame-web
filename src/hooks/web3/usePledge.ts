@@ -11,7 +11,7 @@ const { getInfo } = useNFT()
 const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.PLEDGE) as string)
 
 const contracts = {
-  pledge: '0xa80BE52e91B151955E32A5a635810d4F9a1a487b'
+  pledge: import.meta.env.VITE_PLEDGE_CONTRACT_ADDRESS as string
 } as Indexable
 
 

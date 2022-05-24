@@ -8,7 +8,7 @@ const { web3 } = useWallet()
 const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.ERC20) as string)
 type ERC20ContractType = 'currency'
 const contracts = {
-  currency: '0x4f5B7299DCc1600afefAa4D75D2e7A3138598005'
+  currency: import.meta.env.VITE_CURRENCY_CONTRACT_ADDRESS as string,
 } as Indexable
 
 export function useERC20 (contractType: ERC20ContractType) {

@@ -14,7 +14,7 @@ import type { Action } from 'element-plus'
 import { HeroInfo, ResourceInfo } from 'types/store'
 import { onMounted, reactive, toRefs } from 'vue'
 import { useERC20 } from 'hooks/web3/useErc20'
-const battleAddress = '0x53670956717c07A1012a7447A5012cc82444A3D1'
+const battleAddress = import.meta.env.VITE_BATTLE_CONTRACT_ADDRESS as string
 const { approve } = useERC20('currency')
 
 const state = reactive({

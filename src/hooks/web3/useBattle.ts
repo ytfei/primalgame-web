@@ -8,7 +8,7 @@ import { errorHandel} from "hooks/web3/utils";
 const { getInfo } = useNFT()
 const { web3, checkConnect } = useWallet()
 const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.BATTLE) as string)
-const contract = '0x53670956717c07A1012a7447A5012cc82444A3D1'
+const contract = import.meta.env.VITE_BATTLE_CONTRACT_ADDRESS as string
 
 export function useBattle () {
   const instance = computed( () => {
