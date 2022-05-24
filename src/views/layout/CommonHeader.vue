@@ -4,6 +4,8 @@ import { computed, reactive, toRefs } from 'vue'
 import { useWallet } from 'hooks/web3/useWallet'
 import { useTools } from 'hooks/useTools'
 import { useRouter, useRoute } from 'vue-router'
+import { useUserStore } from 'src/store/modules/user'
+const User = useUserStore()
 const router = useRouter()
 const route = useRoute()
 const { hideSensitive } = useTools()
@@ -13,6 +15,7 @@ const connect = async () => {
   await onConnect()
 }
 const unConnect = async () => {
+  User.setHeroList([])
   await resetWallet()
   router.push({ name: 'Home' })
 }

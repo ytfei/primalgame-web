@@ -82,10 +82,6 @@ const getPendingReward = (async () => {
 const get1V1ForFreeStatus = (async () => {
   const status: boolean | unknown = await get1V1ForFree()
   state.freeStatus = status
-  console.log(status)
-  if (!status) {
-    await get1V1EnemiesList()
-  }
 })
 const attack = ((enemyInfo: HeroInfo) => {
   console.log(enemyInfo)
@@ -152,7 +148,9 @@ const takeRewards = (async () => {
   setLoading(false)
 })
 onMounted(async () => {
-  await getNFTAssets()
+  if (account) {
+    await getNFTAssets()
+  }
 })
 const { heroList, enemyList, dialogVisible, enemyInfo, resourceInfo } = toRefs(state)
 </script>

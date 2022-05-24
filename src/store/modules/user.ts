@@ -12,7 +12,7 @@ export const useUserStore = defineStore({
   id: 'app-user',
   state: (): UserState => ({
     userInfo: null,
-    heroList: null
+    heroList: []
   }),
   getters: {
     getUserInfo(): UserInfo | null {
