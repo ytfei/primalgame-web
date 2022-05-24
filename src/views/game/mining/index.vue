@@ -12,11 +12,13 @@ import { ElMessageBox } from 'element-plus'
 import { useLoading } from 'hooks/useLoading'
 import { PoolEnum } from 'src/enums/assetsEnum'
 
+interface MinePoolItem { type: string; value: number }
+interface StakeNftItem extends HeroInfo { poolType: number }
+
 const { setLoading } = useLoading()
 const { getStakeNFTList, unStake, pendingReward, takeReward } = usePledge()
 const { getNFTList } = useNFT()
-interface MinePoolItem { type: string; value: number }
-interface StakeNftItem extends HeroInfo { poolType: number }
+
 const minePool = [
   { type: 'wind', value: 0 },
   { type: 'life', value: 1 },
@@ -53,7 +55,6 @@ const getReward = async () => {
 const getStakeNFT = async () => {
   const requestArray = minePool.map((item: MinePoolItem) => getStakeNFTList(item.value))
   const result = await Promise.allSettled(requestArray)
-  console.log(result)
   state.stakeNFTList = result
     .filter((item: any) => item.status === 'fulfilled' && item.value.length > 0)
     .map((item: any) => item.value)
@@ -64,7 +65,6 @@ const onTackReward = async () => {
   getReward()
 }
 const load = () => {
-  console.log('load')
   getHeroList()
   getReward()
   getStakeNFT()

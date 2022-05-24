@@ -9,14 +9,6 @@ const route = useRoute()
 const { hideSensitive } = useTools()
 const { onConnect, resetWallet, account } = useWallet()
 const isConnected = JSON.parse(localStorage.getItem('WEB3_CONNECT_CACHED_PROVIDER') || 'null')
-const connect = async () => {
-  await onConnect()
-}
-const unConnect = async () => {
-  await resetWallet()
-  router.push({ name: 'Home' })
-}
-isConnected === 'injected' && connect()
 const prefixCls = useNamespace('header')
 const state = reactive({
   menuList: [
@@ -42,12 +34,22 @@ const state = reactive({
     // }
   ]
 })
-const goToUserCenter = () => {
-  router.push({ name: 'User' })
-}
 const classes = computed(() => {
   return route.path.includes('/game')
 })
+
+const goToUserCenter = () => {
+  router.push({ name: 'User' })
+}
+const connect = async () => {
+  await onConnect()
+}
+const unConnect = async () => {
+  await resetWallet()
+  router.push({ name: 'Home' })
+}
+isConnected === 'injected' && connect()
+
 const { menuList } = toRefs(state)
 </script>
 

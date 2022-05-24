@@ -28,9 +28,32 @@ const state = reactive({
   loading: false,
   poolInfo: { yield: '', amount: '' }
 })
-const attack = () => {
+const onAttack = () => {
   state.isAttack = true
   state.dialogVisible = true
+}
+const stakePool = async (tokenId: string, poolType: number) => {
+  await stake(tokenId, poolType).catch((error: string) => {
+    state.loading = false
+    throw new Error(error)
+  })
+}
+const plunderPool = async (tokenId: string, poolType: number) => {
+  const result = await plunder(tokenId, poolType).catch((error: string) => {
+    state.loading = false
+    throw new Error(error)
+  })
+  if (result.battleReport) {
+    ElMessageBox.confirm('success!', 'Tips', {
+      confirmButtonText: 'ok',
+      cancelButtonText: 'cancel',
+    })
+  } else {
+    ElMessageBox.confirm('failed', 'Tips', {
+      confirmButtonText: 'ok',
+      cancelButtonText: 'cancel',
+    })
+  }
 }
 const confirm = async (value: HeroInfo) => {
   state.loading = true
@@ -41,34 +64,15 @@ const confirm = async (value: HeroInfo) => {
       throw new Error(error)
     })
   }
-  console.log(value.tokenId, props.info.value)
   if (!state.isAttack) {
-    await stake(value.tokenId, props.info.value).catch((error: string) => {
-      state.loading = false
-      throw new Error(error)
-    })
+    stakePool(value.tokenId, props.info.value)
   } else {
-    const result = await plunder(value.tokenId, props.info.value).catch((error: string) => {
-      state.loading = false
-      throw new Error(error)
-    })
-    console.log(result)
-    if (result.battleReport) {
-      ElMessageBox.confirm('success!', 'Tips', {
-        confirmButtonText: 'ok',
-        cancelButtonText: 'cancel',
-      })
-    } else {
-      ElMessageBox.confirm('failed', 'Tips', {
-        confirmButtonText: 'ok',
-        cancelButtonText: 'cancel',
-      })
-    }
+    plunderPool(value.tokenId, props.info.value)
   }
-  state.loading = false
   getPoolInfo()
-  state.dialogVisible = false
   emits('reload')
+  state.loading = false
+  state.dialogVisible = false
 }
 
 const getPoolInfo = async () => {
@@ -101,7 +105,7 @@ const { dialogVisible, isAttack, poolInfo, loading } = toRefs(state)
         <h3>{{ poolInfo.amount }}</h3>
       </div>
       <div class="box-btn">
-        <div class="attack-button" @click="attack">Attack</div>
+        <div class="attack-button" @click="onAttack">Attack</div>
         <div class="mining-button" @click="dialogVisible = true">Mining</div>
       </div>
     </div>
