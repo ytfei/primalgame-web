@@ -12,6 +12,10 @@ defineProps({
   hero: {
     type: Object as PropType<HeroInfo>,
     default: () => ({})
+  },
+  lowStaminaTips: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
@@ -33,6 +37,10 @@ defineProps({
       <div class="card-attack">{{ hero?.attrs?.attack }}</div>
       <div class="card-spirit">{{ hero?.attrs?.hp }}</div>
       <img class="card-img" src="" alt="">
+      <div
+        v-if="lowStaminaTips && hero.stamina <= 1"
+        class="card-tips"
+      >Low tolerance value and risk of loss</div>
     </div>
     <div class="card-name">
       {{ hero.rarity }} <span class="card-quality">{{ hero.tokenId }}</span>
@@ -123,6 +131,17 @@ $prefix-cls: '#{$namespace}-#{$moduleName}';
       background-image: url("src/assets/img/assets/life.webp");
       width: 36px;
       height: 36px;
+    }
+    .card-tips {
+      position: absolute;
+      width: 70%;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(5, 5, 5, 0.25);
+      font-size: 12px;
+      text-align: center;
+      color: #fff;
+      line-height: 14px;
     }
   }
   .card-name {

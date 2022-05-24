@@ -69,7 +69,7 @@ const { selectedTokenId } = toRefs(state)
         </div>
         <div class="hero-card-wrapper">
           <div class="hero-card-title">War hero</div>
-          <HeroCard :hero="selectedHero"></HeroCard>
+          <HeroCard :hero="selectedHero" low-stamina-tips></HeroCard>
         </div>
         <div class="hero-list-wrapper">
           <div class="hero-list">
