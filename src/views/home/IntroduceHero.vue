@@ -8,15 +8,15 @@ const prefixCls = useNamespace('introduce-hero')
 const state = reactive({
   list: [
     {
-      title: 'Predatory skills',
-      sub: 'You cannot participate in mining. You can only attack the mining hero set by other players and plunder 20% of their untapped resources'
+      title: 'Plunder skill:',
+      sub: 'You cannot participate in mining. Only attack mining heroes set by other players. Plunder 20% of its untapped resources'
     },
     {
       title: 'Wind skill',
       sub: "You can only participate in the mining of wind elements. You can't attack the mining heroes set by other players"
     },
     {
-      title: 'Life skills',
+      title: 'Life skill',
       sub: "You can only participate in the mining of life elements. You can't attack the mining heroes set by other players"
     },
     {
@@ -24,15 +24,15 @@ const state = reactive({
       sub: "You can only participate in the mining of fire element. You can't attack the mining heroes set by other players"
     },
     {
-      title: 'Water skills',
+      title: 'Water skill',
       sub: "You can only participate in water element mining. You can't attack other players to set up mining heroes"
     },
     {
-      title: 'Soil skills',
+      title: 'Soil skill',
       sub: "You can only participate in the mining of earth elements. You can't attack the mining heroes set by other players"
     },
     {
-      title: 'Native skills',
+      title: 'Native skill',
       sub: "You can only participate in the mining of primary elements. You can't attack the mining heroes set by other players"
     }
   ],
@@ -106,7 +106,6 @@ const { list, heroElement } = toRefs(state)
         <div class="heroIntroduce">
           <div class="hero_describe">
             <div v-for="(item, index) in list" :key="index">
-              <div class="hero_round"></div>
               <h3>{{ item.title }}</h3>
               <p>{{ item.sub }}</p>
             </div>
@@ -311,13 +310,13 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
         left: 40px;
       }
       h3 {
-        margin: 0px 42px 0px 80px;
+        margin: 0px 42px 0px 40px;
         font-size: 14px;
         color: #8d5513;
         line-height: 16px;
       }
       p {
-        margin: 3px 42px 10px 80px;
+        margin: 3px 42px 10px 40px;
         font-size: 14px;
         color: #bd7724;
         line-height: 16px;

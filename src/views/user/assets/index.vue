@@ -25,7 +25,7 @@ const { tabsValue } = toRefs(state)
         @click="tabsValue = 'box'"
         :class="tabsValue === 'box' ? 'active' : ''"
       >
-        Blind box of assets
+        mystery box of assets
       </div>
     </div>
     <div class="assets-card">

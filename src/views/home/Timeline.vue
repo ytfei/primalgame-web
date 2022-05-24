@@ -8,40 +8,34 @@ const prefixCls = useNamespace('timeline')
     <div class="layout-1200">
       <div class="feature">
         <div class="feature-box-1">
-          <h2>{{ '2022.Q3' }}</h2>
+          <h2>2022.Q3</h2>
           <p>
-            {{
-              'Alpha test online game, including mining, PVE single player and dungeon modes'
-            }}
+            Alpha version online in test net, including mining, PVE and dungeon scenario
           </p>
         </div>
         <div class="feature-box-2">
-          <h2>{{ '2022.Q4' }}</h2>
+          <h2>2022.Q4</h2>
           <p>
-            {{
-              'Official online online game beta version, join PVP module - arena'
-            }}
+            Beta version officially online. Add PVP mode--arena
           </p>
         </div>
         <div class="feature-box-3">
-          <h2>{{ '2022.Q1' }}</h2>
-          <p>{{ 'PVP- Duel opens the hero combat skill module' }}</p>
+          <h2>2022.Q1</h2>
+          <p>Add PVP mode--battle; Open hero combat skill module</p>
         </div>
         <div class="feature-box-4">
-          <h2>{{ '2022.Q2' }}</h2>
+          <h2>2022.Q2</h2>
           <p>
-            {{
-              'Introduce the world map and open the way to explore the world'
-            }}
+            Open hero camp and introduce the world map to explore the world
           </p>
         </div>
         <div class="feature-box-5">
-          <h2>{{ '2022.Q3' }}</h2>
-          <p>{{ 'Platoon function online camp war online' }}</p>
+          <h2>2022.Q3</h2>
+          <p>Team up & camp war online</p>
         </div>
         <div class="feature-box-6">
-          <h2>{{ '2022.Q4' }}</h2>
-          <p>{{ 'Guild system online Land NFT online' }}</p>
+          <h2>2022.Q4</h2>
+          <p>Guild system online Land NFT online</p>
         </div>
         <img
           class="roadline-1"
@@ -99,7 +93,6 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
         font-weight: normal;
         color: #8d5513;
         line-height: 21px;
-        font-family: FZLTCHJW--GB1-0, FZLTCHJW--GB1;
       }
       p {
         margin: 10px 16px;
@@ -108,7 +101,6 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
         font-weight: normal;
         color: #9b7242;
         line-height: 25px;
-        font-family: FZLTCHJW--GB1-0, FZLTCHJW--GB1;
       }
     }
     .feature-box-1 {

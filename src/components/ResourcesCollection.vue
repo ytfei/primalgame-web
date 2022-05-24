@@ -21,7 +21,7 @@ const resourceInfos = computed(() => Object.entries(props.resourceInfo).map(([ke
   img: getSrc(`game/${key}.webp`),
   value
 })))
-
+const isBelowThreshold = (currentValue: any) => currentValue.value === '0';
 const onTakeReward = () => {
   props.takeReward()
 }
@@ -42,7 +42,7 @@ const onTakeReward = () => {
           </div>
         </div>
       </div>
-      <Button @click="onTakeReward" class="extract">
+      <Button :disabled="resourceInfos.every(isBelowThreshold)" @click="onTakeReward" class="extract">
         Extract
       </Button>
     </div>
