@@ -66,6 +66,6 @@ export const setHeroInfo = (rawData: any): HeroInfo => {
     }, {}),
     skills: rawData.exists.map((item: string, index: number) => {
       return item === '1' && SkillEnum[index].toLowerCase()
-    }).filter((item: string | boolean) => item)
+    }).filter(Boolean)
   }
 }
