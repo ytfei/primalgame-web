@@ -73,7 +73,7 @@ const { nftType, nftStatus, heroList } = toRefs(state)
       </template>
     </div>
     <div class="nft-no-data" v-else>
-      No NFT assets,you can go to the <span>event</span> page to buy <br /> blind box,open NFT can also buy hero NFT through<br /><span>the trade market</span>
+      No NFT assets,you can go to the <span>event</span> page to buy <br /> mystery box,open NFT can also buy hero NFT through<br /><span>the trade market</span>
     </div>
   </div>
 </template>

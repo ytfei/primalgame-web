@@ -4,7 +4,8 @@ import { computed } from "vue";
 import { errorHandel, setHeroInfo } from "hooks/web3/utils";
 import { AttrEnum, SkillEnum } from "src/enums/assetsEnum";
 import { HeroInfo } from 'types/store'
-
+import { useUserStore } from 'src/store/modules/user'
+const User = useUserStore()
 const { web3, checkConnect } = useWallet()
 const abi = JSON.parse(contractAbiMap.get(ContractAbiTypeEnum.NFT) as string)
 const contract = import.meta.env.VITE_NFT_CONTRACT_ADDRESS as string
@@ -24,6 +25,7 @@ export function useNFT () {
         .then(async (res: any) => {
           const requestArray = res.map((tokenId: string) => getInfo(tokenId))
           const result = await Promise.allSettled(requestArray)
+          User.setHeroList(result.map((item: PromiseSettledResult<any>) => item.status === 'fulfilled' && item.value).filter((item: any) => item))
           resolve(result.map((item: PromiseSettledResult<any>) => item.status === 'fulfilled' && item.value).filter((item: any) => item))
         })
         .catch((error: Error) => {

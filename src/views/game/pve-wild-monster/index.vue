@@ -82,10 +82,6 @@ const getPendingReward = (async () => {
 const get1V1ForFreeStatus = (async () => {
   const status: boolean | unknown = await get1V1ForFree()
   state.freeStatus = status
-  console.log(status)
-  if (!status) {
-    await get1V1EnemiesList()
-  }
 })
 const attack = ((enemyInfo: HeroInfo) => {
   console.log(enemyInfo)
@@ -95,6 +91,7 @@ const attack = ((enemyInfo: HeroInfo) => {
     state.enemyInfo = enemyInfo
   }
 })
+const isBelowThreshold = (currentValue: any) => currentValue.value !== '0';
 const onClick = (async (selectedHero: HeroInfo) => {
   await setLoading(true)
   const isApproved = await getApprovedAll(battleAddress)
@@ -111,7 +108,7 @@ const onClick = (async (selectedHero: HeroInfo) => {
     for (const item in result.battleResources) {
       str += item+':'+result.battleResources[item]+' '
     }
-    await ElMessageBox.alert(`Congratulations on your victory in battle. Defeat the enemy this time and get${str}`, 'Battle victory', {
+    await ElMessageBox.alert(`Congratulations on your victory in battle. Defeat the enemy this time and get ${str}`, 'Battle victory', {
       confirmButtonText: 'OK',
       callback: async (action: Action) => {
         console.log(action)
@@ -139,15 +136,21 @@ const onClick = (async (selectedHero: HeroInfo) => {
   await get1V1EnemiesList()
 })
 const takeRewards = (async () => {
-  setLoading(true)
-  await takeReward().then(async (res: any) => {
-    if (res) {
-      await getNFTAssets()
-    }
-  })
+  const arr = Object.values(state.resourceInfo)
+  if (arr.every(isBelowThreshold)) {
+    setLoading(true)
+    await takeReward().then(async (res: any) => {
+      if (res) {
+        await getNFTAssets()
+      }
+    })
+  }
+  setLoading(false)
 })
 onMounted(async () => {
-  await getNFTAssets()
+  if (account) {
+    await getNFTAssets()
+  }
 })
 const { heroList, enemyList, dialogVisible, enemyInfo, resourceInfo } = toRefs(state)
 </script>

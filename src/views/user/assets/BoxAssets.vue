@@ -13,7 +13,7 @@ const prefixCls = useNamespace('box-assets')
       <BoxCard></BoxCard>
     </div>
     <div v-else class="box-nodata">
-      No blind box assets, can be purchased from <br/> the <span>campaign</span> page
+      No mystery box assets, can be purchased from <br/> the <span>campaign</span> page
     </div>
   </div>
 </template>

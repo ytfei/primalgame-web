@@ -28,29 +28,31 @@ const prefixCls = useNamespace('home')
       <IntroduceItem
         :img="''"
         :title="'PVE'"
-        :text="'PVE single-player wild monster can select a hero to fight against system heroes and get corresponding resource rewards. When the enemy hero\'s patience is 0, it is possible to capture the NFT. Of course, if your own hero\'s patience is 0, you may also be captured by the enemy. A victory of more than 2 is considered a victory in battle, and there is also a chance of capture or capture'"
+        :text="`Single wild monsterBy selecting heroes to fight system heroes, you can obtain corresponding resource rewards. When the enemy hero's patience = 0, you have a chance to capture and change NFT. Of course, if your hero's patience is 0, you may also be captured by the enemy Dungeons When fighting in a team, select 3 heroes to fight with 3 heroes of the enemy. If the winning field is greater than 2, it will be judged as a battle victory. It is also possible to capture or be captured`"
         position="left"
       />
       <IntroduceItem
         :img="''"
-        :title="'PVE'"
-        :text="'PVE single-player wild monster can select a hero to fight against system heroes and get corresponding resource rewards. When the enemy hero\'s patience is 0, it is possible to capture the NFT. Of course, if your own hero\'s patience is 0, you may also be captured by the enemy. A victory of more than 2 is considered a victory in battle, and there is also a chance of capture or capture'"
+        :title="'Mining'"
+        :text="`According to the professional skills carried by heroes, you can mine different resources. Heroes with different qualities will have different income bonuses. Of course, in mining, you should also pay attention to the attack from players with plundering skills. They will randomly select a player in mining to attack. After the attack is successful, they will plunder part of the player's undrawn income. If the opponent's hero's patience is 0, it is possible to plunder the hero's NFT. Of course, if it fails, it is also possible to be captured by the opponent`"
         position="right"
       />
       <IntroduceItem
         :img="''"
-        :title="'PVE'"
-        :text="'PVE single-player wild monster can select a hero to fight against system heroes and get corresponding resource rewards. When the enemy hero\'s patience is 0, it is possible to capture the NFT. Of course, if your own hero\'s patience is 0, you may also be captured by the enemy. A victory of more than 2 is considered a victory in battle, and there is also a chance of capture or capture'"
+        :title="'Synthesis'"
+        :text="`A new hero has more powerful attributes by melting and synthesizing multiple heroes. You can invest up to 4 Heroes at a time. The higher the level, the more difficult it is to synthesize`"
         position="left"
       />
       <IntroduceItem
         :img="''"
-        :title="'PVE'"
-        :text="'PVE single-player wild monster can select a hero to fight against system heroes and get corresponding resource rewards. When the enemy hero\'s patience is 0, it is possible to capture the NFT. Of course, if your own hero\'s patience is 0, you may also be captured by the enemy. A victory of more than 2 is considered a victory in battle, and there is also a chance of capture or capture'"
+        :title="'Trimming'"
+        :text="`The lost patience of the hero can be restored by trimming. You need to pay the corresponding elemental power and source power`"
         position="right"
       />
     </div>
-    <CommonTitle>Timeline</CommonTitle>
+    <div class="title-box">
+      <CommonTitle>Timeline</CommonTitle>
+    </div>
     <div class="timeline">
       <Timeline></Timeline>
     </div>
@@ -92,6 +94,9 @@ $mobile-prefix-cls: '#{$namespace}-m-#{$moduleName}';
   .restraint_img {
     width: 538px;
     height: 519px;
+  }
+  .title-box {
+    margin-top: 60px;
   }
   .timeline {
     margin-top: 53px;
