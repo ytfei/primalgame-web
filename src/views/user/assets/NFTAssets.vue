@@ -6,6 +6,7 @@ import { onMounted, reactive, toRefs } from 'vue'
 import HeroCard from './HeroCard.vue'
 import ElementCard from './ElementCard.vue'
 import { useLoading } from 'src/hooks/useLoading'
+
 const { setLoading } = useLoading()
 const prefixCls = useNamespace('nft-assets')
 const { getNFTList } = useNFT()
@@ -16,8 +17,7 @@ const state = reactive({
 })
 const getNFTAssets = (async () => {
   setLoading(true)
-  const result = await getNFTList()
-  state.heroList = result
+  state.heroList = await getNFTList()
   await setLoading(false)
 })
 onMounted(() => {

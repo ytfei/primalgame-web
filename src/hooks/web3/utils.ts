@@ -55,17 +55,15 @@ export async function getNFTCardList(tokenIds: string[]) {
 }
 
 export const setHeroInfo = (rawData: any): HeroInfo => {
-  const attributes: Indexable = {}
-  rawData.attrs.forEach((item: string, index: number) => {
-    attributes[AttrEnum[index].toLowerCase()] = item
-  })
   return {
     tokenId: rawData.tokenId,
     stamina: rawData.stamina,
     rarity: RarityEnum[rawData.rarity],
     faction: FactionEnum[rawData.faction],
     element: ElementEnum[rawData.element].toLowerCase(),
-    attrs: attributes,
+    attrs: rawData.attrs.reduce((pre: Indexable, cur: string, index: number) => {
+      return { ...pre, [AttrEnum[index].toLowerCase()]: cur }
+    }, {}),
     skills: rawData.exists.map((item: string, index: number) => {
       return item === '1' && SkillEnum[index].toLowerCase()
     }).filter((item: string | boolean) => item)
