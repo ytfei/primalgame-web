@@ -50,12 +50,15 @@ export function useBattle () {
         .send({ from: account })
         .then((res: any) => {
           console.log(res)
-          const plunderBattleReport = web3.value.eth.abi.decodeParameters(['uint', 'uint', 'bool', 'bool', 'uint[]'], res.events[0].raw.data)
-          const captureEvents = web3.value.eth.abi.decodeParameters(['uint256', 'uint256'], res.events[1].raw.data)
+          const result: any = {}
+          res.events.BattleOnevOne.returnValues.amount.forEach((item: string, index: number) => {
+            result[PoolEnum[index].toLowerCase()] = item
+          })
           resolve({
-            success: plunderBattleReport[3],
-            captureSelfId: captureEvents[0],
-            captureEnemieId: captureEvents[1]
+            success: res.events.BattleOnevOne.returnValues.success,
+            captureSelfId: res.events.BattleOnevOne.returnValues.captureSelfId,
+            captureEnemieId: res.events.BattleOnevOne.returnValues.captureEnemieId,
+            battleResources: result
           })
         })
         .catch((error: Error) => {

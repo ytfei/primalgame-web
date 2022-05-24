@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useNamespace } from 'src/hooks/useCommon'
 import { getSrc } from 'src/utils/utils'
+import { useWallet } from "src/hooks/web3/useWallet";
 import { useBattle } from 'hooks/web3/useBattle'
 import { useNFT } from 'hooks/web3/useNFT'
 import { useLoading } from 'src/hooks/useLoading'
@@ -15,8 +16,8 @@ import { HeroInfo, ResourceInfo } from 'types/store'
 import { onMounted, reactive, toRefs } from 'vue'
 import { useERC20 } from 'hooks/web3/useErc20'
 const battleAddress = import.meta.env.VITE_BATTLE_CONTRACT_ADDRESS as string
-const { approve } = useERC20('currency')
-
+const { approve, allowance } = useERC20('currency')
+const { account } = useWallet()
 const state = reactive({
   heroList: [] as HeroInfo[],
   enemyList: [] as HeroInfo[],
@@ -30,9 +31,10 @@ const { getNFTList, getApprovedAll, approveForAll } = useNFT()
 const { get1V1Enemies, refresh1V1, battle1V1, getRewardInfo, get1V1ForFree, takeReward } = useBattle()
 const prefixCls = useNamespace('pve-wild-monster')
 const get1V1EnemiesList = (async () => {
+  await setLoading(true)
   const data: any = await get1V1Enemies()
   state.enemyList = data
-  console.log(state.enemyList)
+  await setLoading(false)
 })
 const getNFTAssets = (async () => {
   setLoading(true)
@@ -46,21 +48,31 @@ const getNFTAssets = (async () => {
 })
 const refresh1v1 = (async () => {
   setLoading(true)
-  await approve(battleAddress, 10000000000)
+  if (!account.value) {
+    return
+  }
+  const price = await allowance(battleAddress)
+  if (parseInt(price) < 1) {
+    await approve(battleAddress, 10000000000)
+  }
   if (!state.freeStatus) {
     await ElMessageBox.alert('You will get a chance to refresh enemy every 24:00 UTC. And extra refresh operation will cost ***game currency that day.', 'Remind：', {
       confirmButtonText: 'Pay',
       callback: async (action: Action) => {
         console.log(action)
         if (action === 'confirm') {
-          await refresh1V1()
+          await refresh1V1().then(async () => {
+            await getNFTAssets()
+          })
         }
+        await setLoading(false)
       }
     })
   } else {
-    await refresh1V1()
+    await refresh1V1().then(async () => {
+      await getNFTAssets()
+    })
   }
-  await get1V1EnemiesList()
   await setLoading(false)
 })
 const getPendingReward = (async () => {
@@ -95,10 +107,15 @@ const onClick = (async (selectedHero: HeroInfo) => {
   await setLoading(false)
   console.log(result)
   if (result.success) {
-    await ElMessageBox.alert('Congratulations on your victory in battle. Defeat the enemy this time and get', 'Battle victory', {
+    let str = ''
+    for (const item in result.battleResources) {
+      str += item+':'+result.battleResources[item]+' '
+    }
+    await ElMessageBox.alert(`Congratulations on your victory in battle. Defeat the enemy this time and get${str}`, 'Battle victory', {
       confirmButtonText: 'OK',
-      callback: (action: Action) => {
+      callback: async (action: Action) => {
         console.log(action)
+        await getNFTAssets()
         state.dialogVisible = false
       }
     })
@@ -111,12 +128,14 @@ const onClick = (async (selectedHero: HeroInfo) => {
     }
     await ElMessageBox.alert(message, 'Battle failed', {
       confirmButtonText: 'OK',
-      callback: (action: Action) => {
+      callback: async (action: Action) => {
         console.log(action)
+        await getNFTAssets()
         state.dialogVisible = false
       }
     })
   }
+  state.dialogVisible = false
   await get1V1EnemiesList()
 })
 const takeRewards = (async () => {
