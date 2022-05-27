@@ -88,6 +88,7 @@ export default ({ mode, command }: ConfigEnv): UserConfigExport => {
             walletconnect: ['@walletconnect/web3-provider'],
             web3modal: ['web3modal'],
             web3: ['web3/dist/web3.min.js'],
+            element: ['element-plus'],
           }
         },
         plugins: [
